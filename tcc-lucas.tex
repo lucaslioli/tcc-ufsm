@@ -1,0 +1,396 @@
+%%%% Arquivo base para o documento - ver. 1.00 (24/02/2016)
+% % % % % % % % % % % % % % % % 
+% % % % % % % % % % % % % % % % 
+%%%%%% MDT UFSM 2015 %%%%%%%%%%
+% % % % % % % % % % % % % % % % 
+% % % % % % % % % % % % % % % % 
+% % %  OPÇÕES DE COMPILAÇÃO  %%%%%%%%%%%
+
+
+% % % % % PAGINAÇÃO
+% % % PAGINAÇÃO SIMPLES (FRENTE): PARA TRABALHOS COM MENOS DE 100 PAGINAS
+\documentclass[oneside,openright,12pt]{ufsm_2015} %%%%% OPÇÃO PADRÃO -> PAGINAÇÃO SIMPLES. PARA TRABALHOS COM MAIS DE 100 PAGINAS COMENTE ESTA LINHA E DESCOMENTE A LINHA 
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+% PAGINAÇÃO DUPLA (FRENTE E VERSO): PARA TRABALHOS COM MAIS DE 100 PAGINAS
+% \documentclass[twoside,openright,12pt]{ufsm_2015}  %%%% PARA MAIS DE 100 PAGINAS DESCOMENTAR
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+%%%%%%%%% DEFINIÇÃO PADRÃO DE PACOTES -- ALTERE POR SUA CONTA E RISCO
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+\usepackage{amsmath}
+\usepackage{enumerate}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{epsf,amsfonts}
+\usepackage{amsfonts}
+\usepackage{epstopdf}
+\usepackage{float}
+% % % %  PACOTE DE CODIFICAÇÃO - PADRÃO = UTF8
+\usepackage[utf8]{inputenc}  %utf8
+% \usepackage[latin1]{inputenc}   % europeu
+% % % % % % % % % % % 
+\usepackage[brazil]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{indentfirst}
+\usepackage{textcomp}
+\usepackage{setspace}
+\usepackage{picinpar}
+\usepackage{ifthen}
+\usepackage{path}
+\usepackage{scalefnt}
+\usepackage{tocloft}
+\usepackage[overload]{textcase}
+
+\usepackage{listings}
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+% % % % % % % % FIM DA DEFINIÇÃO PADRÃO DE PACOTES  % % % % % % % % 
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+
+
+% % % % % % % % PACOTES PESSOAIS % % % % % % % %  
+
+
+% % % % % %  DEFINIÇÕES PESSOAIS  
+
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+% % % % % % % % % % % % DADOS DO TRABALHO % % % % % % % % % % % % 
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+
+% % % % % % % % % % INFORMAÇÕES INSTITUCIONAIS % % % % % % % % % % 
+% % CENTRO DE ENSINO DA UFSM
+\centroensino{Centro de Tecnologia}  %%% NOME POR EXTENSO
+\centroensinosigla{CT}  %%% SIGLA
+
+% % CURSO DA UFSM
+\nivelensino{Graduação}  %%%%%%% NÍVEL DE ENSINO 
+\curso{Sistemas de Informação}   %%%%% NOME POR EXTENSO
+\ppg{PPGALGO}   %%%%%% SIGLAregister_error_handler
+\statuscurso{Curso}  %%%% STATUS= {Programa} ou {Curso}
+
+
+% % % % % % % % % % INFORMAÇÕES DO AUTOR % % % % % % % % % % 
+\author{Lucas Lima de Oliveira}   %%%%% AUTOR DO TRABALHO
+\sexo{M} %%%% SEXO DO AUTOR -> M=masculino   F=feminino (IMPORTANTE PARA AJUSTAR PAGINAS PRE-TEXTUAIS)
+\grauensino{Graduação}    %%%%%%%% GRAU DE ENSINO A SER CONCLUÍDO
+\grauobtido{Bacharel}    %%%%% TITULO OBTIDO
+\email{loliveira@inf.ufsm.com.br}   %%%% E-MAIL PARA CATALOGRÁFICA (COPYRIGHT) - OBRIGATÓRIO
+% \endereco{Nome da Rua, n. 999} %%%% ENDEREÇO PARA CATALOGRÁFICA (COPYRIGHT) - OPCIONAL
+% \fone{11 2222 3333} %%%% TELEFONE PARA CATALOGRÁFICA (COPYRIGHT) FORMATO {11 2222 3333} - OPCIONAL
+% \fax{11 2222 3333}  %%%% FAX PARA CATALOGRÁFICA (COPYRIGHT) FORMATO {11 2222 3333} - OPCIONAL
+
+
+% % % % % % % % % % INFORMAÇÕES DA BANCA % % % % % % % % % % 
+% OBSERVAÇÕES: O CAMPO ORIENTADOR É OBRIGATÓRIO E NÃO DEVE SER COMENTADO
+% % % % % %    OS DEMAIS MEMBROS DA BANCA (COORIENTADOR E DEMAIS PROFESSORES) QUANDO COMENTADOS NÃO APARECEM NA FOLHA DE APROVAÇÃO (O LAYOUT DA FOLHA DE APROVAÇÃO ESTA PREPARADO PARA O ORIENTADOR E ATE MAIS 4 MEMBROS NA BANCA
+
+\orientador{Sérgio Luís Sardi Mergen}{Dr}{UFSM}{M}{P}  %%%INFORMAÇÕES SOBRE ORIENTADOR: OS CAMPOS SÃO:{NOME}{SIGLA DA TITULAÇÃO}{SIGLA DA INSTITUIÇÃO DE ORIGEM}{SEXO} M=masculino F=feminino {PARTE DA BANCA?} P=presidente M=Membro  N=Não faz parte
+
+% \coorientador{Coorientador}{Dr}{AAAA}{M}{M} %%%INFORMAÇÕES SOBRE CO-ORIENTADOR: OS CAMPOS SÃO:{NOME}{SIGLA DA TITULAÇÃO}{SIGLA DA INSTITUIÇÃO DE ORIGEM}{SEXO} M=masculino   F=feminino {PARTE DA BANCA?} P=presidente  M=Membro  N=Não faz parte
+
+\bancaum{Banca Um}{Dr}{AAAA}{M}{M}  %%%INFORMAÇÕES SOBRE PRIMEIRO NOME DA BANCA: OS CAMPOS SÃO:{NOME}{SIGLA DA TITULAÇÃO}{SIGLA DA INSTITUIÇÃO DE ORIGEM}{SEXO} M=masculino   F=feminino {PARTE DA BANCA?} P=presidente  M=Membro  N=Não faz parte
+
+\bancadois{Banca Dois}{Dr}{BBBB}  %%%INFORMAÇÕES SOBRE SEGUNDO NOME DA BANCA: OS CAMPOS SÃO:{NOME}{SIGLA DA TITULAÇÃO}{SIGLA DA INSTITUIÇÃO DE ORIGEM}
+
+% \bancatres{Banca Três}{Dra}{CCCC} %%%INFORMAÇÕES SOBRE TERCEIRO NOME DA BANCA: OS CAMPOS SÃO:{NOME}{SIGLA DA TITULAÇÃO}{SIGLA DA INSTITUIÇÃO DE ORIGEM}
+
+% \bancaquatro{Banca Quatro}{Dr}{DDDD} %%%INFORMAÇÕES SOBRE QUARTO NOME DA BANCA: OS CAMPOS SÃO:{NOME}{SIGLA DA TITULAÇÃO}{SIGLA DA INSTITUIÇÃO DE ORIGEM}
+
+% \bancacinco{Banca Cinco}{Dra}{EEEE} %%%INFORMAÇÕES SOBRE QUARTO NOME DA BANCA: OS CAMPOS SÃO:{NOME}{SIGLA DA TITULAÇÃO}{SIGLA DA INSTITUIÇÃO DE ORIGEM}
+
+
+
+% % % % % % % % % % INFORMAÇÕES SOBRE O TRABALHO % % % % % % % % % %
+% % % %  TITULO DO TRABALHO
+\titulo{Utilização de Algoritmos de Aprendizado de Máquina para Prever a Popularidade de Tuítes} %% NÃO EH NECESSÁRIO CAPITALIZAR
+
+% % % %  TITULO DO TRABALHO EM INGLÊS
+\englishtitle{Use of Machine Learning Algorithms to Predict Tweets Popularity}  %% NÃO EH NECESSÁRIO CAPITALIZAR
+
+% % % ÁREA DE CONCENTRAÇÃO DO TRABALHO (CNPQ)
+\areaconcentracao{Área de concentração do CNPq}
+% % % TIPO DE TRABALHO - MANTER APENAS UMA LINHA DESCOMENTADA
+% \tccg  %% Tese de <nível de ensino>
+% \qualificacao %% Exame de Qualificação de <nível de ensino>
+% \dissertacao %% Dissertação de <nível de ensino>
+% \monografia %% Monografia
+% \monografiag  %% Monografia (não exibe área de concentração)
+% \tf  %% Trabalho Final de <nível de ensino>
+% \tfg  %% Trabalho Final de Graduação (não exibe área de concentração)
+% \tcc  %% Trabalho de Conclusão de Curso
+\tccg  %% Trabalho de Conclusão de Curso (não exibe área de concentração)
+% \relatorio  %% Relatório de Estágio (não exibe área de concentração)
+% \generico   %%% Alternativa para aqueles cursos que não recebem o titulo de bacharel ou licenciado. Ex: engenharia, arquitetura, etc... Os campos abaixo também devem ser preenchidos
+%     \tipogenerico{Tipo de trabalho em português}
+%     \tipogenericoen{Tipo de trabalho em inglês}
+%     \concordagenerico{o}
+%     \graugenerico{Engenheiro Eletricista}
+% % % DATA DA DEFESA 
+\data{25}{12}{2018} %% FORMATO {DD}{MM}{AAAA}
+
+
+
+% % % % %  ALGUMAS ENTRADAS PRE-TEXTUAIS
+% % % % CASO NÃO QUEIRA UTILIZA-LAS COMENTE A LINHA DE COMANDO
+% % % EPIGRAFE
+\epigrafe{O livro é uma criatura frágil, ele sofre o desgaste do tempo, ele teme os roedores, os elementos e mãos desajeitadas. Então o livreiro proteje os livros não apenas da humanidade, mas também da natureza e devota sua vida a uma guerra contra as forças do esquecimento.}{Umberto Eco} %ESTRUTURA DE CAMPOS -> {Texto}{Autor}
+% % % DEDICATÓRIA
+\dedicatoria{Ao Rei da Espanha!}
+% % % %  AGRADECIMENTOS
+\agradecimentos{A mim!}
+
+% % % % %  RESUMO E PALAVRAS CHAVE DO RESUMO - OBRIGATÓRIO PARA MDT-UFSM
+\resumo{
+Resumo aqui.
+}
+\palavrachave{Palavra Chave 1. Palavra 2. Palavra 3. (...)}
+% "... deverão constar, no mínimo, três palavras-chave, iniciadas em
+% letras maiúsculas, cada termo separado dos demais por ponto, e
+% finalizadas também por ponto." MDT 2012
+
+% % % % %  ABSTRACT E PALAVRAS CHAVE DO RESUMO - OBRIGATÓRIO PARA MDT-UFSM
+\abstract{
+Abstract here.
+}
+\keywords{Keyword 1. Keyword 2. Keyword 3. (...)}
+
+
+% % %  ATIVAÇÃO DE LISTAS E PAGINAS ESPECIAIS
+% % %  PARA QUE NÃO APAREÇAM NO TEXTO DESCOMENTE A LINHA ABAIXO -> POR PADRÃO TODAS ESTÃO ATIVIDADES
+
+% % LISTA DE FIGURAS 
+% \semfiguras   %%(QUANDO ATIVADA NÃO EXIBE A LISTA)
+% % LISTA DE GRÁFICOS 
+% \semgraficos   %%(QUANDO ATIVADA NÃO EXIBE A LISTA)
+% % LISTA DE ILUSTRAÇÕES 
+\semilustracoes  %%(QUANDO ATIVADA NÃO EXIBE A LISTA)
+% % LISTA DE TABELAS 
+% \semtabelas   %%(QUANDO ATIVADA NÃO EXIBE A LISTA)
+% % LISTA DE QUADROS 
+% \semquadros   %%(QUANDO ATIVADA NÃO EXIBE A LISTA)
+% % LISTA DE APÊNDICES 
+% \semapendices  %%(QUANDO ATIVADA NÃO EXIBE A LISTA)
+% % LISTA DE ANEXOS 
+% \semanexos   %%(QUANDO ATIVADA NÃO EXIBE A LISTA)
+
+
+
+% % % %  LISTA DE ABREVIATURAS E SIGLAS
+%%%%%%%% OBS: O espaço entre colchetes \item[] e um ambiente matemático
+%%%%%%%% para não utilizar comente as linhas abaixo.
+\siglamax{HTTP} %%%% coloque aqui a maior sigla (indentação)
+\listadeabreviaturasesiglas{
+\item[API] \textit{Application Programming Interface}
+\item[HTTP] \textit{Hypertext Transfer Protocol}
+\item[JSON]    \textit{JavaScript Object Notation}
+}
+
+% % % %  LISTA DE SÍMBOLOS
+%%%%%%%% OBS: O espaço entre colchetes \item[] e um ambiente matemático
+%%%%%%%% para não utilizar comente as linhas abaixo.
+% \simbolomax{(Re)2} %%%% coloque aqui o maior simbolo (indentação)
+% \listadesimbolos{
+% \item[u_*]	Escala de velocidade de fricção	
+% \item[w_*]	Escala de velocidade convectiva
+% \item[(Re)^2]	Maior simbolo da lista
+% }
+
+
+% % FICHA CATALOGRÁFICA
+% \semcatalografica  %%%%  (QUANDO ATIVADA NÃO EXIBE A FICHA CATALOGRÁFICA NECESSITA DO ARQUIVO DA FICHA: ficha_catalografica.pdf
+
+% % % A FICHA CATALOGRÁFICA FORNECIDA PELA UFSM EH UM PDF DO TAMANHO A4
+% % % OS COMANDOS ABAIXO DEFINEM AS MARGENS PARA CORTAR A FICHA FORNECIDA E COLOCA-LA COMO UMA FIGURA NO DOCUMENTO LATEX
+\margemesquerda{4}   %%%% CORTE DE MARGEM ESQUERDA EM CM
+\margemdireita{1.5}   %%%% CORTE DE MARGEM DIREITA EM CM
+\margemsuperior{17}  %%%% CORTE DE MARGEM SUPERIOR EM CM
+\margeminferior{3} %%%% CORTE DE MARGEM INFERIOR EM CM
+% % %  DICA: IMPRIMA UMA COPIA DA FICHA CATALOGRÁFICA E FACA A MEDIDA DAS MARGENS!
+
+
+% % FOLHA DE ERRADA (versão rudimentar...pode ser aprimorado)
+% % para não utilizar comente as linhas abaixo.
+% % deve ser preenchida como um ambiente tabular de quatro colunas:
+% % pagina & linha & onde se lê & leia-a se \\
+%\errata{
+%10   &    10    & errado   & certo \\
+%\hline
+%12    &    5     & errado com um texto mais longo & certo agora com um texto mais longo\\
+%\hline
+%13   &    3    & $x^2$   & $2x$\\
+%}
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+% % % % % % % % % % % %  OPÇÕES DE FORMATAÇÃO % % % % % % % % % % % % % % %
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+% % % CAPITULO: por padrão alinhado a esquerda. Para ativar alinhamento centralizado descomente o comando abaixo
+
+%\centralizado  %%%% <<< centraliza todos os capítulos
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+% % % FONTES: descomente uma das opções. caso nenhuma seja ativada a classe usara a fonte padrão do latex
+
+%% helvetica
+% \usepackage[scaled]{helvet}
+% \renewcommand*\familydefault{\sfdefault}
+
+%% arial
+\renewcommand{\rmdefault}{phv} % Arial
+\renewcommand{\sfdefault}{phv} % Arial
+
+%%times
+% \usepackage{mathptmx}
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+% % % % % % % % % % % %  INICIO DO DOCUMENTO  % % % % % % % % % % % % % % %
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+
+\begin{document}
+
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+\pretextual  %%%% GERA AS PAGINAS PRE-TEXTUAIS   
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+% % % % % CORPO DO TRABALHO - INCLUA OS SEUS TEXTOS AQUI
+% % % % % SUGESTÃO -> UTILIZE ARQUIVOS EXTERNOS A PARTIR DO COMANDO \input
+
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+% % % % % % % % % % INICIO DAS PAGINAS TEXTUAIS % % % % % % % % % % % % % % 
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+% % % % % % % % % % % % % INTRODUÇÃO % % % % % % % % % % % % % % % % % % % % 
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+\introducao{
+
+\par Com a grande popularização dos chamados influenciadores digitais, é notável o crescimento das mídias sociais como meios de comunicação e divulgação de conteúdos. Neste cenário, onde o número de seguidores determina a sua influência, torna-se muito importante que essas personalidades compreendam seu público, pois conteúdos direcionados refletem diretamente no alcance das publicações. Dentre as redes sociais mais utilizadas atualmente, o Twitter é um meio de veiculação de mensagens que se destaca, por sua simplicidade e objetividade. Mesmo não tendo o mesmo destaque de outras plataformas, como o Facebook ou o Instagram, o Twitter ainda conta com cerca de 335 milhões de usuários ativos, segundo Statista~\footnote{\textit{Statista: }\texttt{https://www.statista.com/topics/737/twitter/}}, e em média são publicados 500 milhões de tuítes por dia, segundo \textit{Internet Live Stats}~\footnote{\textit{Internet Live Stats: }\texttt{http://www.internetlivestats.com/twitter-statistics/}}, fazendo dessa rede uma fonte de dados muito poderosa.
+
+\par Tendo em vista o interesse dos usuários em aumentar o alcance de suas postagens, poder identificar os fatores que têm influência sobre sua popularidade é uma grande vantagem ao tentar aumentar o engajamento por parte de seus seguidores. Ser capaz de prever/estimar a popularidade que um tuíte poderá obter baseando-se nas características presentes no corpo de sua mensagem, pode trazer muitos benefícios para usuários com relativa influência nessa rede social.
+
+\par Dentro deste contexto, o objetivo deste trabalho é monitorar e extrair tuítes de determinadas contas do Twitter, a fim de elaborar um modelo, utilizando algoritmos de aprendizado de máquina, para realizar a predição e classificação da popularidade de tuítes com base em suas características. Devido ao grande volume de dados, faz-se necessário automatizar o processo de análise e classificação dos dados, para isso, serão estudados e testados algoritmos já consolidados, como Naive Bayes, J48 e LTM \cite{lucas-erbd}.
+
+}
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+\geraintro  %%%% GERA INTRODUÇÃO   % % % % % % % % % % % % % % % % % % % % % 
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+% % % % % % % % % % % % FUNDAMENTAÇÃO TEÓRICA  % % % % % % % % % % % % % % % 
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+
+\chapter{Fundamentação Teórica}
+
+\par Neste capítulo serão apresentados, os conceitos relacionados ao aprendizado de máquina, definindo as diferenças entre o aprendizado supervisionado e o não supervisionado. Na sequência, são apresentados alguns dos principais algoritmos deste segmento, os quais também foram utilizados na realização de experimentos no decorrer deste trabalho.
+
+\section{Aprendizado de Máquina}
+
+\par Entende-se como sistemas inteligentes, aqueles que são capazes de processar dados de entrada e ajustar padrões internos a fim de otimizar seus resultados de saída, de acordo com os objetivos esperados para aquele algoritmo. Dentro deste contexto, o aprendizado de máquina foca no treinamento desses algoritmos para melhorar seu desempenho. Esse processo está ligado com a redução de dimensionalidade, classificação e associação dos dados e a previsão de comportamentos.
+
+\par Algoritmos para o aprendizado de máquina dividem-se em dois segmentos, aqueles que necessitam de uma supervisão para melhorar seus resultados e aqueles fazem esse processo de maneira independente. Nesta seção serão apresentados esses dois tipos de algoritmos, especificando suas características e diferenças.
+
+\subsection{Supervisionado}
+
+\par A aprendizagem supervisionada realiza o treinamento dos algoritmos com dados para os quais suas respostas já sejam conhecidas. Ou seja, dependem sempre da entrada de um padrão de valores e da comparação das respostas do sistema com aquelas consideradas corretas. Conforme o algoritmo é treinado seus padrões vão sendo ajustados a fim de diminuir o erro e otimizar os resultados. Um típico problema que utiliza a aprendizagem supervisionada é a classificação de dados, o algoritmo recebe as entradas já classificadas para realizar o treinamento e, a cada iteração, ajusta seus parâmetros a fim de obter a melhor saída, podendo ser minimizar o erro, maximizar a precisão ou a acurácia. Frequentemente, após a etapa de treinamento, é realizada uma etapa de validação, passando ao algoritmo entradas sem classificação, dessa forma seu desempenho pode ser realmente avaliado e, se necessário, o treinamento pode ser realizado novamente com novos ajustes em seus parâmetros.
+
+\subsection{Não Supervisionado}
+
+\par No caso dos algoritmos de aprendizado não supervisionado, ao contrário do outro grupo, recebem os dados sem nenhum classificação prévia. Dessa forma, conforme os dados vão sendo recebidos, o próprio algoritmo é responsável por identificar as relações e padrões presentes nos dados de entrada, o que por si só pode ser considerado um objetivo a ser alcançado. A aprendizagem não supervisionada não prevê soluções específicas para realizar o treinamento e validação dos resultados.
+
+\section{Algoritmos de aprendizado de máquina supervisionado}
+
+\subsection{Naive Bayes}
+
+\subsection{Árvores de Decisão}
+
+\subsection{Algoritmos Genéticos}
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+% % % % % % % % % % % % TRABALHOS RELACIONADOS % % % % % % % % % % % % % % % 
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+
+\chapter{Trabalhos Relacionados}
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+% % % % % % % % % % % % % % % % PROPOSTA % % % % % % % % % % % % % % % % % % 
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+
+\chapter{Proposta}
+
+\section{Definição dos Atributos}
+
+\section{Arquitetura de Extração de Tuítes}
+
+\begin{figure}[ht]
+     \caption{Arquitetura adotada para extração de tuítes}
+\centering
+\includegraphics[width=0.6\textwidth]{figuras/arquitetura.png}
+\vspace{\baselineskip} %%% linha em branco para atender a norma
+    \fonte{Autor.}
+\label{fig:arquitetura}
+\end{figure}
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+% % % % % % % % % % % % % % EXPERIMENTOS  % % % % % % % % % % % % % % % % % 
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+
+\chapter{Experimentos}
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+% % % % % % % % % % % % % % % CONCLUSÕES % % % % % % % % % % % % % % % % % %
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+
+\chapter{Conclusões}
+
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+% % % % % % % % % % % % FIM DAS PAGINAS TEXTUAIS % % % % % % % % % % % % % % 
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 	
+% % % % % % % % % % % % % BIBLIOGRAFIA  % % % % % % % % % % % % % % % % % % 
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 	
+
+\bibliografia{referencias}  %%%%% BIBLIOGRAFIA -> INCLUIR NAS CHAVES O NOME DO ARQUIVO *.BIB	
+	
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 	
+% % % % % % % % % % % % % APÊNDICES % % % % % % % % % % % % % % % % % % %
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 	
+\apendice %%%% TEXTOS A PARIR DESTE PONTO SERÃO CONSIDERADOS APÊNDICES
+
+\chapter{Demonstração de algo}
+        \par Algo como apêndice.  
+        
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 	
+% % % % % % % % % % % % % % % ANEXOS  % % % % % % % % % % % % % % % % % % % 
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 	
+\anexo    %%%% TEXTOS A PARIR DESTE PONTO SERAO CONSIDERADOS ANEXOS
+
+\chapter{Algo interessante que alguém fez}
+         \par Algo como anexo.
+
+\end{document}
+
