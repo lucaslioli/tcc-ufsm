@@ -312,6 +312,8 @@ Abstract here.
 
 \par Neste capítulo serão apresentados os conceitos relacionados ao aprendizado de máquina, na seção \ref{sec:aprend-maquina}, definindo as diferenças entre a aprendizagem supervisionada e a não supervisionada. Em seguida, na seção \ref{sec:alg-aprend-maquina-sup}, são apresentados alguns dos principais algoritmos do segmento supervisionado, os quais também foram utilizados na realização de experimentos no decorrer deste trabalho, sendo estes o Naive Bayes, Árvores de Decisão e Algoritmos Genéticos.
 
+% % % % % % % % APRENDIZADO DE MÁQUINA % % % % % % % %
+
 \section{Aprendizado de Máquina}
 \label{sec:aprend-maquina}
 
@@ -319,12 +321,16 @@ Abstract here.
 
 \par Algoritmos de aprendizado de máquina (ou \textit{machine learning} em inglês) dividem-se em dois segmentos, aqueles que necessitam de uma supervisão para melhorar seus resultados e aqueles fazem esse processo de maneira independente. Nesta seção serão apresentados esses dois tipos de algoritmos, especificando suas características e diferenças.
 
+% % % % % % % % APRENDIZADO DE MÁQUINA SUPERVISIONADO % % % % % % % %
+
 \subsection{Aprendizado de Máquina Supervisionado}
 \label{sec:aprend-maquina-sup}
 
 \par A aprendizagem supervisionada realiza o treinamento dos algoritmos com dados para os quais suas respostas já sejam conhecidas. Ou seja, dependem sempre da entrada de um padrão de valores e da comparação das respostas do sistema com aquelas consideradas corretas. Conforme o algoritmo é treinado seus padrões vão sendo ajustados a fim de diminuir o erro e otimizar as respostas. 
 
-\par Os problemas solucionados através da aprendizagem supervisionada são divididos em problemas de regressão e classificação de dados, como ilustra a Figura \ref{fig:aprend-sup}, o algoritmo recebe as entradas já classificadas para realizar o treinamento e, a cada iteração, ajusta seus parâmetros para de obter a melhor saída, podendo ser, por exemplo, minimizar o erro, maximizar a precisão ou a acurácia. Frequentemente, após a etapa de treinamento, é realizada uma etapa de validação, passando ao algoritmo entradas sem classificação, dessa forma seu desempenho pode ser realmente avaliado e, se necessário, o treinamento pode ser realizado novamente com novos ajustes em seus parâmetros.
+\par Os problemas solucionados através da aprendizagem supervisionada são divididos em problemas de regressão e classificação de dados, como ilustra a Figura \ref{fig:aprend-sup}. Segundo \cite{book:russell:10}, quando o resultado esperado pelo algoritmo for um conjunto finito de valores, (como fraco, mediano ou forte), trata-se de problema de classificação, pois os dados de entrada devem ser categorizados dentro daquele grupo. No caso do resultado esperado ser numérico, trata-se de um problema de regressão, na qual tenta-se identificar uma tendência nos valores com base nos dados de entrada.
+
+\par Nesse tipo de aprendizagem o algoritmo recebe as entradas já categorizadas para realizar o treinamento e, a cada iteração, ajusta seus parâmetros para de obter a melhor saída, podendo ser, por exemplo, minimizar o erro, maximizar a precisão ou a acurácia. Frequentemente, após a etapa de treinamento, é realizada uma etapa de validação, passando ao algoritmo entradas sem classificação, dessa forma seu desempenho pode ser realmente avaliado e, se necessário, o treinamento pode ser realizado novamente com novos ajustes em seus parâmetros.
 
 \begin{figure}[ht]
      \caption{Exemplo de Problemas de Classificação e Regressão.}
@@ -335,31 +341,52 @@ Abstract here.
 \label{fig:aprend-sup}
 \end{figure}
 
+% % % % % % % % APRENDIZADO DE MÁQUINA NÃO SUPERVISIONADO % % % % % % % %
+
 \subsection{Aprendizado de Máquina Não Supervisionado}
 \label{sec:aprend-maquina-nao-sup}
 
-\par No caso dos algoritmos de aprendizagem não supervisionada, ao contrário do segmento apresentado na subseção anterior, estes recebem os dados sem nenhum classificação prévia, impossibilitando o aferimento das classes de cada entrada. Consequentemente, conforme os dados vão sendo recebidos, o próprio algoritmo é responsável por identificar as relações e padrões presentes nos dados, o que por si só pode ser considerado um objetivo a ser alcançado. A aprendizagem não supervisionada não prevê soluções específicas para realizar o treinamento e validação dos resultados, o que torna a implementação deste tipo de algoritmo mais custosa.
+\par No caso dos algoritmos de aprendizagem não supervisionada, ao contrário do segmento apresentado na subseção anterior, estes recebem os dados sem nenhum classificação prévia, impossibilitando o aferimento das classes de cada entrada. Consequentemente, conforme os dados vão sendo recebidos, o próprio algoritmo é responsável por identificar as relações e padrões presentes nos dados, o que por si só pode ser considerado um objetivo a ser alcançado. A aprendizagem não supervisionada não prevê soluções específicas para realizar o treinamento e validação dos resultados, ou seja, não há um \textit{feedback} explícito sobre os resultados previstos.
+
+Como explica \cite{book:russell:10}, o exemplo mais comum de aprendizagem não supervisionada, é o de agrupamento, onde o objetivo é detectar grupos potencialmente úteis dentro dos valores de entrada, que podem ser semelhantes ou estar relacionados por diferentes variáveis. A Figura \ref{fig:aprend-nao-sup} exemplifica as diferenças entre esses dois tipos de abordagem.
+
+\begin{figure}[ht]
+     \caption{Exemplo da diferença entre as diferentes abordagens.}
+\centering
+\includegraphics[width=0.6\textwidth]{figuras/aprend-nao-sup.png}
+\vspace{\baselineskip} %%% linha em branco para atender a norma
+    \fonte{\citeonline{site:medium:pedro}.}
+\label{fig:aprend-nao-sup}
+\end{figure}
+
+% % % % % % % % ALGORITMOS DE APRENDIZADO DE MÁQUINA SUPERVISIONADO % % % % % % % %
 
 \section{Algoritmos de aprendizado de máquina supervisionado}
 \label{sec:alg-aprend-maquina-sup}
 
 \par Dentro do escopo deste trabalho, que tem como um dos objetivos realizar a predição da popularidade de tuítes, requere-se a utilização da aprendizagem de máquina supervisionada, pois os resultados esperados estão diretamente ligados a classificação dos dados. Como mencionado, nesta seção serão abordados alguns dos principais algoritmos que se encaixam neste segmento e que serão utilizados no decorrer deste trabalho, apresentado suas características, funcionamento, vantagens e desvantagens na sua utilização.
 
+% % % % % % % % NAIVE BAYES % % % % % % % %
+
 \subsection{Naive Bayes}
 \label{sec:naive-bayes}
 
 \par A técnica Naive Bayes pode ser considerada como uma das mais populares para classificação de dados utilizando aprendizado de máquina. O algoritmo utiliza de métodos probabilísticos, baseados na Teoria Bayesiana, criada por Thomas Bayes no século XVIII. Para compreender melhor o funcionamento dessa técnica, é importante entender também alguns conceitos acerca do teorema do qual ela teve origem.
 
-\par O Teorema de Bayes é uma formula simples, definida na Equação \ref{eq:teorema-bayes}, que vem da regra do produto de probabilidades, assumindo que \textit{prob(D|H) = prob(H|D)}, sendo D os dados observados e H a hipótese a ser validada. Definindo as parte do teorema, do lado esquerdo, \textit{prob(H|D)} é chamada de probabilidade posterior da hipótese após a realização do experimento; do lado direito, \textit{prob(D|H)} chamada função de verossimilhança, é a distribuição de probabilidade dos dados, a qual multiplica-se por \textit{prob(H)}, denominada \textit{Prior}, é a probabilidade da hipótese ser verdadeira; por fim, o denominador \textit{prob(A)}, é a probabilidade total.
+\par O Teorema de Bayes é uma formula simples, definida na Equação \ref{eq:teorema-bayes}, que vem da regra do produto de probabilidades, assumindo que \textit{prob(D|H) = prob(H|D)}, sendo D os dados observados e H a hipótese a ser validada. Definindo as partes do teorema, do lado esquerdo, \textit{prob(H|D)} é chamada de probabilidade posterior da hipótese após a realização do experimento; do lado direito, \textit{prob(D|H)} chamada função de verossimilhança, é a distribuição de probabilidade dos dados, a qual multiplica-se por \textit{prob(H)}, denominada \textit{Prior}, é a probabilidade da hipótese ser verdadeira; por fim, o denominador \textit{prob(D)}, é a probabilidade total.
     
 \begin{equation} \label{eq:teorema-bayes}
 prob(H|D) = \frac{prob(D|H)prob(H)}{prob(D)}
 \end{equation}
 
-\par Apesar de parecer um teorema simples, seu alcance está na capacidade de interpretação. No caso do Naive Bayes, assume-se que os atributos são independentes -- daí a denominação de ingênuo (\textit{naive} em inglês).
+\par Apesar de parecer um teorema simples, seu alcance está na capacidade de interpretação. No caso do Naive Bayes, assume-se que os atributos são independentes entre si -- daí a denominação ``ingênuo'' (\textit{naive} em inglês).
+
+% % % % % % % % ÁRVORES DE DECISÃO % % % % % % % %
 
 \subsection{Árvores de Decisão}
 \label{sec:arvores-decisao}
+
+% % % % % % % % ALGORITMOS GENÉTICOS % % % % % % % %
 
 \subsection{Algoritmos Genéticos}
 \label{sec:alg-geneticos}
@@ -378,8 +405,12 @@ prob(H|D) = \frac{prob(D|H)prob(H)}{prob(D)}
 \chapter{Proposta}
 \label{sec:proposta}
 
+% % % % % % % % DEFINIÇÃO DOS ATRIBUTOS % % % % % % % %
+
 \section{Definição dos Atributos}
 \label{sec:def-atributos}
+
+% % % % % % % % ARQUITETURA DE EXTRAÇAÕ DE TUÍTES % % % % % % % %
 
 \section{Arquitetura de Extração de Tuítes}
 \label{sec:arq-extracao}
@@ -398,6 +429,7 @@ prob(H|D) = \frac{prob(D|H)prob(H)}{prob(D)}
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
 % % % % % % % % % % % % % % EXPERIMENTOS  % % % % % % % % % % % % % % % % % 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+
 
 \chapter{Experimentos}
 \label{sec:experimentos}
