@@ -185,11 +185,10 @@ Abstract here.
 % % % %  LISTA DE ABREVIATURAS E SIGLAS
 %%%%%%%% OBS: O espaço entre colchetes \item[] e um ambiente matemático
 %%%%%%%% para não utilizar comente as linhas abaixo.
-\siglamax{HTTP} %%%% coloque aqui a maior sigla (indentação)
+\siglamax{API} %%%% coloque aqui a maior sigla (indentação)
 \listadeabreviaturasesiglas{
 \item[API] \textit{Application Programming Interface}
-\item[HTTP] \textit{Hypertext Transfer Protocol}
-\item[JSON]    \textit{JavaScript Object Notation}
+\item[IA] \textit{Inteligência Artificial}
 }
 
 % % % %  LISTA DE SÍMBOLOS
@@ -371,15 +370,25 @@ Como explica \cite{book:russell:10}, o exemplo mais comum de aprendizagem não s
 \subsection{Naive Bayes}
 \label{sec:naive-bayes}
 
-\par A técnica Naive Bayes pode ser considerada como uma das mais populares para classificação de dados utilizando aprendizado de máquina. O algoritmo utiliza de métodos probabilísticos, baseados na Teoria Bayesiana, criada por Thomas Bayes no século XVIII. Para compreender melhor o funcionamento dessa técnica, é importante entender também alguns conceitos acerca do teorema do qual ela teve origem.
+\par A técnica Naive Bayes pode ser considerada como uma das mais populares para classificação de dados utilizando aprendizado de máquina. O algoritmo utiliza de métodos probabilísticos, baseados na Teoria Bayesiana, criada por Thomas Bayes no século XVIII. Para compreender melhor o funcionamento dessa técnica, é importante entender também um pouco sobre o teorema do qual ela teve origem.
 
-\par O Teorema de Bayes é uma formula simples, definida na Equação \ref{eq:teorema-bayes}, que vem da regra do produto de probabilidades, assumindo que \textit{prob(D|H) = prob(H|D)}, sendo D os dados observados e H a hipótese a ser validada. Definindo as partes do teorema, do lado esquerdo, \textit{prob(H|D)} é chamada de probabilidade posterior da hipótese após a realização do experimento; do lado direito, \textit{prob(D|H)} chamada função de verossimilhança, é a distribuição de probabilidade dos dados, a qual multiplica-se por \textit{prob(H)}, denominada \textit{Prior}, é a probabilidade da hipótese ser verdadeira; por fim, o denominador \textit{prob(D)}, é a probabilidade total.
+\par Como mostra \cite{book:russell:10}, o teorema, ou regra de Bayes é uma formula simples, definida pela Equação \ref{eq:teorema-bayes}, que vem da regra do produto de probabilidades, assumindo que \textit{prob(D|H) = prob(H|D)}, sendo H a hipótese a ser validada e D os dados observados, podendo ser tratados também como \textit{causa} e \textit{efeito}. Apesar de simples, essa regra é a base de grande parte dos sistemas de IA que utilizam inferência probabilística.
     
 \begin{equation} \label{eq:teorema-bayes}
 prob(H|D) = \frac{prob(D|H)prob(H)}{prob(D)}
 \end{equation}
 
-\par Apesar de parecer um teorema simples, seu alcance está na capacidade de interpretação. No caso do Naive Bayes, assume-se que os atributos são independentes entre si -- daí a denominação ``ingênuo'' (\textit{naive} em inglês).
+\par Dividindo as partes do teorema, do lado esquerdo, \textit{prob(H|D)} é chamada de probabilidade posterior da hipótese após a realização do experimento; do lado direito, \textit{prob(D|H)} chamada função de verossimilhança, é a distribuição de probabilidade dos dados, a qual multiplica-se por \textit{prob(H)}, denominada \textit{Prior}, é a probabilidade da hipótese ser verdadeira; por fim, o denominador \textit{prob(D)}, é a probabilidade total.
+
+\par Ainda que possa parecer um teorema simples, seu alcance está na capacidade de interpretação. No caso do modelo Naive Bayes, ou Bayes Ingênuo, assume-se que os atributos \textit{efeito} são condicionalmente independentes entre si, dada a \textit{causa} -- daí a denominação de ``ingênuo''. A distribuição probabilística deste modelo pode ser descrita conforme indica a Equação \ref{eq:naive-bayes}, sendo \textit{C} a classe, ou causa, que deve ser prevista, enquanto que o conjunto $\{x_1, ..., x_n\}$ são os atributos, ou efeitos.
+
+\begin{equation} \label{eq:naive-bayes}
+P(C | x_1, ..., x_n) = \alpha P(C)\prod_i{P(x_i | C)}
+\end{equation}
+
+\par Este modelo de aprendizagem se adapta facilmente à escala de problemas grandes, funcionando muito bem com uma ampla variedade de aplicações, apesar de se destacar e ser comumente utilizado em uma série algoritmos para classificação de textos. Além disso, este modelo não apresenta grandes complicações com dados ruidosos ou faltantes, podendo realizar previsões adequadas. Esses fatores fazem o Naive Bayes ser (provavelmente) o modelo de rede Bayesiana mais comumente utilizado em algoritmos de aprendizado de máquina.
+
+\par 
 
 % % % % % % % % ÁRVORES DE DECISÃO % % % % % % % %
 
