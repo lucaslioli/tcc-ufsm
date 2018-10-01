@@ -46,18 +46,25 @@
 
 \usepackage{listings}
 
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
-% % % % % % % % FIM DA DEFINIÇÃO PADRÃO DE PACOTES  % % % % % % % % 
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
 
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+% % % % % % % % % % % FIM DA DEFINIÇÃO PADRÃO DE PACOTES  % % % % % % % % % % %
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
 
 % % % % % % % % PACOTES PESSOAIS % % % % % % % %  
 
+% Pacotes utilizados para gerar os gráficos.
+\usepackage{comment}
+\usepackage{subfigure}
+\usepackage{tikz,pgfplots}
+\usetikzlibrary{patterns}
+% Configuração da área máxima que pode ser utilizada por imagem de gráfico.
+\pgfplotsset{width=8cm,height=8cm,compat=1.8}
 
 % % % % % %  DEFINIÇÕES PESSOAIS  
 
 
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
@@ -331,12 +338,94 @@ Abstract here.
 
 \par Nesse tipo de aprendizagem o algoritmo recebe as entradas já categorizadas para realizar o treinamento e, a cada iteração, ajusta seus parâmetros para de obter a melhor saída, podendo ser, por exemplo, minimizar o erro, maximizar a precisão ou a acurácia. Frequentemente, após a etapa de treinamento, é realizada uma etapa de validação, passando ao algoritmo entradas sem classificação, dessa forma seu desempenho pode ser realmente avaliado e, se necessário, o treinamento pode ser realizado novamente com novos ajustes em seus parâmetros.
 
-\begin{figure}[ht]
-     \caption{Exemplo de Problemas de Classificação e Regressão.}
+\pgfplotsset{compat=1.11}
+\begin{figure}[!ht]
+\caption{Exemplo de Problemas de Classificação e Regressão.}
 \centering
-\includegraphics[width=0.6\textwidth]{figuras/aprend-sup.png}
-\vspace{\baselineskip} %%% linha em branco para atender a norma
-    \fonte{\citeonline{site:medium:pedro}.}
+\begin{tikzpicture}[scale=0.8]
+	\begin{axis}[%
+    	title={(a) Problema de Classificação},
+    	scatter/classes={%
+        	a={draw=blue, fill=blue, mark size=5}, 
+        	b={mark=x, draw=red, fill=red, mark size=7, line width=3pt}
+        }
+    ]
+    \addplot[scatter,only marks,%
+        scatter src=explicit symbolic]%
+        table[meta=label] {
+        	x y label
+        	1   2.5 a
+            1.2 2   a
+            1.5 4   a
+            1.7 4.5 a
+            2   3   a
+            2.2 3.5 a
+            2.5 1.6 a
+            2.5 5.5 a
+            2.7 4   a
+            3   2.4 a
+            3.1 3   a
+            3.2 5   a
+            3.9 2.1 a
+            4   3.5 a
+            5   2.4 a
+            4.5 6.2 b
+            5   5.1 b
+            5.5 7.1 b
+            6   4.3 b
+            6.3 5.5 b
+            6   6.2 b
+            6.5 4.6 b
+            7   3.5 b
+            7   5.7 b
+            7.1 7.2 b
+            7.2 6.5 b
+            7.5 5   b
+            8.1 3.2 b
+            8.2 4   b
+            8.4 6   b
+            8.6 5.5 b
+    	};
+    \draw [ultra thick, dotted, draw=brown] (9,0) -- (0,9);
+	\end{axis}
+\end{tikzpicture}
+\hspace{0.25cm}
+\begin{tikzpicture}[scale=0.8]
+	\begin{axis}[%
+    	title={(b) Problema de Regressão},
+    	scatter/classes={%
+        	a={draw=blue, fill=blue, mark size=5}, 
+        	b={mark=x, draw=red, fill=red, mark size=7, line width=4pt}
+        }
+    ]
+    \addplot[scatter,only marks,%
+        scatter src=explicit symbolic]%
+        table[meta=label] {
+        	x y label
+            1   2.5 a
+            1.5 3.5 a
+            2   3   a
+            2.5 3.5 a
+            2.7 4.5 a
+            3   3   a
+            3.5 4   a
+            4   4.5 a
+            4.5 3.7 a
+            4.7 5.5 a
+            5   4.5 a
+            5.5 5   a
+            6   6   a
+            6.5 5.5 a
+            7   6   a
+            7.5 7.5 a
+            8   7   a
+            8.5 6.5 a
+            9   8   a
+    	};
+    	\draw [ultra thick, dotted, draw=brown] (0,2) -- (10,8);
+	\end{axis}
+\end{tikzpicture}
+\fonte{Produção do próprio autor.} % \citeonline{site:medium:pedro}
 \label{fig:aprend-sup}
 \end{figure}
 
@@ -349,12 +438,64 @@ Abstract here.
 
 Como explica \cite{book:russell:10}, o exemplo mais comum de aprendizagem não supervisionada, é o de agrupamento, onde o objetivo é detectar grupos potencialmente úteis dentro dos valores de entrada, que podem ser semelhantes ou estar relacionados por diferentes variáveis. A Figura \ref{fig:aprend-nao-sup} exemplifica as diferenças entre esses dois tipos de abordagem.
 
-\begin{figure}[ht]
-     \caption{Exemplo da diferença entre as diferentes abordagens.}
+\pgfplotsset{compat=1.11}
+\begin{figure}[!ht]
+\caption{Exemplo da diferença entre as diferentes abordagens.}
 \centering
-\includegraphics[width=0.6\textwidth]{figuras/aprend-nao-sup.png}
-\vspace{\baselineskip} %%% linha em branco para atender a norma
-    \fonte{\citeonline{site:medium:pedro}.}
+\begin{tikzpicture}[scale=0.8]
+	\begin{axis}[%
+    	title={(a) Aprendizagem Supervisionada},
+    	scatter/classes={%
+        	a={draw=blue, fill=blue, mark size=5}, 
+        	b={mark=x, draw=red, fill=red, mark size=7, line width=3pt}
+        }
+    ]
+    \addplot[scatter,only marks,%
+        scatter src=explicit symbolic]%
+        table[meta=label] {
+        	x y label
+            1.7 2   a
+            2.1 1.8 a
+            2.1 2.3 a
+            2.55 2.1 a
+            2.1 2.05 a
+            3.5 3.2 b
+            3.8 3.5 b
+            3.9 3.25 b
+            4   3   b
+            4.3 3.3 b
+    	};
+	\end{axis}
+\end{tikzpicture}
+\hspace{0.25cm}
+\begin{tikzpicture}[scale=0.8]
+	\begin{axis}[%
+    	title={(b) Aprendizagem Não supervisionada},
+    	scatter/classes={%
+        	a={draw=blue, fill=blue, mark size=5}, 
+        	b={mark=x, draw=red, fill=red, mark size=7, line width=4pt}
+        }
+    ]
+    \addplot[scatter,only marks,%
+        scatter src=explicit symbolic]%
+        table[meta=label] {
+        	x y label
+            1.7 2   a
+            2.2 1.8 a
+            2.1 2.3 a
+            2.55 2.1 a
+            2.1 2.05 a
+            3.5 3.2 a
+            3.8 3.5 a
+            3.9 3.25 a
+            4   3   a
+            4.3 3.3 a
+    	};
+	\end{axis}
+	\draw[red, very thick] (1.4,1.4) circle (1.3);
+	\draw[red, very thick] (5,5) circle (1.3);
+\end{tikzpicture}
+\fonte{Produção do próprio autor.} % \citeonline{site:medium:pedro}
 \label{fig:aprend-nao-sup}
 \end{figure}
 
@@ -372,23 +513,66 @@ Como explica \cite{book:russell:10}, o exemplo mais comum de aprendizagem não s
 
 \par A técnica Naive Bayes pode ser considerada como uma das mais populares para classificação de dados utilizando aprendizado de máquina. O algoritmo utiliza de métodos probabilísticos, baseados na Teoria Bayesiana, criada por Thomas Bayes no século XVIII. Para compreender melhor o funcionamento dessa técnica, é importante entender também um pouco sobre o teorema do qual ela teve origem.
 
-\par Como mostra \cite{book:russell:10}, o teorema, ou regra de Bayes é uma formula simples, definida pela Equação \ref{eq:teorema-bayes}, que vem da regra do produto de probabilidades, assumindo que \textit{prob(D|H) = prob(H|D)}, sendo H a hipótese a ser validada e D os dados observados, podendo ser tratados também como \textit{causa} e \textit{efeito}. Apesar de simples, essa regra é a base de grande parte dos sistemas de IA que utilizam inferência probabilística.
+\par Como mostra \cite{book:russell:10}, o teorema, ou regra de Bayes é uma formula simples, definida pela Equação \ref{eq:teorema-bayes}, que vem da regra do produto de probabilidades, assumindo que \textit{prob(D|H) = prob(H|D)}, sendo H a hipótese a ser validada e D os dados observados, podendo ser tratados também como \textit{causa} e \textit{efeito}. Apesar de simples, essa regra é a base de grande parte dos sistemas de IA (Inteligência Artificial) que utilizam inferência probabilística.
     
 \begin{equation} \label{eq:teorema-bayes}
 prob(H|D) = \frac{prob(D|H)prob(H)}{prob(D)}
 \end{equation}
 
-\par Dividindo as partes do teorema, do lado esquerdo, \textit{prob(H|D)} é chamada de probabilidade posterior da hipótese após a realização do experimento; do lado direito, \textit{prob(D|H)} chamada função de verossimilhança, é a distribuição de probabilidade dos dados, a qual multiplica-se por \textit{prob(H)}, denominada \textit{Prior}, é a probabilidade da hipótese ser verdadeira; por fim, o denominador \textit{prob(D)}, é a probabilidade total.
+\par Dividindo as partes do teorema, do lado esquerdo, \textit{prob(H|D)} é chamada de probabilidade posterior da hipótese após a realização do experimento; do lado direito, \textit{prob(D|H)} chamada função de verossimilhança, é a distribuição de probabilidade dos dados, a qual multiplica-se por \textit{prob(H)}, denominada \textit{Prior}, que é a probabilidade da hipótese ser verdadeira; por fim, o denominador \textit{prob(D)}, é a probabilidade total.
 
-\par Ainda que possa parecer um teorema simples, seu alcance está na capacidade de interpretação. No caso do modelo Naive Bayes, ou Bayes Ingênuo, assume-se que os atributos \textit{efeito} são condicionalmente independentes entre si, dada a \textit{causa} -- daí a denominação de ``ingênuo''. A distribuição probabilística deste modelo pode ser descrita conforme indica a Equação \ref{eq:naive-bayes}, sendo \textit{C} a classe, ou causa, que deve ser prevista, enquanto que o conjunto $\{x_1, ..., x_n\}$ são os atributos, ou efeitos.
+\par Ainda que possa parecer um teorema simples, seu alcance está na sua capacidade de interpretação. No caso do modelo Naive Bayes, ou Bayes Ingênuo, assume-se que os atributos \textit{efeito} são condicionalmente independentes entre si, dada a \textit{causa} -- daí a denominação de ``ingênuo''. A distribuição probabilística deste modelo pode ser descrita conforme indica a Equação \ref{eq:naive-bayes}, sendo \textit{C} a classe, ou causa, que deve ser prevista, enquanto que o conjunto $\{x_1, ..., x_n\}$ são os atributos, ou efeitos.
 
 \begin{equation} \label{eq:naive-bayes}
 P(C | x_1, ..., x_n) = \alpha P(C)\prod_i{P(x_i | C)}
 \end{equation}
 
-\par Este modelo de aprendizagem se adapta facilmente à escala de problemas grandes, funcionando muito bem com uma ampla variedade de aplicações, apesar de se destacar e ser comumente utilizado em uma série algoritmos para classificação de textos. Além disso, este modelo não apresenta grandes complicações com dados ruidosos ou faltantes, podendo realizar previsões adequadas. Esses fatores fazem o Naive Bayes ser (provavelmente) o modelo de rede Bayesiana mais comumente utilizado em algoritmos de aprendizado de máquina.
+\par Este modelo de aprendizagem é facilmente escalável para problemas maiores, funcionando muito bem com uma ampla variedade de aplicações, apesar de se destacar e ser comumente utilizado em uma série algoritmos para classificação de textos. Além disso, este modelo não apresenta grandes complicações com dados ruidosos ou faltantes, podendo inclusive realizar previsões adequadas nestes casos. Esses fatores fazem o Naive Bayes ser (provavelmente) o modelo de rede Bayesiana mais comumente utilizado em algoritmos de aprendizado de máquina.
 
-\par 
+\par Tomando como exemplo a clássica classificação de sentimentos em textos, como mencionado, o algoritmo irá assumir que as palavras de uma determinada mensagem não possuem uma relação entre si. Sendo assim, o classificador poderá presumir que uma frase seja positiva, caso a maioria das palavras presentes nela tenham maior probabilidade de ter este mesmo sentimento, independentemente do contexto em que foram utilizadas.
+
+\par Para classificar uma determinada frase, inicialmente é preciso montar uma base de treinamento, contendo a classificação dos dados de entrada, que no caso da análise de sentimentos, será positivo ou negativo. A partir destes dados, é criada uma tabela para guardar a frequência de cada uma das entradas com suas classes e a probabilidades de cada entrada. Para testar uma nova entrada, é calculada sua probabilidade para cada uma das possíveis classificações com base nas ocorrências anteriores. Para os casos em que o dado de teste não está presente na base de treinamento ou não foi classificado para uma das classes, existem algumas técnicas capazes de corrigir esse problema. Uma técnica muito comum aplicada para estes casos é a suavização de Laplace, a qual soma o valor 1 para todos os valores, desta forma, nenhuma operação é realizada utilizando o valor 0.
+
+\par Utilizando como exemplo a frase ``\textit{With great power comes great responsibility}'', e considerando a Tabela \ref{tab:naive-freq} (fictícia) apresentada logo abaixo, na qual consta a frequência das palavras para cada classe e a probabilidade de cada uma, para classificar a palavra ``\textit{great}'' como positiva ou negativa, seriam realizadas as seguintes operações listadas a seguir.
+
+\begin{table}[ht]
+    \caption{Exemplo de tabela com frequências de palavras e suas classes.}
+    \centering
+    \begin{tabular}{ c c c c }
+        \hline
+        Palavras & Positivo & Negativo & Probabilidade \\
+        \hline
+        responsibility & 1 & 2 & 3/14 = 0,21 \\
+        power & 2 & 1 & 3/14 = 0,21 \\
+        great & 3 & 1 & 4/14 = 0,28 \\
+        bad & 0 & 2 & 2/14 = 0,14 \\
+        good & 2 & 0 & 2/14 = 0,14 \\
+        \hline
+        Total & 8 & 6 & \\
+        \hline
+        & & Positivo & 8/14 = 0,57 \\
+        & & Negativo & 6/14 = 0,42 \\
+        \hline
+    \end{tabular}
+    \vspace{\baselineskip} %%% linha em branco para atender a norma
+    \fonte{Produção do próprio Autor.}
+    \label{tab:naive-freq}
+\end{table}
+
+\begin{align}
+P(great|positive) = 3/8 = 0.37 \\
+P(positive) = 8/14 = 0.57 \\
+P(great) = 4/14 = 0.28 \\
+P(great|negative) = 1/6 = 0.16 \\
+P(negative) = 6/14 = 0.42
+\end{align}
+
+\begin{align}
+P(positive|great) = 0.37 * 0.57 / 0.28 = 0.75 \\
+P(negative|great) = 0.16 * 0.42 / 0.28 = 0.24
+\end{align}
+
+\par A partir dos cálculos realizados, com base na Tabela \ref{tab:naive-freq} apresentada, obtém-se como resultado uma probabilidade maior para a palavra `\textit{great}' ser positiva. Para realizar a classificação considerando toda a frase, essa operação é aplicada para cada palavra, as probabilidades resultantes para cada classe são multiplicadas e os resultados são aplicados na regra de Bayes, conforme a Equação \ref{eq:teorema-bayes}, para cada uma das possíveis classes. Mesmo sendo um exemplo simples da aplicação da técnica Naive Bayes, é possível observar a facilidade da aplicação deste algoritmo para a classificação de dados utilizando um método probabilístico.
 
 % % % % % % % % ÁRVORES DE DECISÃO % % % % % % % %
 
@@ -414,26 +598,118 @@ P(C | x_1, ..., x_n) = \alpha P(C)\prod_i{P(x_i | C)}
 \chapter{Proposta}
 \label{sec:proposta}
 
+\par A proposta deste trabalho é a elaboração de um modelo, utilizando algoritmos de aprendizado de máquina supervisionada, capaz de classificar o nível de popularidade de tuítes com base na correlação entre a popularidade dos mesmos em função de um conjunto de características presentes no corpo das mensagens. Para atingir esse objetivo, é necessário coletar os tuítes, extrair suas características e aplicar o algoritmos já mencionados para realizar o treinamento e classificação dos dados. Esta seção apresenta a arquitetura de coleta e extração utilizada neste trabalho.
+
 % % % % % % % % DEFINIÇÃO DOS ATRIBUTOS % % % % % % % %
 
 \section{Definição dos Atributos}
 \label{sec:def-atributos}
 
-% % % % % % % % ARQUITETURA DE EXTRAÇAÕ DE TUÍTES % % % % % % % %
+\par Definir e explicar os atributos que são coletados.
+
+% % % % % % % % DEFINIÇÃO DE POPULARIDADE % % % % % % % %
+
+\section{Definição de Popularidade}
+\label{sec:def-popularidade}
+
+\par Popularidade define-se por... Para calcular a taxa de engajamento em uma determinada publicação, por convenção, é realizada a fórmula apresentada na Equação \ref{eq:engajamento}. Cada elemento apresentado refere-se estritamente a quantidade obtida pela publicação. Trazendo para a realidade do Twitter, os compartilhamentos são substituídos pelos retuítes e os comentários pelas respostas a um determinado tuíte.
+
+% retu\acute{\imath}tes
+\begin{equation} \label{eq:engajamento}
+E(x) = \frac{curtidas + compartilhamentos + coment\acute{a}rios}{seguidores}
+\end{equation}
+
+% % % % % % % % ARQUITETURA DE EXTRAÇÃO DE TUÍTES % % % % % % % %
 
 \section{Arquitetura de Extração de Tuítes}
 \label{sec:arq-extracao}
 
-\par Como mostra a Figura \ref{fig:arquitetura}.
+\par A arquitetura, exibida na Figura~\ref{fig:arquitetura}, tem os seguintes módulos: (a) \textbf{Coleta} dos tuítes publicados por cada uma das contas acompanhadas; (b) \textbf{Extração} das características de cada tuíte; e (c) \textbf{Atualização} periódica dos dados coletados.
 
 \begin{figure}[ht]
-     \caption{Arquitetura adotada para extração de tuítes}
-\centering
-\includegraphics[width=0.6\textwidth]{figuras/arquitetura.png}
-\vspace{\baselineskip} %%% linha em branco para atender a norma
-    \fonte{Autor.}
-\label{fig:arquitetura}
+    \caption{Arquitetura adotada para extração de tuítes}
+    \centering
+    \includegraphics[width=1\textwidth]{figuras/arquitetura.png}
+    \vspace{\baselineskip} %%% linha em branco para atender a norma
+    \fonte{Produção do próprio autor.}
+    \label{fig:arquitetura}
 \end{figure}
+
+% % % % % % % % COLETA DE TUÍTES % % % % % % % %
+\subsection{Coleta de tuítes}
+
+\par O módulo de coleta é responsável por extrair tuítes de usuários específicos. A extração ocorre de forma contínua, usando recursos de \textit{streaming} disponibilizados pela API do Twitter\footnote{\textit{Twitter Developer Platform:} \texttt{https://dev.twitter.com}}. São coletados todos tuítes publicados a partir do momento que o \textit{streaming} entra em execução.
+
+\par A especificação das contas a serem seguidas é feita a partir de uma conta raiz. São extraídos os tuítes publicados em inglês por todos usuários seguidos por essa conta raiz. Essa estratégia permite que novas contas sejam adicionadas à lista sem que haja interrupções na execução do algoritmo. O módulo também conta com tratamento de exceções para que a coleta não seja interrompida devido à problemas temporários de acesso aos dados, como indisponibilidade do serviço ou extrapolação do limite de requisições permitido por instante de tempo.
+
+\par Na Tabela \ref{tab:dados-coleta} podem ser visualizadas as informações extraídas de cada tuíte através da API. O campo ``mensagem'' é usado para a extração das características. Já os campos ``seguidores'', ``retuítes'' e ``curtidas'' são usados cálculo para medir a taxa de engajamento de cada tuíte\footnote{Infelizmente a API do Twitter permite a extração da quantidade de respostas apenas na versão paga, impossibilitando a contabilização desse valor na fórmula de engajamento.}. Por sua vez, os campos ``identificação'' e ``data/hora'' são usados pelo módulo de atualização.
+
+\begin{table}[ht]
+\centering
+\caption{Dados coletados para cada tuíte}
+\label{tab:dados-coleta}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Informação} & \textbf{Conteúdo} \\ \hline
+autor               &  código e nome da conta que originou o tuíte \\ \hline
+seguidores          &  quantidade de seguidores da conta que originou o tuíte \\ \hline
+identificação       & código do tuíte (permite a consulta posterior) \\ \hline
+mensagem            & texto de no máximo 280 caracteres \\ \hline
+data e hora         & data e hora da publicação do tuíte em seu país de origem \\ \hline
+retuítes            & quantidade de retuíte que a mensagem recebeu \\ \hline
+curtidas            & quantidade de vezes que o tuíte foi favoritado \\ \hline
+\end{tabular}
+\end{table}
+
+% % % % % % % % EXTRAÇÃO DE CARACTERÍSTICAS % % % % % % % %
+\subsection{Extração de características de tuíte}
+
+\par Esta etapa corresponde a extração das características de cada um dos tuítes coletados. A extração ocorre imediatamente após a coleta. Os itens abaixo mostram como cada característica foi extraída.
+
+\par \textbf{Presença de URLs e \textit{hashtags}}: O uso desses recursos na mensagem é facilmente detectado pela presença de prefixos específicos no corpo da mensagem. Por exemplo, o prefixo ``http'' indica que URLs foram usadas, enquanto que o prefixo ``\#'' denota o uso de \textit{hashtags}. 
+
+\par \textbf{Tamanho da mensagem}: O tamanho é a contagem da quantidade de caracteres usados no corpo do tuíte. A contagem desconsidera caracteres usados em URLs, assumindo que \textit{hiperlinks} não transmitam nenhuma mensagem.  A remoção de URLs foi realizada a partir da aplicação de uma expressão regular.
+
+%%%%%%%%%%%%%%% EXTRAÇÃO DO SENTIMENTO %%%%%%%%%%%%%%%
+\par \textbf{Extração do sentimento:} O sentimento de uma mensagem é um valor que classifica o teor da mensagem como positivo ou negativo. Para realizar a extração do sentimento, foi utilizada a biblioteca TextBlob da linguagem Python \cite{loria:14}. Essa biblioteca  permite a obtenção da polaridade e subjetividade de conteúdos textuais na língua inglesa. A API também fornece a possibilidade de tradução do conteúdo de textos escritos em outras linguagens.
+% assim como no trabalho de \cite{engel:16}
+
+\par A extração do sentimento realizada pela biblioteca se baseia em Árvores de Decisão e no modelo de classificação \textit{Naive Bayes} -- ambos já apresentados na seção \ref{sec:fund-teorica} --, o que elimina a necessidade de elaborar no novo algoritmo para realizar essa função. A classificação da mensagem retorna um valor decimal entre o intervalo de -1 e 1, onde -1 corresponde a uma mensagem totalmente negativa, 0 corresponde a neutra e 1 corresponde a totalmente positiva. 
+
+%%%%%%%%%%%%%%% EXTRAÇÃO DA BANALIDADE %%%%%%%%%%%%%%%
+\par \textbf{Extração da banalidade:} No contexto deste trabalho, a banalidade corresponde à importância do que foi escrito no corpo do tuíte. A forma adotada para medir a banalidade leva em consideração a presença de palavras que são frequentemente usadas em textos escritos. Quanto maior o número de palavras frequentes, mais banal é a mensagem. 
+
+\par A Equação \ref{eq:banalidade} mostra como computar o valor da banalidade:
+
+\begin{equation} \label{eq:banalidade}
+\frac{\sum_{i=1}^n (freq(P_i))}{n}
+\end{equation}
+
+\par onde o conjunto $\{P_1, ..., P_n\}$ são as palavras da mensagem após a remoção de \textit{stopwords} (preposições e artigos que normalmente são descartados durante o processamento de um texto). Já a função $freq(P)$ retorna 1 caso a palavra $P$ seja frequente e zero caso não seja. A verificação da frequência utiliza um dicionário contendo 3000 palavras comuns da língua inglesa\footnote{\textit{3000 most common words in English: }\texttt{https://www.ef.com/english-resources/ english-vocabulary/top-3000-words/}}. Também são removidas as \textit{hashtags} e menções a outros usuários, por entender que não se tratam de palavras que podem ser caracterizadas como banais ou não.
+
+\par Na Tabela \ref{tab:dados-extracao} pode ser visto um exemplo geral de todas as caraterísticas extraídas nesta etapa.
+
+\begin{table}[ht]
+\centering
+\caption{Dados obtidos na etapa de Extração}
+\label{tab:dados-extracao}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Informação} & \textbf{Conteúdo} \\ \hline
+sentimento			& valor entre -1 e 1 correspondente a polaridade do texto \\ \hline
+URL					& valor 1 se houver URL no texto e 0 se não houver \\ \hline
+\textit{hashtag} 	& valor 1 se houver \textit{hashtag} no texto e 0 se não houver \\ \hline
+tamanho 			& quantidade de caracteres utilizados na mensagem \\ \hline
+banalidade			& somatório baseado na no uso de palavras frequentes \\ \hline
+\end{tabular}
+\end{table}
+
+% % % % % % % % ATUALIZAÇÃO DOS DADOS % % % % % % % %
+\subsection{Atualização dos dados de retuítes e curtidas}
+
+\par Como o módulo de coleta funciona por meio de \textit{streaming}, os tuítes são coletados no instante de sua criação. Nesse momento, a quantidade de retuítes e curtidas recebidos têm o valor zero. Dessa forma, é necessária uma conferência periódica para a obtenção dos dados atualizados.
+
+\par A atualização é realizada através de um recurso da API do Twitter que obtém informações de um tuíte a partir do seu código de identificação. Para evitar sobrecarga de processamento, apenas os tuítes publicados no intervalo de 15 dias são atualizados. Como os dados de tuítes mais antigos raramente são modificados, a busca para a atualização de cada um deles seria ao mesmo tempo custosa e improdutiva.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
 % % % % % % % % % % % % % % EXPERIMENTOS  % % % % % % % % % % % % % % % % % 
