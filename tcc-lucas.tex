@@ -102,9 +102,9 @@
 
 % \coorientador{Coorientador}{Dr}{AAAA}{M}{M} %%%INFORMAÇÕES SOBRE CO-ORIENTADOR: OS CAMPOS SÃO:{NOME}{SIGLA DA TITULAÇÃO}{SIGLA DA INSTITUIÇÃO DE ORIGEM}{SEXO} M=masculino   F=feminino {PARTE DA BANCA?} P=presidente  M=Membro  N=Não faz parte
 
-\bancaum{Banca Um}{Dr}{AAAA}{M}{M}  %%%INFORMAÇÕES SOBRE PRIMEIRO NOME DA BANCA: OS CAMPOS SÃO:{NOME}{SIGLA DA TITULAÇÃO}{SIGLA DA INSTITUIÇÃO DE ORIGEM}{SEXO} M=masculino   F=feminino {PARTE DA BANCA?} P=presidente  M=Membro  N=Não faz parte
+\bancaum{Joaquim Assuncao}{Dr}{UFSM}{M}{M}  %%%INFORMAÇÕES SOBRE PRIMEIRO NOME DA BANCA: OS CAMPOS SÃO:{NOME}{SIGLA DA TITULAÇÃO}{SIGLA DA INSTITUIÇÃO DE ORIGEM}{SEXO} M=masculino   F=feminino {PARTE DA BANCA?} P=presidente  M=Membro  N=Não faz parte
 
-\bancadois{Banca Dois}{Dr}{BBBB}  %%%INFORMAÇÕES SOBRE SEGUNDO NOME DA BANCA: OS CAMPOS SÃO:{NOME}{SIGLA DA TITULAÇÃO}{SIGLA DA INSTITUIÇÃO DE ORIGEM}
+\bancadois{João Carlos Damasceno Lima}{Dr}{UFSM}  %%%INFORMAÇÕES SOBRE SEGUNDO NOME DA BANCA: OS CAMPOS SÃO:{NOME}{SIGLA DA TITULAÇÃO}{SIGLA DA INSTITUIÇÃO DE ORIGEM}
 
 % \bancatres{Banca Três}{Dra}{CCCC} %%%INFORMAÇÕES SOBRE TERCEIRO NOME DA BANCA: OS CAMPOS SÃO:{NOME}{SIGLA DA TITULAÇÃO}{SIGLA DA INSTITUIÇÃO DE ORIGEM}
 
@@ -175,13 +175,13 @@ Abstract here.
 % % LISTA DE FIGURAS 
 % \semfiguras   %%(QUANDO ATIVADA NÃO EXIBE A LISTA)
 % % LISTA DE GRÁFICOS 
-% \semgraficos   %%(QUANDO ATIVADA NÃO EXIBE A LISTA)
+\semgraficos   %%(QUANDO ATIVADA NÃO EXIBE A LISTA)
 % % LISTA DE ILUSTRAÇÕES 
 \semilustracoes  %%(QUANDO ATIVADA NÃO EXIBE A LISTA)
 % % LISTA DE TABELAS 
 % \semtabelas   %%(QUANDO ATIVADA NÃO EXIBE A LISTA)
 % % LISTA DE QUADROS 
-% \semquadros   %%(QUANDO ATIVADA NÃO EXIBE A LISTA)
+\semquadros   %%(QUANDO ATIVADA NÃO EXIBE A LISTA)
 % % LISTA DE APÊNDICES 
 % \semapendices  %%(QUANDO ATIVADA NÃO EXIBE A LISTA)
 % % LISTA DE ANEXOS 
@@ -316,7 +316,7 @@ Abstract here.
 \chapter{Fundamentação Teórica}
 \label{sec:fund-teorica}
 
-\par Neste capítulo serão apresentados os conceitos relacionados ao aprendizado de máquina, na seção \ref{sec:aprend-maquina}, definindo as diferenças entre a aprendizagem supervisionada e a não supervisionada. Em seguida, na seção \ref{sec:alg-aprend-maquina-sup}, são apresentados alguns dos principais algoritmos do segmento supervisionado, os quais também foram utilizados na realização de experimentos no decorrer deste trabalho, sendo estes o Naive Bayes, Árvores de Decisão e Algoritmos Genéticos.
+\par Neste capítulo serão apresentados os conceitos relacionados ao aprendizado de máquina, na seção \ref{sec:aprend-maquina}, definindo as diferenças entre a aprendizagem supervisionada e a não supervisionada. Em seguida, na seção \ref{sec:alg-aprend-maquina-sup}, são apresentados alguns dos principais algoritmos do segmento supervisionado, os quais também foram utilizados na realização de experimentos no decorrer deste trabalho, sendo estes o Naive Bayes, Árvores de Decisão e Redes Neurais.
 
 % % % % % % % % APRENDIZADO DE MÁQUINA % % % % % % % %
 
@@ -533,14 +533,14 @@ P(C | x_1, ..., x_n) = \alpha P(C)\prod_i{P(x_i | C)}
 
 \par Para classificar uma determinada frase, inicialmente é preciso montar uma base de treinamento, contendo a classificação dos dados de entrada, que no caso da análise de sentimentos, será positivo ou negativo. A partir destes dados, é criada uma tabela para guardar a frequência de cada uma das entradas com suas classes e a probabilidades de cada entrada. Para testar uma nova entrada, é calculada sua probabilidade para cada uma das possíveis classificações com base nas ocorrências anteriores. Para os casos em que o dado de teste não está presente na base de treinamento ou não foi classificado para uma das classes, existem algumas técnicas capazes de corrigir esse problema. Uma técnica muito comum aplicada para estes casos é a suavização de Laplace, a qual soma o valor 1 para todos os valores, desta forma, nenhuma operação é realizada utilizando o valor 0.
 
-\par Utilizando como exemplo a frase ``\textit{With great power comes great responsibility}'', e considerando a Tabela \ref{tab:naive-freq} (fictícia) apresentada logo abaixo, na qual consta a frequência das palavras para cada classe e a probabilidade de cada uma, para classificar a palavra ``\textit{great}'' como positiva ou negativa, seriam realizadas as seguintes operações listadas a seguir.
+\par Utilizando como exemplo a frase ``\textit{With great power comes great responsibility}'', e considerando a Tabela \ref{tab:naive-freq} (fictícia) apresentada logo abaixo, na qual consta a frequência das palavras para cada classe e a probabilidade de cada uma, para classificar a palavra ``\textit{great}'' como popular ou impopular, considerando também que essa possa ser uma frase extraída do Twitter, seriam realizadas as seguintes operações listadas a seguir.
 
 \begin{table}[ht]
     \caption{Exemplo de tabela com frequências de palavras e suas classes.}
     \centering
     \begin{tabular}{ c c c c }
         \hline
-        Palavras & Positivo & Negativo & Probabilidade \\
+        Palavras & Popular & Impopular & Probabilidade \\
         \hline
         responsibility & 1 & 2 & 3/14 = 0,21 \\
         power & 2 & 1 & 3/14 = 0,21 \\
@@ -560,29 +560,34 @@ P(C | x_1, ..., x_n) = \alpha P(C)\prod_i{P(x_i | C)}
 \end{table}
 
 \begin{align}
-P(great|positive) = 3/8 = 0.37 \\
-P(positive) = 8/14 = 0.57 \\
+P(great|popular) = 3/8 = 0.37 \\
+P(popular) = 8/14 = 0.57 \\
 P(great) = 4/14 = 0.28 \\
-P(great|negative) = 1/6 = 0.16 \\
-P(negative) = 6/14 = 0.42
+P(great|unpopular) = 1/6 = 0.16 \\
+P(unpopular) = 6/14 = 0.42
 \end{align}
 
 \begin{align}
-P(positive|great) = 0.37 * 0.57 / 0.28 = 0.75 \\
-P(negative|great) = 0.16 * 0.42 / 0.28 = 0.24
+P(popular|great) = 0.37 * 0.57 / 0.28 = 0.75 \\
+P(unpopular|great) = 0.16 * 0.42 / 0.28 = 0.24
 \end{align}
 
-\par A partir dos cálculos realizados, com base na Tabela \ref{tab:naive-freq} apresentada, obtém-se como resultado uma probabilidade maior para a palavra `\textit{great}' ser positiva. Para realizar a classificação considerando toda a frase, essa operação é aplicada para cada palavra, as probabilidades resultantes para cada classe são multiplicadas e os resultados são aplicados na regra de Bayes, conforme a Equação \ref{eq:teorema-bayes}, para cada uma das possíveis classes. Mesmo sendo um exemplo simples da aplicação da técnica Naive Bayes, é possível observar a facilidade da aplicação deste algoritmo para a classificação de dados utilizando um método probabilístico.
+\par A partir dos cálculos realizados, com base na Tabela \ref{tab:naive-freq} apresentada, obtém-se como resultado uma probabilidade maior para a palavra `\textit{great}' ser popular. Para realizar a classificação considerando toda a frase, essa operação é aplicada para cada palavra, as probabilidades resultantes para cada classe são multiplicadas e os resultados são aplicados na regra de Bayes, conforme a Equação \ref{eq:teorema-bayes}, para cada uma das possíveis classes. Mesmo sendo um exemplo simples da aplicação da técnica Naive Bayes, é possível observar a facilidade da aplicação deste algoritmo para a classificação de dados utilizando um método probabilístico.
 
 % % % % % % % % ÁRVORES DE DECISÃO % % % % % % % %
 
 \subsection{Árvores de Decisão}
 \label{sec:arvores-decisao}
 
-% % % % % % % % ALGORITMOS GENÉTICOS % % % % % % % %
+% % % % % % % % REDES NEURAIS % % % % % % % %
 
-\subsection{Algoritmos Genéticos}
-\label{sec:alg-geneticos}
+\subsection{Redes Neurais} % Recorrentes
+\label{sec:redes-neurais}
+
+% % % % % % % % ENGENHARIA DE FEATURES % % % % % % % %
+
+\subsection{Engenharia de \textit{Features}}
+\label{sec:eng-features}
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
 % % % % % % % % % % % % TRABALHOS RELACIONADOS % % % % % % % % % % % % % % % 
@@ -605,7 +610,17 @@ P(negative|great) = 0.16 * 0.42 / 0.28 = 0.24
 \section{Definição dos Atributos}
 \label{sec:def-atributos}
 
-\par Definir e explicar os atributos que são coletados.
+\par Como parte do objetivo deste trabalho é a correlação entre a popularidade e as características do texto de cada tuíte, é de fundamental importância a definição e extração de características relevantes que possam influenciar no interesse dos usuários sobre uma determinada mensagem. Esta etapa corresponde a definição dos atributos que serão extraídos de cada um dos tuítes coletados. Os itens abaixo definem cada um destes atributos e a razão de terem sido escolhidos:
+
+\par \textbf{Presença de URLs}: Pode indicar uma informação proveniente de outros meios, podendo ser sites de notícias ou outras mídias sociais. Este fator pode despertar o interesse de usuários por um determinado tipo de informação.
+
+\par \textbf{Presença de \textit{hashtags}}: De maneira geral, as \textit{hashtags} são palavras-chave ou termos utilizados para indicar que aquela mensagem está diretamente ligada a um tópico ou discussão específica. O que pode atrair o interesse de usuários por tópicos específicos, de maneira semelhante ao uso de URLs.
+
+\par \textbf{Tamanho da mensagem}: O tamanho é basicamente a contagem da quantidade de caracteres usados no corpo do tuíte, que pode fazer com que os usuários percam ou não o interesse em ler seu conteúdo.
+
+\par \textbf{Sentimento da mensagem:} O sentimento é um valor que classifica o teor do texto como positivo ou negativo. Fator que pode estar diretamente ligado a intenção de cada usuário em propagar mensagens com um determinado humor. Este atributo também pode chamado de polaridade da mensagem.
+
+\par \textbf{Banalidade da mensagem:} No contexto deste trabalho, a banalidade corresponde à importância do que foi escrito no corpo do tuíte, levando em consideração a presença de palavras que são frequentemente usadas em textos escritos. Sendo assim, quanto maior o número de palavras frequentes, mais banal é a mensagem.
 
 % % % % % % % % DEFINIÇÃO DE POPULARIDADE % % % % % % % %
 
@@ -619,10 +634,23 @@ P(negative|great) = 0.16 * 0.42 / 0.28 = 0.24
 E(x) = \frac{curtidas + compartilhamentos + coment\acute{a}rios}{seguidores}
 \end{equation}
 
-% % % % % % % % ARQUITETURA DE EXTRAÇÃO DE TUÍTES % % % % % % % %
+% % % % % % % % CLASSIFICADORES % % % % % % % %
 
-\section{Arquitetura de Extração de Tuítes}
-\label{sec:arq-extracao}
+\section{Classificadores}
+\label{sec:classificadores}
+
+\par Explicar que os classificadores utilizados para realização do trabalho foram Naive Bayes, árvores de decisão (quais algoritmos) e redes neurais recorrentes, com \textit{word embeddings (word2vec)}.
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+% % % % % % % % % % % % % % EXPERIMENTOS  % % % % % % % % % % % % % % % % % 
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+
+
+\chapter{Experimentos}
+\label{sec:experimentos}
+
+\section{Extração de Tuítes}
+\label{sec:extracao-tweets}
 
 \par A arquitetura, exibida na Figura~\ref{fig:arquitetura}, tem os seguintes módulos: (a) \textbf{Coleta} dos tuítes publicados por cada uma das contas acompanhadas; (b) \textbf{Extração} das características de cada tuíte; e (c) \textbf{Atualização} periódica dos dados coletados.
 
@@ -661,25 +689,23 @@ curtidas            & quantidade de vezes que o tuíte foi favoritado \\ \hline
 \end{tabular}
 \end{table}
 
-% % % % % % % % EXTRAÇÃO DE CARACTERÍSTICAS % % % % % % % %
-\subsection{Extração de características de tuíte}
+% % % % % % % % EXTRAÇÃO DAS CARACTERÍSTICAS % % % % % % % %
+\subsection{Extração das Características}
 
-\par Esta etapa corresponde a extração das características de cada um dos tuítes coletados. A extração ocorre imediatamente após a coleta. Os itens abaixo mostram como cada característica foi extraída.
+\par Esta etapa corresponde a extração das características de cada um dos tuítes coletados. A extração ocorre imediatamente após a coleta. Os itens abaixo mostram como cada característica foi extraída:
 
 \par \textbf{Presença de URLs e \textit{hashtags}}: O uso desses recursos na mensagem é facilmente detectado pela presença de prefixos específicos no corpo da mensagem. Por exemplo, o prefixo ``http'' indica que URLs foram usadas, enquanto que o prefixo ``\#'' denota o uso de \textit{hashtags}. 
 
-\par \textbf{Tamanho da mensagem}: O tamanho é a contagem da quantidade de caracteres usados no corpo do tuíte. A contagem desconsidera caracteres usados em URLs, assumindo que \textit{hiperlinks} não transmitam nenhuma mensagem.  A remoção de URLs foi realizada a partir da aplicação de uma expressão regular.
+\par \textbf{Tamanho da mensagem}: O tamanho é extraído através da contagem da quantidade de caracteres presentes no texto. A contagem desconsidera caracteres usados em URLs, assumindo que \textit{hiperlinks} não transmitam nenhuma mensagem.  A remoção de URLs foi realizada a partir da aplicação de uma expressão regular.
 
 %%%%%%%%%%%%%%% EXTRAÇÃO DO SENTIMENTO %%%%%%%%%%%%%%%
-\par \textbf{Extração do sentimento:} O sentimento de uma mensagem é um valor que classifica o teor da mensagem como positivo ou negativo. Para realizar a extração do sentimento, foi utilizada a biblioteca TextBlob da linguagem Python \cite{loria:14}. Essa biblioteca  permite a obtenção da polaridade e subjetividade de conteúdos textuais na língua inglesa. A API também fornece a possibilidade de tradução do conteúdo de textos escritos em outras linguagens.
+\par \textbf{Extração do sentimento:} Para realizar a extração do sentimento, foi utilizada a biblioteca TextBlob da linguagem Python \cite{loria:14}. Essa biblioteca  permite a obtenção da polaridade e subjetividade de conteúdos textuais na língua inglesa. A API também fornece a possibilidade de tradução do conteúdo de textos escritos em outras linguagens.
 % assim como no trabalho de \cite{engel:16}
 
 \par A extração do sentimento realizada pela biblioteca se baseia em Árvores de Decisão e no modelo de classificação \textit{Naive Bayes} -- ambos já apresentados na seção \ref{sec:fund-teorica} --, o que elimina a necessidade de elaborar no novo algoritmo para realizar essa função. A classificação da mensagem retorna um valor decimal entre o intervalo de -1 e 1, onde -1 corresponde a uma mensagem totalmente negativa, 0 corresponde a neutra e 1 corresponde a totalmente positiva. 
 
 %%%%%%%%%%%%%%% EXTRAÇÃO DA BANALIDADE %%%%%%%%%%%%%%%
-\par \textbf{Extração da banalidade:} No contexto deste trabalho, a banalidade corresponde à importância do que foi escrito no corpo do tuíte. A forma adotada para medir a banalidade leva em consideração a presença de palavras que são frequentemente usadas em textos escritos. Quanto maior o número de palavras frequentes, mais banal é a mensagem. 
-
-\par A Equação \ref{eq:banalidade} mostra como computar o valor da banalidade:
+\par \textbf{Extração da banalidade:} A forma adotada para medir a banalidade considerando o uso de palavras comuns em textos escritos, utiliza a Equação \ref{eq:banalidade}, apresentada logo abaixo.
 
 \begin{equation} \label{eq:banalidade}
 \frac{\sum_{i=1}^n (freq(P_i))}{n}
@@ -704,20 +730,13 @@ banalidade			& somatório baseado na no uso de palavras frequentes \\ \hline
 \end{tabular}
 \end{table}
 
+
 % % % % % % % % ATUALIZAÇÃO DOS DADOS % % % % % % % %
 \subsection{Atualização dos dados de retuítes e curtidas}
 
 \par Como o módulo de coleta funciona por meio de \textit{streaming}, os tuítes são coletados no instante de sua criação. Nesse momento, a quantidade de retuítes e curtidas recebidos têm o valor zero. Dessa forma, é necessária uma conferência periódica para a obtenção dos dados atualizados.
 
 \par A atualização é realizada através de um recurso da API do Twitter que obtém informações de um tuíte a partir do seu código de identificação. Para evitar sobrecarga de processamento, apenas os tuítes publicados no intervalo de 15 dias são atualizados. Como os dados de tuítes mais antigos raramente são modificados, a busca para a atualização de cada um deles seria ao mesmo tempo custosa e improdutiva.
-
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
-% % % % % % % % % % % % % % EXPERIMENTOS  % % % % % % % % % % % % % % % % % 
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
-
-
-\chapter{Experimentos}
-\label{sec:experimentos}
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
 % % % % % % % % % % % % % % % CONCLUSÕES % % % % % % % % % % % % % % % % % %
