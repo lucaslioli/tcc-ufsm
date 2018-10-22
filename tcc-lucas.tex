@@ -57,9 +57,19 @@
 \usepackage{comment}
 \usepackage{subfigure}
 \usepackage{tikz,pgfplots}
+\usepackage{forest}
 \usetikzlibrary{patterns}
 % Configuração da área máxima que pode ser utilizada por imagem de gráfico.
 \pgfplotsset{width=8cm,height=8cm,compat=1.8}
+% Configuração para a exibição das árvores de decisão
+\tikzset{
+  treenode/.style = {shape=rectangle, rounded corners,
+                     draw, align=center,
+                     top color=white, bottom color=blue!20},
+  root/.style     = {treenode, font=\Large, bottom color=red!30},
+  env/.style      = {treenode, top color=white, bottom color=gray!20},
+  dummy/.style    = {circle,draw}
+}
 
 % % % % % %  DEFINIÇÕES PESSOAIS  
 
@@ -77,7 +87,7 @@
 \centroensinosigla{CT}  %%% SIGLA
 
 % % CURSO DA UFSM
-\nivelensino{Graduação}  %%%%%%% NÍVEL DE ENSINO 
+\nivelensino{Bacharelado}  %%%%%%% NÍVEL DE ENSINO 
 \curso{Sistemas de Informação}   %%%%% NOME POR EXTENSO
 \ppg{PPGALGO}   %%%%%% SIGLAregister_error_handler
 \statuscurso{Curso}  %%%% STATUS= {Programa} ou {Curso}
@@ -102,9 +112,9 @@
 
 % \coorientador{Coorientador}{Dr}{AAAA}{M}{M} %%%INFORMAÇÕES SOBRE CO-ORIENTADOR: OS CAMPOS SÃO:{NOME}{SIGLA DA TITULAÇÃO}{SIGLA DA INSTITUIÇÃO DE ORIGEM}{SEXO} M=masculino   F=feminino {PARTE DA BANCA?} P=presidente  M=Membro  N=Não faz parte
 
-\bancaum{Joaquim Assuncao}{Dr}{UFSM}{M}{M}  %%%INFORMAÇÕES SOBRE PRIMEIRO NOME DA BANCA: OS CAMPOS SÃO:{NOME}{SIGLA DA TITULAÇÃO}{SIGLA DA INSTITUIÇÃO DE ORIGEM}{SEXO} M=masculino   F=feminino {PARTE DA BANCA?} P=presidente  M=Membro  N=Não faz parte
+\bancaum{João Carlos Damasceno Lima}{Dr}{UFSM}{M}{M}  %%%INFORMAÇÕES SOBRE PRIMEIRO NOME DA BANCA: OS CAMPOS SÃO:{NOME}{SIGLA DA TITULAÇÃO}{SIGLA DA INSTITUIÇÃO DE ORIGEM}{SEXO} M=masculino   F=feminino {PARTE DA BANCA?} P=presidente  M=Membro  N=Não faz parte
 
-\bancadois{João Carlos Damasceno Lima}{Dr}{UFSM}  %%%INFORMAÇÕES SOBRE SEGUNDO NOME DA BANCA: OS CAMPOS SÃO:{NOME}{SIGLA DA TITULAÇÃO}{SIGLA DA INSTITUIÇÃO DE ORIGEM}
+\bancadois{Joaquim Assunção}{Dr}{UFSM}  %%%INFORMAÇÕES SOBRE SEGUNDO NOME DA BANCA: OS CAMPOS SÃO:{NOME}{SIGLA DA TITULAÇÃO}{SIGLA DA INSTITUIÇÃO DE ORIGEM}
 
 % \bancatres{Banca Três}{Dra}{CCCC} %%%INFORMAÇÕES SOBRE TERCEIRO NOME DA BANCA: OS CAMPOS SÃO:{NOME}{SIGLA DA TITULAÇÃO}{SIGLA DA INSTITUIÇÃO DE ORIGEM}
 
@@ -149,9 +159,9 @@
 % % % EPIGRAFE
 \epigrafe{O livro é uma criatura frágil, ele sofre o desgaste do tempo, ele teme os roedores, os elementos e mãos desajeitadas. Então o livreiro proteje os livros não apenas da humanidade, mas também da natureza e devota sua vida a uma guerra contra as forças do esquecimento.}{Umberto Eco} %ESTRUTURA DE CAMPOS -> {Texto}{Autor}
 % % % DEDICATÓRIA
-\dedicatoria{Ao Rei da Espanha!}
+\dedicatoria{À família!}
 % % % %  AGRADECIMENTOS
-\agradecimentos{A mim!}
+\agradecimentos{Aos professores e colegas que, sem eles, nada disso seria possível!}
 
 % % % % %  RESUMO E PALAVRAS CHAVE DO RESUMO - OBRIGATÓRIO PARA MDT-UFSM
 \resumo{
@@ -192,10 +202,11 @@
 % % % %  LISTA DE ABREVIATURAS E SIGLAS
 %%%%%%%% OBS: O espaço entre colchetes \item[] e um ambiente matemático
 %%%%%%%% para não utilizar comente as linhas abaixo.
-\siglamax{API} %%%% coloque aqui a maior sigla (indentação)
+\siglamax{CART} %%%% coloque aqui a maior sigla (indentação)
 \listadeabreviaturasesiglas{
-\item[API] \textit{Application Programming Interface}
-\item[IA] \textit{Inteligência Artificial}
+\item[API]  \textit{Application Programming Interface}
+\item[IA]   Inteligência Artificial
+\item[CART] \textit{Classification and Regression Trees}
 }
 
 % % % %  LISTA DE SÍMBOLOS
@@ -300,6 +311,10 @@
     \par Como afirma \cite{ieee:suh:10}, a propagação de um tuíte está diretamente ligada ao conteúdo e valor informativo contido nele. Nesse sentido, os autores avaliaram um conjunto de características extraídas das mensagens. Os resultados mostraram que a utilização de \textit{hashtags} e URLs são fatores muito significativos e que ajudam a impulsionar uma publicação. Apesar de ser um resultado relevante, o trabalho não realizou uma análise exaustiva das características que podem ser extraídas das mensagens.
 
     \par Dentro deste contexto, o objetivo deste trabalho é monitorar e extrair tuítes de determinadas contas do Twitter, a fim de elaborar um modelo, utilizando algoritmos de aprendizado de máquina, para realizar a predição e classificação da popularidade de tuítes com base em suas características. Devido ao grande volume de dados, faz-se necessário automatizar o processo de análise e classificação dos dados, para isso, serão estudados e testados algoritmos já consolidados, como Naive Bayes, J48 e LTM, contando inclusive com o auxílio de ferramentas já reconhecidas como Weka, para a aplicação e análise dos resultados destes algoritmos. Como entrada para estes algoritmos, serão utilizados dados provenientes do pré-processamento dos tuítes coletados, sendo consideradas três características que não foram contempladas pelo estudo de \cite{ieee:suh:10}: o tamanho em caracteres, o sentimento (que mede a emoção transmitida) e a banalidade (que mede a relevância da mensagem). Para fins de comparação, a presença de \textit{hashtags} e URLs também foi avaliada.
+    
+    %\par É conhecido que hoje existem inúmeras pesquisas sendo realizadas envolvendo dados coletados do Twitter. Alguns trabalhos relacionados que devem ser citados aqui, como tal, tal e tal, que tem como parte de seus objetivos, a identificação de fatores impactantes no conteúdo das mensagens. Em tal, o estudo envolveu tais tópicos. No trabalho de tal, o foco foi tal tecnologia...
+    
+    % Separar por características dos trabalhos. O que pretende-se nesse trabalho, diferentemente dos demais, é que utilizamos contas influentes e tentamos predizer uma taxa de engajamento para cada conta. Definir um cenário para cada conta que o alcance pode ser previsto até uma determinada taxa.
 
     \par Este trabalho está estruturado nas seguintes seções. O capítulo \ref{sec:fund-teorica} apresenta a fundamentação teórica, abordando conceitos e algoritmos de aprendizado de máquina. O capítulo \ref{sec:proposta} apresenta a definição dos atributo e a arquitetura de extração de tuítes usada, que realiza desde a coleta até a preparação dos dados para análise. O capítulo \ref{sec:experimentos} apresenta as análises realizadas a partir dos dados coletados juntamente com os algoritmos de aprendizado de máquina estudados. O capítulo \ref{sec:conclusao} apresenta as considerações finais a cerca do trabalho realizado.
 
@@ -501,6 +516,13 @@
     \label{fig:aprend-nao-sup}
     \end{figure}
 
+% % % % % % % % ENGENHARIA DE ATRIBUTOS % % % % % % % %
+
+\section{Engenharia de Atributos}
+\label{sec:eng-features}
+
+    \par Engenharia de Atributos.
+
 % % % % % % % % ALGORITMOS DE APRENDIZADO DE MÁQUINA SUPERVISIONADO % % % % % % % %
 
 \section{Algoritmos de aprendizado de máquina supervisionado}
@@ -581,21 +603,59 @@
 \subsection{Árvores de Decisão}
 \label{sec:arvores-decisao}
 
-    \par Árvores de Decisão.
+    \par Abstraindo o conceito computacional, uma árvore de decisão pode ser definida por um fluxograma, no qual cada nó, com exceção do último nível, representa um teste sobre as informações disponíveis. O ponto de partida é denominado nó raiz. A medida que os nós filhos vão sendo explorados, as informações são divididas com o objetivo de agrupá-las por similaridade. Ao percorrer toda a árvore, os últimos elementos, denominados nós folha, representam a decisão a ser tomada. Apesar de ser um conceito simples, a complexidade computacional desta técnica está no processo de indução da estrutura da árvore, que é feita de maneira automática e não-paramétrica, podendo lidar com dados multidimensionais. 
+    
+    \par Assim como outras técnicas dentro do escopo de aprendizagem supervisionada, árvores de decisão também são muito populares para a resolução de problemas de classificação de dados e regressão linear. Segundo \cite{book:han:11}, a popularização deste tipo de algoritmo na aprendizagem de máquina está diretamente ligada à sua característica não-paramétrica, que permite a indução de árvores sem a o total domínio ou configuração prévia dos dados, o que torna-se muito interessante no âmbito deste trabalho no que se refere à descoberta de maneira exploratória.
+    
+    \par Ainda conforme \cite{book:han:11}, para realizar a classificação de dados, cada registro percorre um determinado caminho dentro da estrutura da árvore, partindo do nó raiz até o nó folha, o qual determina a classe para aquela entrada de dados. Para exemplificar, foi criada a árvore de decisão fictícia apresentada na Figura \ref{fig:exemplo_arvore}, a qual considera 4 atributos de uma mensagem de texto para considerá-la como popular ou não. Na figura, os nós com o formato retangular representam os testes feitos cada registro de entrada, já os nós com o formato circular são os nós folha, que representam a classificação final para indicar se a mensagem seria considerada como popular ou não.
+    
+    % IMAGEM
+    \begin{figure}[!ht]
+    \caption{Exemplo de árvore para classificação de um tuíte como popular.}
+    \centering
+    \begin{tikzpicture}
+      [
+        edge from parent/.style = {draw, -latex},
+        every node/.style       = {font=\footnotesize},
+        sibling distance        = 8em,
+        level distance          = 5em,
+        level 1/.style = {sibling distance=15em},
+        level 2/.style = {sibling distance=8em},
+        sloped,
+      ]
+      \node [env] {Sentimento positivo?}
+        child { node [env] {Maior que 140 caracteres?}
+            child { node [dummy] {não} edge from parent node [above] {sim}}
+            child { node [env] {Possui \textit{hashtag}?}
+                child { node [dummy] {não} edge from parent node [above] {sim}}
+                child { node [dummy] {sim} edge from parent node [above] {não}}
+                edge from parent node [above] {não}
+            }
+            edge from parent node [above] {sim}
+        }
+        child { node [env] {Possui URL?}
+            child { node [dummy] {sim} edge from parent node [above] {sim}}
+            child { node [dummy] {não} edge from parent node [above] {não}}
+            edge from parent node [above] {não}
+        };
+    \end{tikzpicture}
+    \fonte{Produção do próprio Autor.}
+    \label{fig:exemplo_arvore}
+    \end{figure}
+    
+    \par Utilizando novamente como exemplo a frase ``\textit{With great power comes great responsibility}'', ao aplicá-la na árvore de decisão apresentada, ela seria classificada como popular, pois percorreria o seguinte caminho: Sentimento positivo; Menor que 140 caracteres; e não possui \textit{hashtag}. Uma diferença em relação a técnica \textit{Naive Bayes} que já é possível notar através deste exemplo, é que árvores de decisão são capazes de lidar com a correlação entre os atributos.
+    
+    \par Mesmo existindo vários vários algoritmos com diferentes propostas para realizar a indução de árvores de decisão, duas etapas estão presentes na grande maioria deles durante o construção da árvore, a seleção das medidas de atributos e a ``poda da árvore'' que, respectivamente, são responsáveis por definir quais a melhores partições dos dados; e por remover, ou reduzir, ruídos nas ramificações gerados durante o treinamento. Apesar de serem etapas comuns na implementação deste tipo de algoritmo, também são as etapas que os diferenciam uns dos outros dependendo da abordagem adotada para realiza-las.
+    
+    \par Um dos algoritmos que merece destaque por ser referência neste âmbito, é o CART (\textit{Classification and Regression Trees}), criado em 1984 por um grupo de estatísticos (L. Breiman, J. Friedman, R. Olshen, and C. Stone), ele realiza uma abordagem de construção recursiva de divisão e conquista partindo de cima para baixo, segundo \cite{book:han:11}. Outros algoritmos serão apresentados e descritos conforme forem utilizados e aplicados na Seção \ref{sec:experimentos}, correspondente aos experimentos.
+
 
 % % % % % % % % REDES NEURAIS % % % % % % % %
 
-\subsection{Redes Neurais} % Recorrentes
+\subsection{Redes Neurais Recorrentes} % Recorrentes
 \label{sec:redes-neurais}
 
     \par Redes Neurais.
-
-% % % % % % % % ENGENHARIA DE FEATURES % % % % % % % %
-
-\section{Engenharia de \textit{Features}}
-\label{sec:eng-features}
-
-    \par Engenharia de \textit{Features}.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
 % % % % % % % % % % % % TRABALHOS RELACIONADOS % % % % % % % % % % % % % % % 
@@ -660,6 +720,15 @@
     \par Explicar que os classificadores utilizados para realização do trabalho foram Naive Bayes, árvores de decisão (quais algoritmos) e redes neurais recorrentes, com \textit{word embeddings (word2vec)}.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+% % % % % % % % % % % % % % METODOLOGIA  % % % % % % % % % % % % % % % % % 
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+
+\chapter{Metodologia}
+\label{sec:metodologia}
+
+    % Descrever as etapas e colocar o cronograma
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
 % % % % % % % % % % % % % % EXPERIMENTOS  % % % % % % % % % % % % % % % % % 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
 
@@ -674,7 +743,8 @@
 \label{sec:extracao-tweets}
 
     \par Esta seção é responsável por descrever todos os processos envolvidos na coleta dos tuítes que formam a base de dados utilizada nos experimentos. Para realizar todo o processo foi adotada a arquitetura, exibida na Figura~\ref{fig:arquitetura}, contendo os seguintes módulos principais: (a) \textbf{Coleta} dos tuítes publicados por cada uma das contas acompanhadas; (b) \textbf{Extração} das características de cada tuíte; e (c) \textbf{Atualização} periódica dos dados coletados.
-
+    
+    % IMAGEM
     \begin{figure}[ht]
         \caption{Arquitetura adotada para extração de tuítes}
         \centering
@@ -684,9 +754,10 @@
         \label{fig:arquitetura}
     \end{figure}
     
-    \par A coleta dos tuítes foi realizada tendo como base contas de personalidades influentes que utilizam o Twitter periodicamente. Ao todo, foram consideradas 64 contas de diversas áreas de atuação, como por exemplo Donald J. Trump (atual presidente dos Estados Unidos), Jimmy Fallon (famoso apresentador de TV americano) e Katy Perry (cantora detentora da conta com o maior número de seguidores no Twitter). 
+    \par A coleta dos tuítes foi realizada tendo como base contas de personalidades influentes que utilizam o Twitter periodicamente. Ao todo, foram consideradas 40 contas de diversas áreas de atuação, como por exemplo Donald J. Trump (atual presidente dos Estados Unidos), Jimmy Fallon (famoso apresentador de TV americano) e Katy Perry (cantora detentora da conta com o maior número de seguidores no Twitter). 
     
-    \par A escolha deve-se ao fato de que a análise do impacto de publicações em redes sociais é mais relevante para esse tipo de usuário, uma vez o cálculo da taxa de engajamento para contas com poucos seguidores resultaria sempre em um valor próximo a zero. A coleta dos tuítes foi realizada durante o período entre Novembro de 2017 e Setembro de 2018, totalizando cerca de 9500 registros.
+    \par A escolha deve-se ao fato de que a análise do impacto de publicações em redes sociais é mais relevante para esse tipo de usuário, uma vez o cálculo da taxa de engajamento para contas com poucos seguidores resultaria sempre em um valor próximo a zero. O que também é reforçado por \cite{ieee:suh:10}, quanto maior a audiência, maiores são as chances de um tuíte ser retuitado. A coleta dos tuítes foi realizada durante o ano de 2018, totalizando cerca de 9500 registros distribuídos entre as contas de interesse que foram escritos na língua inglesa.
+    % período entre Novembro de 2017 e Setembro de 2018
 
 % % % % % % % % COLETA DE TUÍTES % % % % % % % %
 \subsection{Coleta de tuítes}
