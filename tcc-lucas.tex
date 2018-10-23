@@ -205,8 +205,9 @@
 \siglamax{CART} %%%% coloque aqui a maior sigla (indentação)
 \listadeabreviaturasesiglas{
 \item[API]  \textit{Application Programming Interface}
-\item[IA]   Inteligência Artificial
 \item[CART] \textit{Classification and Regression Trees}
+\item[IA]   Inteligência Artificial
+\item[RNN]  \textit{Recurrent Neural Network}
 }
 
 % % % %  LISTA DE SÍMBOLOS
@@ -655,7 +656,14 @@
 \subsection{Redes Neurais Recorrentes} % Recorrentes
 \label{sec:redes-neurais}
 
-    \par Redes Neurais.
+    \par O conceito de redes neurais surgiu com o objetivo de simular o funcionamento dos neurônios do cérebro humano, capazes de realizar associações complexas em frações de segundos. Apesar de ser um tópico em alta no momento, pesquisas envolvendo redes neurais artificiais não são tão recentes assim. Como apresentado em \cite{book:russell:10}, estudos na área de IA propondo modelos matemáticos de neurônios vem sendo realizados desde a década de 1940. De lá pra cá, segundo \citeonline{site:deep-learning}, os trabalhos neste âmbito evoluíram bastante e nos últimos anos se popularizou o uso de redes neurais de aprendizagem profunda (ou \textit{Deep Learning}), que vem sendo fundamental na implementação de sistemas inteligentes modernos, capazes de reconhecer rostos e vozes de diferentes pessoas.
+    
+    \par Conforme apresentado em \cite{book:russell:10}, a estrutura de uma rede neural é formada por nós matemáticos, representando neurônios, e ligações direcionadas, representando as conexões entre cada neurônio. Cada nó da rede aplica sobre sua entrada uma determinada função de ativação para gerar o valor de saída. As ligações tem o objetivo de propagar a ativação de um neurônio para o outro, sendo que cada ligação possui um determinado peso definindo força e sinal da conexão.
+    
+    \par As funções de ativação e maneira como a ligação entre os neurônios é feita pode variar, porém, existem duas formas para a realização destas conexões que configuram tipos de redes distintas: redes neurais com alimentação para frente (ou \textit{feed-forward}), em que suas conexões são realizadas em uma única direção, sem a presença de laços; e as Redes Neurais Recorrentes, comumente chamadas pela sigla RNN (do inglês \textit{Recurrent Neural Network}), as quais possuem laços que alimentam as entradas com suas próprias saídas, o que torna sua compreensão complexa, já que ``a resposta da rede para determinada entrada depende do seu estado inicial, que pode depender de entradas anteriores'' \cite{book:russell:10}.
+    
+    
+    
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
 % % % % % % % % % % % % TRABALHOS RELACIONADOS % % % % % % % % % % % % % % % 
