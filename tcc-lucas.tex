@@ -71,6 +71,8 @@
   dummy/.style    = {circle,draw}
 }
 
+\usepackage{xcolor,colortbl}
+
 % % % % % %  DEFINIÇÕES PESSOAIS  
 
 
@@ -207,6 +209,7 @@
 \item[API]  \textit{Application Programming Interface}
 \item[CART] \textit{Classification and Regression Trees}
 \item[IA]   Inteligência Artificial
+\item[LSTM] \textit{Long Short-Term Memory}
 \item[RNN]  \textit{Recurrent Neural Network}
 }
 
@@ -310,12 +313,12 @@
     \par Tendo em vista o interesse dos usuários em aumentar o alcance de suas postagens, poder identificar os fatores que têm maior influência sobre a popularidade de suas mensagens pode ser uma grande vantagem ao tentar aumentar o engajamento por parte de seus seguidores. Ser capaz de prever/estimar a popularidade que um tuíte poderá obter, baseando-se nas características presentes no corpo de sua mensagem, permite a realização de diferentes análises a cerca o conteúdo disseminado por aquela conta, o que pode trazer muitos benefícios aos usuários com relativa influência nessa rede social.
 
     \par Como afirma \cite{ieee:suh:10}, a propagação de um tuíte está diretamente ligada ao conteúdo e valor informativo contido nele. Nesse sentido, os autores avaliaram um conjunto de características extraídas das mensagens. Os resultados mostraram que a utilização de \textit{hashtags} e URLs são fatores muito significativos e que ajudam a impulsionar uma publicação. Apesar de ser um resultado relevante, o trabalho não realizou uma análise exaustiva das características que podem ser extraídas das mensagens.
+    
+    \par É conhecido que hoje existem inúmeras pesquisas sendo realizadas envolvendo dados coletados do Twitter. Alguns trabalhos relacionados que podem ser citados aqui, como \cite{ieee:suh:10}, \cite{acm:duan:2010}, \cite{benevenuto:2010}, \cite{acm:naveed:2011}, \cite{kharde:2016}, \cite{acm:hong:2011} e \cite{ieee:xu:2012}, tem como parte de seus objetivos, a identificação de fatores impactantes no conteúdo das mensagens propagadas no Twitter, além disso, utilizam também técnicas de aprendizado de máquina como forma de realizar suas pesquisas.
+    
+    \par ? Definir ou agrupar por características, cada um dos trabalhos. Apresentar que o que pretende-se nesse trabalho, diferentemente dos demais, é que utilizamos contas influentes e tentamos predizer uma taxa de engajamento para cada conta. Definir um cenário para cada conta que o alcance pode ser previsto até uma determinada taxa. ?
 
-    \par Dentro deste contexto, o objetivo deste trabalho é monitorar e extrair tuítes de determinadas contas do Twitter, a fim de elaborar um modelo, utilizando algoritmos de aprendizado de máquina, para realizar a predição e classificação da popularidade de tuítes com base em suas características. Devido ao grande volume de dados, faz-se necessário automatizar o processo de análise e classificação dos dados, para isso, serão estudados e testados algoritmos já consolidados, como Naive Bayes, J48 e LTM, contando inclusive com o auxílio de ferramentas já reconhecidas como Weka, para a aplicação e análise dos resultados destes algoritmos. Como entrada para estes algoritmos, serão utilizados dados provenientes do pré-processamento dos tuítes coletados, sendo consideradas três características que não foram contempladas pelo estudo de \cite{ieee:suh:10}: o tamanho em caracteres, o sentimento (que mede a emoção transmitida) e a banalidade (que mede a relevância da mensagem). Para fins de comparação, a presença de \textit{hashtags} e URLs também foi avaliada.
-    
-    %\par É conhecido que hoje existem inúmeras pesquisas sendo realizadas envolvendo dados coletados do Twitter. Alguns trabalhos relacionados que devem ser citados aqui, como tal, tal e tal, que tem como parte de seus objetivos, a identificação de fatores impactantes no conteúdo das mensagens. Em tal, o estudo envolveu tais tópicos. No trabalho de tal, o foco foi tal tecnologia...
-    
-    % Separar por características dos trabalhos. O que pretende-se nesse trabalho, diferentemente dos demais, é que utilizamos contas influentes e tentamos predizer uma taxa de engajamento para cada conta. Definir um cenário para cada conta que o alcance pode ser previsto até uma determinada taxa.
+    \par Dentro deste contexto, o objetivo deste trabalho é monitorar e extrair tuítes de determinadas contas do Twitter, a fim de elaborar um modelo, utilizando algoritmos de aprendizado de máquina, para realizar a predição e classificação da popularidade de tuítes com base em suas características. Devido ao grande volume de dados, faz-se necessário automatizar o processo de análise e classificação dos dados, para isso, serão estudados e testados algoritmos já consolidados, como Naive Bayes, árvores de decisão e redes neurais recorrentes, contando inclusive com o auxílio de ferramentas já reconhecidas como Weka, para a aplicação e análise dos resultados destes algoritmos. Como entrada para estes algoritmos, serão utilizados dados provenientes do pré-processamento dos tuítes coletados, sendo consideradas três características que não foram contempladas pelo estudo de \cite{ieee:suh:10}: o tamanho em caracteres, o sentimento (que mede a emoção transmitida) e a banalidade (que mede a relevância da mensagem). Para fins de comparação, a presença de \textit{hashtags} e URLs também foi avaliada.
 
     \par Este trabalho está estruturado nas seguintes seções. O capítulo \ref{sec:fund-teorica} apresenta a fundamentação teórica, abordando conceitos e algoritmos de aprendizado de máquina. O capítulo \ref{sec:proposta} apresenta a definição dos atributo e a arquitetura de extração de tuítes usada, que realiza desde a coleta até a preparação dos dados para análise. O capítulo \ref{sec:experimentos} apresenta as análises realizadas a partir dos dados coletados juntamente com os algoritmos de aprendizado de máquina estudados. O capítulo \ref{sec:conclusao} apresenta as considerações finais a cerca do trabalho realizado.
 
@@ -653,17 +656,32 @@
 
 % % % % % % % % REDES NEURAIS % % % % % % % %
 
-\subsection{Redes Neurais Recorrentes} % Recorrentes
+\subsection{Redes Neurais e Aprendizagem Profunda} % Recorrentes
 \label{sec:redes-neurais}
 
-    \par O conceito de redes neurais surgiu com o objetivo de simular o funcionamento dos neurônios do cérebro humano, capazes de realizar associações complexas em frações de segundos. Apesar de ser um tópico em alta no momento, pesquisas envolvendo redes neurais artificiais não são tão recentes assim. Como apresentado em \cite{book:russell:10}, estudos na área de IA propondo modelos matemáticos de neurônios vem sendo realizados desde a década de 1940. De lá pra cá, segundo \citeonline{site:deep-learning}, os trabalhos neste âmbito evoluíram bastante e nos últimos anos se popularizou o uso de redes neurais de aprendizagem profunda (ou \textit{Deep Learning}), que vem sendo fundamental na implementação de sistemas inteligentes modernos, capazes de reconhecer rostos e vozes de diferentes pessoas.
+    \par O conceito de redes neurais surgiu com o objetivo de simular o funcionamento dos neurônios do cérebro humano, capazes de realizar associações complexas em frações de segundos. Este tipo de rede funciona a partir da conexão entre nós na forma de um grafo dividido entre a camadas, que são divididas entre três tipos: camada de entrada; camada de saída; e camadas ocultas, que são todas as demais presentes entre a de entrada e de saída. 
     
-    \par Conforme apresentado em \cite{book:russell:10}, a estrutura de uma rede neural é formada por nós matemáticos, representando neurônios, e ligações direcionadas, representando as conexões entre cada neurônio. Cada nó da rede aplica sobre sua entrada uma determinada função de ativação para gerar o valor de saída. As ligações tem o objetivo de propagar a ativação de um neurônio para o outro, sendo que cada ligação possui um determinado peso definindo força e sinal da conexão.
+    \par Apesar de ser um tópico em alta no momento, pesquisas envolvendo redes neurais artificiais não são tão recentes assim. Como apresentado em \cite{book:russell:10}, estudos na área de IA propondo modelos matemáticos de neurônios vem sendo realizados desde a década de 1940. De lá pra cá, segundo \citeonline{site:deep-learning}, os trabalhos neste âmbito evoluíram bastante e nos últimos anos se popularizou o uso de redes neurais de aprendizagem profunda (ou \textit{Deep Learning}), que vem sendo fundamental na implementação de sistemas inteligentes modernos, capazes de reconhecer rostos e vozes de diferentes pessoas.
     
-    \par As funções de ativação e maneira como a ligação entre os neurônios é feita pode variar, porém, existem duas formas para a realização destas conexões que configuram tipos de redes distintas: redes neurais com alimentação para frente (ou \textit{feed-forward}), em que suas conexões são realizadas em uma única direção, sem a presença de laços; e as Redes Neurais Recorrentes, comumente chamadas pela sigla RNN (do inglês \textit{Recurrent Neural Network}), as quais possuem laços que alimentam as entradas com suas próprias saídas, o que torna sua compreensão complexa, já que ``a resposta da rede para determinada entrada depende do seu estado inicial, que pode depender de entradas anteriores'' \cite{book:russell:10}.
+    \par Conforme apresentado em \cite{book:russell:10}, a estrutura de uma rede neural é formada por nós matemáticos, representando neurônios, e ligações direcionadas, representando as conexões entre cada neurônio. Cada nó da rede aplica sobre sua entrada uma determinada função de ativação para gerar o valor de saída. As ligações tem o objetivo de propagar a ativação de um neurônio para o outro, sendo que cada ligação possui um determinado peso definindo força e sinal da conexão. 
     
+    \par Existem diferentes funções de ativação e maneiras como a ligação entre os neurônios pode ser realizada, porém, existem duas formas para a realização destas conexões que configuram tipos de redes distintas: redes neurais com alimentação para frente (ou \textit{feed-forward}), em que suas conexões são realizadas em uma única direção, sem a presença de laços; e as Redes Neurais Recorrentes, comumente chamadas pela sigla RNN (do inglês \textit{Recurrent Neural Network}), as quais possuem laços que alimentam as entradas com suas próprias saídas, permitindo que esse tipo de rede possa armazenar memórias de curto prazo. Atualmente, a maioria dos modelos de redes profundas (\textit{deep-learning}) são totalmente baseados na estrutura de RNNs.
     
+    \par Diferentemente dos primeiros modelos de redes neurais lançados, como Perceptron, os algoritmos de aprendizagem profunda modernos podem ser caracterizados por, além de recorrente, possuir várias camadas ocultas de neurônios, sendo que cada camada pode possuir diferentes tipos de função de ativação. A Figura \ref{fig:deep-learning} apresenta de forma visual a diferença na estrutura de camadas entre estes tipos de redes neurais.
     
+    % IMAGEM
+    \begin{figure}[ht]
+        \caption{Rede Neural Simples e Rede Neural Profunda (\textit{Deep Learning})}
+        \centering
+        \includegraphics[width=1\textwidth]{figuras/deep-learning.png}
+        \vspace{\baselineskip} %%% linha em branco para atender a norma
+        \fonte{\citeonline{site:deep-learning}}
+        \label{fig:deep-learning}
+    \end{figure}
+    
+    \par Existem vários modelos de arquiteturas de redes neurais propostos, dentre eles, vale a pena citar: Redes Multicamadas Perceptrons; Redes de Hopfield; Redes Neurais Convolucionais; e \textit{Long Short-Term Memory} (LSTM) (pode ser traduzido como Memória de Longo Prazo). No contexto deste trabalho, durante a seção \ref{sec:experimentos}, correspondente aos experimentos, será dado destaque à arquitetura de redes convolucionais e LSTM, por se destacarem e ser muito utilizada no processamento de linguagem natural.
+
+    % \par No contexto deste trabalho, a aplicação de RNNs torna-se interessante aliada ao conceito de \textit{word-embeddings} ou \textit{one-hot vectors}. 
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
 % % % % % % % % % % % % TRABALHOS RELACIONADOS % % % % % % % % % % % % % % % 
@@ -725,7 +743,9 @@
 \section{Classificadores}
 \label{sec:classificadores}
 
-    \par Explicar que os classificadores utilizados para realização do trabalho foram Naive Bayes, árvores de decisão (quais algoritmos) e redes neurais recorrentes, com \textit{word embeddings (word2vec)}.
+    \par Para a realização da predição da popularidade de cada tuíte tendo como base a taxa de engajamento e considerando os atributos já mencionados, serão utilizados os seguintes algoritmos de aprendizado de máquina: Naive Bayes; Árvores de decisão; e Redes Neurais Recorrentes, Convolucionais e LSTM. Os experimentos realizados com cada um destes algoritmos poderão ser realizados através da implementação de código na linguagem Python, devido a sua popularidade para lidar com aprendizado de máquina e manipulação de dados, ou com o auxilio da ferramenta Weka, que já oferece uma coleção de algoritmos capazes de realizar a classificação de dados.
+    
+    \par Os algoritmos de classificação foram escolhidos com base em sua popularidade e destaque para solucionar o problema de classificação. Todos eles inclusive, são frequentemente analisados por pesquisado em artigos que utilizam o aprendizado de máquina como foco.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
 % % % % % % % % % % % % % % METODOLOGIA  % % % % % % % % % % % % % % % % % 
@@ -734,7 +754,38 @@
 \chapter{Metodologia}
 \label{sec:metodologia}
 
-    % Descrever as etapas e colocar o cronograma
+    \par Para alcançar os objetivos elencados, uma série de etapas foi elaborada para a realização deste projeto. A fim de proporcionar maior compreensão, a descrição de cada etapa vem logo a seguir.
+    
+    \par \textbf{Análise de trabalhos similares:} Nesta etapa será realizada pesquisa sobre trabalhos similares que podem vir a auxiliar e contribuir com a proposta do trabalho.
+    
+    \par \textbf{Definição dos atributos:} Esta etapa é designada para analisar e definir quais serão os atributos de interesse que devem ser extraídos de cada tuíte, considerando a relevância que cada um deles pode inferir sobre a popularidade daquele tuíte.
+    
+    \par \textbf{Extração e pré-processamento dos dados:} Dispondo dos atributos de interesse, os tuítes devem ser coletados e seus conteúdos pré-processados. Para isso, será realizado um estudo acerca dos melhores métodos e ferramentas que permitem a extração de dados do Twitter.
+    
+    \par \textbf{Estudo de algoritmos de aprendizado de máquina:} Estando em posse dos dados já processados, será realizado um estudo acerca dos algoritmos de aprendizado de máquina para classificação de dados e quais são as melhores opções considerando os dados de entrada e os atributos de interesse.
+    
+    \par \textbf{Experimentos com os algoritmos selecionados:} Esta etapa corresponde a implementação e realização de testes com os algoritmos estudados na etapa anterior. O experimentos serão realizados com o objetivo de classificar a popularidade dos tuítes com base nos atributos extraídos.
+    
+    \par \textbf{Análise dos resultados obtidos:} Esta etapa do trabalho destina-se a realização de uma análise sobre os algoritmos testados e os resultados obtidos para a realizar a predição da popularidade dos tuítes.
+    
+    A Tabela \ref{tab:cronograma} a seguir resume o cronograma de atividades baseado no itens apresentados. Dividido entre meses, o cronograma tem início a partir do mês de Agosto. As atividades já realizadas até o momento compreendem os itens marcados com bola ($\bullet$) e fundo em cinza, enquanto que os marcadores em xis ($\times$) representam as atividades que ainda devem ser realizadas.
+    
+    \begin{table}[ht]
+    \centering
+    \caption{Cronograma do projeto}
+    \label{tab:cronograma}
+    \begin{tabular}{|l|c|c|c|c|c|}
+    \hline
+    \textbf{Atividade} & \textbf{Ago} & \textbf{Set} & \textbf{Out} & \textbf{Nov} & \textbf{Dez} \\ \hline
+    Análise de trabalhos similares & \cellcolor[HTML]{E2E2E2}$\bullet$ &  &  &  &  \\ \hline
+    Definição dos Atributos & \cellcolor[HTML]{E2E2E2}$\bullet$ & \cellcolor[HTML]{E2E2E2}$\bullet$ &  &  &  \\ \hline
+    Extração e pré-processamento dos dados &  & \cellcolor[HTML]{E2E2E2}$\bullet$ & \cellcolor[HTML]{E2E2E2}$\bullet$ &  &  \\ \hline
+    Estudo de algoritmos de aprendizado de máquina &  &  & \cellcolor[HTML]{E2E2E2}$\bullet$ & $\times$ &  \\ \hline
+    Experimentos com os algoritmos selecionados &  &  & \cellcolor[HTML]{E2E2E2}$\bullet$ & $\times$ & $\times$ \\ \hline
+    Análise dos resultados obtidos &  &  &  & $\times$ & $\times$ \\ \hline
+    \end{tabular}
+    \end{table}
+    
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
 % % % % % % % % % % % % % % EXPERIMENTOS  % % % % % % % % % % % % % % % % % 
