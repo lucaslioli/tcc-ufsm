@@ -56,11 +56,14 @@
 % Pacotes utilizados para gerar os gráficos.
 \usepackage{comment}
 \usepackage{subfigure}
+\usepackage{xcolor,colortbl}
 \usepackage{tikz,pgfplots}
 \usepackage{forest}
 \usetikzlibrary{patterns}
+
 % Configuração da área máxima que pode ser utilizada por imagem de gráfico.
 \pgfplotsset{width=8cm,height=8cm,compat=1.8}
+
 % Configuração para a exibição das árvores de decisão
 \tikzset{
   treenode/.style = {shape=rectangle, rounded corners,
@@ -71,15 +74,13 @@
   dummy/.style    = {circle, draw, top color=white, bottom color=gray!10}
 }
 
-\usepackage{xcolor,colortbl}
-
 \definecolor{myred}{RGB}{215,21,21}
 \definecolor{myblue}{RGB}{0,130,230}
 
 % % % % % %  DEFINIÇÕES PESSOAIS  
 
 
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
@@ -155,7 +156,7 @@
 %     \concordagenerico{o}
 %     \graugenerico{Engenheiro Eletricista}
 % % % DATA DA DEFESA 
-\data{29}{11}{2018} %% FORMATO {DD}{MM}{AAAA}
+\data{01}{11}{2018} %% FORMATO {DD}{MM}{AAAA}
 
 
 
@@ -167,24 +168,24 @@
 
 % % % DEDICATÓRIA
 \dedicatoria{
-Dedico este trabalho à minha mãe, Siminea Lima, mulher guerreira e batalhadora que me ensinou a sempre correr atrás dos sonhos e superar os obstáculos. Cada ensinamento passado me permitiu trilhar esse caminho.
+    Dedico este trabalho à minha mãe, Siminea Lima, mulher guerreira e batalhadora que me ensinou a sempre correr atrás dos sonhos e superar os obstáculos. Cada ensinamento passado me permitiu trilhar esse caminho.
 }
 
 % % % %  AGRADECIMENTOS
 \agradecimentos{
-Agradeço primeiramente a minha mãe, Siminea Lima e namorada, Amanda Rodrigues, por todo apoio e suporte prestado durante toda a jornada da graduação. Sem vocês ao meu lado, nada disse seria possível.
-
-Agradeço também meu orientador, professor Sérgio Mergen, que além de ter participado da realização deste trabalho, também me deu suporte durante a graduação na realização de outras pesquisas. Agradeço imensamente por ter me acolhido nessa jornada, por todos os conselhos, amizade e por ter acreditado na minha capacidade.
-
-Agradeço minha família e entes queridos, que sempre estiveram presentes e me apoiaram a cada passo dado. O apoio de todas essas pessoas foi fundamental nesta caminhada.
-
-A todos os demais professores do Curso de Sistemas de Informação que sempre mostram dedicação e comprometimento em transmitir seus conhecimentos. Cada ensinamento será levado para toda a vida.
-
-À Universidade Federal de Santa Maria, ao Centro de Tecnologia e à Coordenação do Curso de Sistemas de Informação por fornecer toda a estrutura necessária e proporcionar uma educação de qualidade.
-
-Ao Programa de Educação Tutorial do curso de Sistemas de Informação e todos colegas que fizeram parte do grupo junto comigo. Todas as atividades realizadas pelo grupo me permitiram evoluir como profissional e como ser humano. Ter participado deste grupo foi uma honra e me proporcionou muitas oportunidades de aprendizado.
-
-Agradeço também todos os colegas e amigos feitos durante essa trajetória que permitiram trocas de conhecimentos e experiências inesquecíveis. Espero poder levar essas amizades por toda a vida.
+    Agradeço primeiramente a minha mãe, Siminea Lima e namorada, Amanda Rodrigues, por todo apoio e suporte prestado durante toda a jornada da graduação. Sem vocês ao meu lado, nada disse seria possível.
+    
+    Agradeço também meu orientador, professor Sérgio Mergen, que além de ter participado da realização deste trabalho, também me deu suporte durante a graduação na realização de outras pesquisas. Agradeço imensamente por ter me acolhido nessa jornada, por todos os conselhos, amizade e por ter acreditado na minha capacidade.
+    
+    Agradeço minha família e entes queridos, que sempre estiveram presentes e me apoiaram a cada passo dado. O apoio de todas essas pessoas foi fundamental nesta caminhada.
+    
+    A todos os demais professores do Curso de Sistemas de Informação que sempre mostram dedicação e comprometimento em transmitir seus conhecimentos. Cada ensinamento será levado para toda a vida.
+    
+    À Universidade Federal de Santa Maria, ao Centro de Tecnologia e à Coordenação do Curso de Sistemas de Informação por fornecer toda a estrutura necessária e proporcionar uma educação de qualidade.
+    
+    Ao Programa de Educação Tutorial do curso de Sistemas de Informação e todos colegas que fizeram parte do grupo junto comigo. Todas as atividades realizadas pelo grupo me permitiram evoluir como profissional e como ser humano. Ter participado deste grupo foi uma honra e me proporcionou muitas oportunidades de aprendizado.
+    
+    Agradeço também todos os colegas e amigos feitos durante essa trajetória que permitiram trocas de conhecimentos e experiências inesquecíveis. Espero poder levar essas amizades por toda a vida.
 }
 
 % % % % %  RESUMO E PALAVRAS CHAVE DO RESUMO - OBRIGATÓRIO PARA MDT-UFSM
@@ -338,15 +339,13 @@ Agradeço também todos os colegas e amigos feitos durante essa trajetória que 
 
     \par Como afirma \cite{ieee:suh:10}, a propagação de um tuíte está diretamente ligada ao conteúdo e valor informativo contido nele. Nesse sentido, os autores avaliaram um conjunto de características extraídas das mensagens. Os resultados mostraram que a utilização de \textit{hashtags} e URLs são fatores muito significativos e que ajudam a impulsionar uma publicação. Apesar de ser um resultado muito relevante, o trabalho não realizou uma análise exaustiva das características que podem ser extraídas do corpo das mensagens de cada tuíte.
     
-    \par É conhecido que hoje existem inúmeras pesquisas sendo realizadas envolvendo dados coletados do Twitter. Além de \cite{ieee:suh:10}, outros trabalhos relacionados que podem ser citados aqui, como \cite{acm:duan:2010}, \cite{benevenuto:2010}, \cite{acm:naveed:2011}, \cite{kharde:2016}, \cite{acm:hong:2011} e \cite{ieee:xu:2012}, tem como parte de seus objetivos, a identificação de fatores impactantes no conteúdo das mensagens propagadas no Twitter, além disso, utilizam também técnicas de aprendizado de máquina como forma de realizar suas pesquisas.
+    \par É conhecido que hoje existem inúmeras pesquisas sendo realizadas envolvendo dados coletados do Twitter. Além de \cite{ieee:suh:10}, outros trabalhos relacionados que podem ser citados aqui, como \cite{acm:duan:2010}, \cite{benevenuto:2010}, \cite{acm:naveed:2011}, \cite{kharde:2016}, \cite{acm:hong:2011} e \cite{ieee:xu:2012}, tem como parte de seus objetivos, a análise e identificação de fatores impactantes no conteúdo das mensagens propagadas no Twitter, além disso, utilizam também técnicas de aprendizado de máquina na realização de suas pesquisas.
     
-    \par Dentre os trabalhos citados logo acima, \cite{acm:duan:2010}, \cite{benevenuto:2010}, \cite{kharde:2016} e \cite{ieee:xu:2012} utilizam técnicas de Máquina de Vetores de Suporte (SVM, do inglês: Support Vector Machine) na realização de seus experimentos. O trabalho \cite{benevenuto:2010} também utilizou métodos da ferramenta Weka para identificar a importância e selecionar os atributos. O trabalho de \cite{kharde:2016} também utilizou o algoritmo Naive Bayes em sua pesquisa, além de outras técnicas também apresentadas. O trabalho de \cite{ieee:xu:2012} também utilizou árvores de decisão para realizar a classificação dos dados.
+    \par Dentre as principais técnicas utilizadas nestes trabalhos, estão: Máquina de Vetores de Suporte (SVM, do inglês: \textit{Support Vector Machine}); árvores de decisão, que em alguns dos casos são utilizadas para identificar a importância e selecionar os atributos; Naive Bayes; e Regressão logística. No caso dos atributos utilizados nestas pesquisas, foram considerados como fatores de relevância: utilização de URLs e \textit{hashtags}; o alcance do autor do tuíte (podendo ser medido por seus seguidores ou métricas mais complexas); sentimento da mensagem; além dos fatores de popularidade relacionados a cada tuíte, como as curtidas e os retuítes.
     
-    \par Tratando-se da proposta dos trabalhos, \cite{ieee:suh:10}, \cite{acm:naveed:2011} e \cite{acm:hong:2011} realizam análises sobre fatores que influenciam na popularidade de um tuíte. Além disso, os trabalhos \cite{ieee:suh:10}, \cite{acm:duan:2010} e \cite{benevenuto:2010} identificaram a utilização de URLs, e o alcance do autor do tuíte (podendo ser medido por seus seguidores ou métricas mais complexas) como fatores de grande relevância durante seus experimentos.
-    
-    % Apresentar que o que pretende-se nesse trabalho, diferentemente dos demais, é que utilizamos contas influentes e tentamos predizer uma taxa de engajamento para cada conta. Definir um cenário para cada conta que o alcance pode ser previsto até uma determinada taxa. ?
+    \par Ainda que cada um destes trabalhos apresentem contribuições muito significativas no contexto da descoberta de conhecimento através de dados coletados do Twitter com aprendizagem de máquina, as análises e experimentos são realizados de maneira genérica, sendo aplicadas as mesmas regras para todos os tipos de usuários. Além disso, as análises sobre os modelos não medem a qualidade das previsões com base em fatores variáveis de engajamento.
 
-    \par Dentro de todo contexto apresentado, o objetivo deste trabalho é monitorar e extrair tuítes de determinadas contas do Twitter, a fim de elaborar modelos, utilizando algoritmos de aprendizado de máquina, para realizar a predição e classificação da popularidade de tuítes com base em suas características. Serão estudados e testados algoritmos já consolidados, como Naive Bayes e árvores de decisão. Como entrada para estes algoritmos, serão utilizados dados provenientes do pré-processamento dos tuítes coletados, sendo consideradas três características que não foram contempladas pelo estudo de \cite{ieee:suh:10}: o tamanho em caracteres, o sentimento (que mede a emoção transmitida) e a banalidade (que mede a relevância da mensagem). Para fins de comparação, a presença de \textit{hashtags} e URLs também foi avaliada.
+    \par Dentro deste contexto, o objetivo deste trabalho é monitorar e extrair tuítes de determinadas contas do Twitter que possuam certo grau de influência, a fim de elaborar modelos, utilizando algoritmos de aprendizado de máquina, para realizar a predição e classificação da popularidade de tuítes com base em suas características e considerando uma taxa de engajamento variável. Serão estudados e testados algoritmos já consolidados, como Naive Bayes e árvores de decisão. Como entrada para estes algoritmos, serão utilizados dados provenientes do pré-processamento dos tuítes coletados, sendo consideradas as seguintes características: o tamanho em caracteres; o sentimento (que mede a emoção transmitida); a banalidade (que mede a relevância da mensagem); além a presença de \textit{hashtags} e URLs, que também foram utilizados nos trabalhos relacionados.
     
     \par A escolha dos algoritmos de classificação foi feita com base em sua popularidade e destaque para solucionar o problema de classificação de dados. Além disso, são frequentemente analisados e aplicados por pesquisadores em artigos que utilizam o aprendizado de máquina como foco.
 
