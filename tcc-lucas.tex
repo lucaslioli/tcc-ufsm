@@ -68,10 +68,13 @@
                      top color=white, bottom color=blue!20},
   root/.style     = {treenode, font=\Large, bottom color=red!30},
   env/.style      = {treenode, top color=white, bottom color=gray!20},
-  dummy/.style    = {circle,draw}
+  dummy/.style    = {circle, draw, top color=white, bottom color=gray!10}
 }
 
 \usepackage{xcolor,colortbl}
+
+\definecolor{myred}{RGB}{215,21,21}
+\definecolor{myblue}{RGB}{0,130,230}
 
 % % % % % %  DEFINIÇÕES PESSOAIS  
 
@@ -152,22 +155,41 @@
 %     \concordagenerico{o}
 %     \graugenerico{Engenheiro Eletricista}
 % % % DATA DA DEFESA 
-\data{25}{12}{2018} %% FORMATO {DD}{MM}{AAAA}
+\data{29}{11}{2018} %% FORMATO {DD}{MM}{AAAA}
 
 
 
 % % % % %  ALGUMAS ENTRADAS PRE-TEXTUAIS
 % % % % CASO NÃO QUEIRA UTILIZA-LAS COMENTE A LINHA DE COMANDO
+
 % % % EPIGRAFE
-\epigrafe{O livro é uma criatura frágil, ele sofre o desgaste do tempo, ele teme os roedores, os elementos e mãos desajeitadas. Então o livreiro proteje os livros não apenas da humanidade, mas também da natureza e devota sua vida a uma guerra contra as forças do esquecimento.}{Umberto Eco} %ESTRUTURA DE CAMPOS -> {Texto}{Autor}
+\epigrafe{Que todos os nossos esforços estejam sempre focados no desafio à impossibilidade. Todas as grandes conquistas humanas vieram daquilo que parecia impossível.}{Charles Chaplin} %ESTRUTURA DE CAMPOS -> {Texto}{Autor}
+
 % % % DEDICATÓRIA
-\dedicatoria{À família!}
+\dedicatoria{
+Dedico este trabalho à minha mãe, Siminea Lima, mulher guerreira e batalhadora que me ensinou a sempre correr atrás dos sonhos e superar os obstáculos. Cada ensinamento passado me permitiu trilhar esse caminho.
+}
+
 % % % %  AGRADECIMENTOS
-\agradecimentos{Aos professores e colegas que, sem eles, nada disso seria possível!}
+\agradecimentos{
+Agradeço primeiramente a minha mãe, Siminea Lima e namorada, Amanda Rodrigues, por todo apoio e suporte prestado durante toda a jornada da graduação. Sem vocês ao meu lado, nada disse seria possível.
+
+Agradeço também meu orientador, professor Sérgio Mergen, que além de ter participado da realização deste trabalho, também me deu suporte durante a graduação na realização de outras pesquisas. Agradeço imensamente por ter me acolhido nessa jornada, por todos os conselhos, amizade e por ter acreditado na minha capacidade.
+
+Agradeço minha família e entes queridos, que sempre estiveram presentes e me apoiaram a cada passo dado. O apoio de todas essas pessoas foi fundamental nesta caminhada.
+
+A todos os demais professores do Curso de Sistemas de Informação que sempre mostram dedicação e comprometimento em transmitir seus conhecimentos. Cada ensinamento será levado para toda a vida.
+
+À Universidade Federal de Santa Maria, ao Centro de Tecnologia e à Coordenação do Curso de Sistemas de Informação por fornecer toda a estrutura necessária e proporcionar uma educação de qualidade.
+
+Ao Programa de Educação Tutorial do curso de Sistemas de Informação e todos colegas que fizeram parte do grupo junto comigo. Todas as atividades realizadas pelo grupo me permitiram evoluir como profissional e como ser humano. Ter participado deste grupo foi uma honra e me proporcionou muitas oportunidades de aprendizado.
+
+Agradeço também todos os colegas e amigos feitos durante essa trajetória que permitiram trocas de conhecimentos e experiências inesquecíveis. Espero poder levar essas amizades por toda a vida.
+}
 
 % % % % %  RESUMO E PALAVRAS CHAVE DO RESUMO - OBRIGATÓRIO PARA MDT-UFSM
 \resumo{
-    Resumo aqui.
+    É conhecida a popularidade do Twitter e o poder que um único tuíte pode ter nos dias de hoje, servindo, inclusive, como fonte para portais de notícias renomados. A simplicidade e o volume de dados trafegados pela plataforma diariamente, fazem dela uma fonte de dados poderosa. Focando na análise das mensagens veiculadas e no interesse dos usuários em aumentar o número de seguidores, o objetivo deste trabalho é a elaboração de um modelo, utilizando algoritmos de aprendizado de máquina, para realizar a predição e classificação da popularidade de tuítes com base em atributos extraídos do corpo das mensagens. Para alcançar esse objetivo, a metodologia adotada envolve a definição dos atributos de interesse, extração e processamento dos dados, além do estudo e aplicação de algoritmos de aprendizado de máquina para realizar a classificação dos tuítes.
 }
 \palavrachave{Palavra Chave 1. Palavra 2. Palavra 3. (...)}
 % "... deverão constar, no mínimo, três palavras-chave, iniciadas em
@@ -210,6 +232,7 @@
 \item[CART] \textit{Classification and Regression Trees}
 \item[IA]   Inteligência Artificial
 \item[LSTM] \textit{Long Short-Term Memory}
+\item[PCA]  \textit{Principal Component Analysis}
 \item[RNN]  \textit{Recurrent Neural Network}
 }
 
@@ -312,13 +335,17 @@
 
     \par Tendo em vista o interesse dos usuários em aumentar o alcance de suas postagens, poder identificar os fatores que têm maior influência sobre a popularidade de suas mensagens pode ser uma grande vantagem ao tentar aumentar o engajamento por parte de seus seguidores. Ser capaz de prever/estimar a popularidade que um tuíte poderá obter, baseando-se nas características presentes no corpo de sua mensagem, permite a realização de diferentes análises a cerca o conteúdo disseminado por aquela conta, o que pode trazer muitos benefícios aos usuários com relativa influência nessa rede social.
 
-    \par Como afirma \cite{ieee:suh:10}, a propagação de um tuíte está diretamente ligada ao conteúdo e valor informativo contido nele. Nesse sentido, os autores avaliaram um conjunto de características extraídas das mensagens. Os resultados mostraram que a utilização de \textit{hashtags} e URLs são fatores muito significativos e que ajudam a impulsionar uma publicação. Apesar de ser um resultado relevante, o trabalho não realizou uma análise exaustiva das características que podem ser extraídas das mensagens.
+    \par Como afirma \cite{ieee:suh:10}, a propagação de um tuíte está diretamente ligada ao conteúdo e valor informativo contido nele. Nesse sentido, os autores avaliaram um conjunto de características extraídas das mensagens. Os resultados mostraram que a utilização de \textit{hashtags} e URLs são fatores muito significativos e que ajudam a impulsionar uma publicação. Apesar de ser um resultado muito relevante, o trabalho não realizou uma análise exaustiva das características que podem ser extraídas do corpo das mensagens de cada tuíte.
     
-    \par É conhecido que hoje existem inúmeras pesquisas sendo realizadas envolvendo dados coletados do Twitter. Alguns trabalhos relacionados que podem ser citados aqui, como \cite{ieee:suh:10}, \cite{acm:duan:2010}, \cite{benevenuto:2010}, \cite{acm:naveed:2011}, \cite{kharde:2016}, \cite{acm:hong:2011} e \cite{ieee:xu:2012}, tem como parte de seus objetivos, a identificação de fatores impactantes no conteúdo das mensagens propagadas no Twitter, além disso, utilizam também técnicas de aprendizado de máquina como forma de realizar suas pesquisas.
+    \par É conhecido que hoje existem inúmeras pesquisas sendo realizadas envolvendo dados coletados do Twitter. Além de \cite{ieee:suh:10}, outros trabalhos relacionados que podem ser citados aqui, como \cite{acm:duan:2010}, \cite{benevenuto:2010}, \cite{acm:naveed:2011}, \cite{kharde:2016}, \cite{acm:hong:2011} e \cite{ieee:xu:2012}, tem como parte de seus objetivos, a identificação de fatores impactantes no conteúdo das mensagens propagadas no Twitter, além disso, utilizam também técnicas de aprendizado de máquina como forma de realizar suas pesquisas.
     
-    \par ? Definir ou agrupar por características, cada um dos trabalhos. Apresentar que o que pretende-se nesse trabalho, diferentemente dos demais, é que utilizamos contas influentes e tentamos predizer uma taxa de engajamento para cada conta. Definir um cenário para cada conta que o alcance pode ser previsto até uma determinada taxa. ?
+    \par Dentre os trabalhos citados logo acima, tal e tal utilizam as técnicas tais para fazer tal coisa. Enquanto que os trabalhos tal, tal e tal propõe a realização de tal coisa utilizando as técnicas tais de aprendizado de máquina.
+    
+    % ? Definir ou agrupar por características, cada um dos trabalhos. Apresentar que o que pretende-se nesse trabalho, diferentemente dos demais, é que utilizamos contas influentes e tentamos predizer uma taxa de engajamento para cada conta. Definir um cenário para cada conta que o alcance pode ser previsto até uma determinada taxa. ?
 
-    \par Dentro deste contexto, o objetivo deste trabalho é monitorar e extrair tuítes de determinadas contas do Twitter, a fim de elaborar um modelo, utilizando algoritmos de aprendizado de máquina, para realizar a predição e classificação da popularidade de tuítes com base em suas características. Devido ao grande volume de dados, faz-se necessário automatizar o processo de análise e classificação dos dados, para isso, serão estudados e testados algoritmos já consolidados, como Naive Bayes, árvores de decisão e redes neurais recorrentes, contando inclusive com o auxílio de ferramentas já reconhecidas como Weka, para a aplicação e análise dos resultados destes algoritmos. Como entrada para estes algoritmos, serão utilizados dados provenientes do pré-processamento dos tuítes coletados, sendo consideradas três características que não foram contempladas pelo estudo de \cite{ieee:suh:10}: o tamanho em caracteres, o sentimento (que mede a emoção transmitida) e a banalidade (que mede a relevância da mensagem). Para fins de comparação, a presença de \textit{hashtags} e URLs também foi avaliada.
+    \par Dentro deste contexto, o objetivo deste trabalho é monitorar e extrair tuítes de determinadas contas do Twitter, a fim de elaborar modelos, utilizando algoritmos de aprendizado de máquina, para realizar a predição e classificação da popularidade de tuítes com base em suas características. Devido ao grande volume de dados, faz-se necessário automatizar o processo de análise e classificação dos dados, para isso, serão estudados e testados algoritmos já consolidados, como Naive Bayes e árvores de decisão, contando inclusive com o auxílio de ferramentas já reconhecidas como Weka, para a aplicação e análise dos resultados destes algoritmos. Como entrada para estes algoritmos, serão utilizados dados provenientes do pré-processamento dos tuítes coletados, sendo consideradas três características que não foram contempladas pelo estudo de \cite{ieee:suh:10}: o tamanho em caracteres, o sentimento (que mede a emoção transmitida) e a banalidade (que mede a relevância da mensagem). Para fins de comparação, a presença de \textit{hashtags} e URLs também foi avaliada.
+    
+    \par A escolha dos algoritmos de classificação foi feita com base em sua popularidade e destaque para solucionar o problema de classificação de dados. Além disso, são frequentemente analisados e aplicados por pesquisadores em artigos que utilizam o aprendizado de máquina como foco.
 
     \par Este trabalho está estruturado nas seguintes seções. O capítulo \ref{sec:fund-teorica} apresenta a fundamentação teórica, abordando conceitos e algoritmos de aprendizado de máquina. O capítulo \ref{sec:proposta} apresenta a definição dos atributo e a arquitetura de extração de tuítes usada, que realiza desde a coleta até a preparação dos dados para análise. O capítulo \ref{sec:experimentos} apresenta as análises realizadas a partir dos dados coletados juntamente com os algoritmos de aprendizado de máquina estudados. O capítulo \ref{sec:conclusao} apresenta as considerações finais a cerca do trabalho realizado.
 
@@ -367,8 +394,8 @@
     	\begin{axis}[%
         	title={(a) Problema de Classificação},
         	scatter/classes={%
-            	a={draw=blue, fill=blue, mark size=5}, 
-            	b={mark=x, draw=red, fill=red, mark size=7, line width=3pt}
+            	a={draw=myblue, fill=myblue, mark size=5}, 
+            	b={mark=x, draw=myred, fill=myred, mark size=7, line width=3pt}
             }
         ]
         \addplot[scatter,only marks,%
@@ -415,8 +442,8 @@
     	\begin{axis}[%
         	title={(b) Problema de Regressão},
         	scatter/classes={%
-            	a={draw=blue, fill=blue, mark size=5}, 
-            	b={mark=x, draw=red, fill=red, mark size=7, line width=4pt}
+            	a={draw=myblue, fill=myblue, mark size=5}, 
+            	b={mark=x, draw=myred, fill=myred, mark size=7, line width=4pt}
             }
         ]
         \addplot[scatter,only marks,%
@@ -467,8 +494,8 @@
     	\begin{axis}[%
         	title={(a) Aprendizagem Supervisionada},
         	scatter/classes={%
-            	a={draw=blue, fill=blue, mark size=5}, 
-            	b={mark=x, draw=red, fill=red, mark size=7, line width=3pt}
+            	a={draw=myblue, fill=myblue, mark size=5}, 
+            	b={mark=x, draw=myred, fill=myred, mark size=7, line width=3pt}
             }
         ]
         \addplot[scatter,only marks,%
@@ -493,8 +520,8 @@
     	\begin{axis}[%
         	title={(b) Aprendizagem Não supervisionada},
         	scatter/classes={%
-            	a={draw=blue, fill=blue, mark size=5}, 
-            	b={mark=x, draw=red, fill=red, mark size=7, line width=4pt}
+            	a={draw=myblue, fill=myblue, mark size=5}, 
+            	b={mark=x, draw=myred, fill=myred, mark size=7, line width=4pt}
             }
         ]
         \addplot[scatter,only marks,%
@@ -513,8 +540,8 @@
                 4.3 3.3 a
         	};
     	\end{axis}
-    	\draw[red, very thick] (1.4,1.4) circle (1.3);
-    	\draw[red, very thick] (5,5) circle (1.3);
+    	\draw[myred, very thick] (1.4,1.4) circle (1.3);
+    	\draw[myred, very thick] (5,5) circle (1.3);
     \end{tikzpicture}
     \fonte{Produção do próprio autor.} % \citeonline{site:medium:pedro}
     \label{fig:aprend-nao-sup}
@@ -525,9 +552,27 @@
 \section{Engenharia de Atributos}
 \label{sec:eng-features}
 
-    \par Engenharia de Atributos.
+    \par Engenharia de atributos (ou \textit{Feature Engineering}) é um conjunto de técnicas muito utilizadas no processo de aprendizado de máquina. Essas técnicas tem o objetivo de agregar valor mais significativo aos dados coletados e assim, melhorar os modelos de IA \cite{book:zheng:2018}. Muitas vezes, o processo de engenharia de atributos por si só pode trazer melhores resultados independente dos algoritmos utilizados. Como já disse Peter Norvig, escritor de renomados livros na área de inteligência artificial e atualmente diretor de pesquisa no Google, "mais dados batem algoritmos inteligentes, mas dados melhores batem mais dados", ou seja mesmo utilizando algoritmos poderosos de aprendizagem de máquina, os resultados não serão tão bons se os dados não forem significativos.
+    
+    \par A escolha de quais técnicas utilizar está ligada, na maioria dos casos, tanto aos dados quanto ao modelo, pois alguns deles podem estar mais adaptados a um determinado tipo de atributo \cite{book:zheng:2018}. A Figura \ref{fig:feature-engineering} mostra onde o a aplicação de engenharia de atributos se localiza no processo de aprendizagem de máquina e torna claro que as escolhas tomadas em qualquer uma das etapas tem influência direta nas suas subsequentes.
+    
+    % IMAGEM
+    \begin{figure}[ht]
+        \caption{Engenharia de Atributos no processo de Aprendizado de Máquina}
+        \centering
+        \includegraphics[width=1\textwidth]{figuras/feature-engineering.png}
+        \vspace{\baselineskip} %%% linha em branco para atender a norma
+        \fonte{Traduzido de \cite{book:zheng:2018}}
+        \label{fig:feature-engineering}
+    \end{figure}
+    
+    \par Como mencionado, existem inúmeras técnicas de engenharia de atributos dependendo do tipo de dados, e para cada uma delas, existem diferentes estratégias para sua aplicação. Para dados numéricos, podem ser aplicadas técnicas como: preenchimento de valores faltantes, que tem por objetivo evitar a perda de informações; arredondamento de valores, pois muitas casas decimais podem representar ruídos; transformação logarítmica, para reduzir a diferença na escala entre valores muito grandes e outros muito pequenos; normalização, para padronizar a escala dos valores; dentre outras.
+    
+    \par No caso de dados textuais, existem técnicas para realizar a preparação do texto, ou pré-processamento, que podem envolve alguns procedimentos como transformação em letras minúsculas, lematização das palavras, remoção de acentuações, caracteres não textuais e palavras comuns (ou \textit{stopwords}). Além disso, outros métodos de engenharia de atributos podem ser aplicados, como vetorização do texto com técnicas como \textit{bag-of-words} e \textit{word embeddings} (respectivamente bolsa de palavras e incorporação de palavras, em tradução livre), que buscam determinar a frequência e similaridade das as palavras presentes nos textos.
+    
+    \par Em consequência de todos os procedimentos, muitos atributos novos podem ser gerados e o processamento de todos eles pode se tornar muito custoso. Nestes casos, existem abordagens com o intuito de selecionar os atributos mais representativos dentre todos disponíveis. Dentre estas abordagens de seleção, pode-se citar \textit{Principal Component Analysis} (PCA) (traduzido como Análise de componentes principais); método de filtragem, que busca identificar correlações entre os dados; método \textit{Wrapper} (ou de embrulhar, em tradução livre), que é baseado na tentativa e erro para encontrar a melhor combinação de atributos; e o método \textit{Embedded} (ou incorporado, em tradução livre), casos em que a seleção destes atributos já faz parte do modelo.
 
-% % % % % % % % ALGORITMOS DE APRENDIZADO DE MÁQUINA SUPERVISIONADO % % % % % % % %
+% % % % % % % ALGORITMOS DE APRENDIZADO DE MÁQUINA SUPERVISIONADO % % % % % % %
 
 \section{Algoritmos de aprendizado de máquina supervisionado}
 \label{sec:alg-aprend-maquina-sup}
@@ -607,11 +652,11 @@
 \subsection{Árvores de Decisão}
 \label{sec:arvores-decisao}
 
-    \par Abstraindo o conceito computacional, uma árvore de decisão pode ser definida por um fluxograma, no qual cada nó, com exceção do último nível, representa um teste sobre as informações disponíveis. O ponto de partida é denominado nó raiz. A medida que os nós filhos vão sendo explorados, as informações são divididas com o objetivo de agrupá-las por similaridade. Ao percorrer toda a árvore, os últimos elementos, denominados nós folha, representam a decisão a ser tomada. Apesar de ser um conceito simples, a complexidade computacional desta técnica está no processo de indução da estrutura da árvore, que é feita de maneira automática e não-paramétrica, podendo lidar com dados multidimensionais. 
+    \par Abstraindo o conceito computacional, uma árvore de decisão pode ser definida por um fluxograma, no qual cada nó, com exceção do último nível, representa um teste sobre as informações disponíveis. O ponto de partida é denominado nó raiz. A medida que os nós filhos vão sendo explorados, as informações são divididas com o objetivo de agrupá-las por similaridade e buscando o balanceamento entre os subgrupos. Ao percorrer toda a árvore, os últimos elementos, denominados nós folha, representam a decisão a ser tomada. Apesar de ser um conceito simples, a complexidade computacional desta técnica está no processo de indução da estrutura da árvore, feita de maneira automática e não-paramétrica, podendo lidar com dados multidimensionais. 
     
     \par Assim como outras técnicas dentro do escopo de aprendizagem supervisionada, árvores de decisão também são muito populares para a resolução de problemas de classificação de dados e regressão linear. Segundo \cite{book:han:11}, a popularização deste tipo de algoritmo na aprendizagem de máquina está diretamente ligada à sua característica não-paramétrica, que permite a indução de árvores sem a o total domínio ou configuração prévia dos dados, o que torna-se muito interessante no âmbito deste trabalho no que se refere à descoberta de maneira exploratória.
     
-    \par Ainda conforme \cite{book:han:11}, para realizar a classificação de dados, cada registro percorre um determinado caminho dentro da estrutura da árvore, partindo do nó raiz até o nó folha, o qual determina a classe para aquela entrada de dados. Para exemplificar, foi criada a árvore de decisão fictícia apresentada na Figura \ref{fig:exemplo_arvore}, a qual considera 4 atributos de uma mensagem de texto para considerá-la como popular ou não. Na figura, os nós com o formato retangular representam os testes feitos cada registro de entrada, já os nós com o formato circular são os nós folha, que representam a classificação final para indicar se a mensagem seria considerada como popular ou não.
+    \par Ainda conforme \cite{book:han:11}, para realizar a classificação de dados, cada registro percorre um determinado caminho dentro da estrutura da árvore, partindo do nó raiz até o nó folha, o qual determina a classe para aquela entrada de dados. Para exemplificar, foi criada a árvore de decisão fictícia apresentada na Figura \ref{fig:exemplo_arvore}, a qual considera 4 atributos de uma mensagem de texto para considerá-la como popular ou não. Na figura, os nós com o formato retangular representam os testes feitos com cada registro de entrada, sendo que antes de cada teste é indicado o número de instâncias que estão naquele nó, partindo da raiz com 1000, já os nós com o formato circular são os nós folha, que representam a classificação final para indicar se a mensagem seria considerada como popular ou não.
     
     % IMAGEM
     \begin{figure}[!ht]
@@ -627,17 +672,17 @@
         level 2/.style = {sibling distance=8em},
         sloped,
       ]
-      \node [env] {Sentimento positivo?}
-        child { node [env] {Maior que 140 caracteres?}
+      \node [env] {[1000] Sentimento positivo?}
+        child { node [env] {[540] Maior que 140 caracteres?}
             child { node [dummy] {não} edge from parent node [above] {sim}}
-            child { node [env] {Possui \textit{hashtag}?}
+            child { node [env] {[290] Possui \textit{hashtag}?}
                 child { node [dummy] {não} edge from parent node [above] {sim}}
                 child { node [dummy] {sim} edge from parent node [above] {não}}
                 edge from parent node [above] {não}
             }
             edge from parent node [above] {sim}
         }
-        child { node [env] {Possui URL?}
+        child { node [env] {[460] Possui URL?}
             child { node [dummy] {sim} edge from parent node [above] {sim}}
             child { node [dummy] {não} edge from parent node [above] {não}}
             edge from parent node [above] {não}
@@ -651,7 +696,7 @@
     
     \par Mesmo existindo vários vários algoritmos com diferentes propostas para realizar a indução de árvores de decisão, duas etapas estão presentes na grande maioria deles durante o construção da árvore, a seleção das medidas de atributos e a ``poda da árvore'' que, respectivamente, são responsáveis por definir quais a melhores partições dos dados; e por remover, ou reduzir, ruídos nas ramificações gerados durante o treinamento. Apesar de serem etapas comuns na implementação deste tipo de algoritmo, também são as etapas que os diferenciam uns dos outros dependendo da abordagem adotada para realiza-las.
     
-    \par Um dos algoritmos que merece destaque por ser referência neste âmbito, é o CART (\textit{Classification and Regression Trees}), criado em 1984 por um grupo de estatísticos (L. Breiman, J. Friedman, R. Olshen, and C. Stone), ele realiza uma abordagem de construção recursiva de divisão e conquista partindo de cima para baixo, segundo \cite{book:han:11}. Outros algoritmos serão apresentados e descritos conforme forem utilizados e aplicados na Seção \ref{sec:experimentos}, correspondente aos experimentos.
+    \par Um dos algoritmos que merece destaque por ser referência neste âmbito, é o CART (\textit{Classification and Regression Trees}), criado em 1984 por um grupo de estatísticos (L. Breiman, J. Friedman, R. Olshen, and C. Stone). Ele realiza uma abordagem de construção recursiva de divisão e conquista partindo de cima para baixo, segundo \cite{book:han:11}.
 
 
 % % % % % % % % REDES NEURAIS % % % % % % % %
@@ -659,9 +704,9 @@
 \subsection{Redes Neurais e Aprendizagem Profunda} % Recorrentes
 \label{sec:redes-neurais}
 
-    \par O conceito de redes neurais surgiu com o objetivo de simular o funcionamento dos neurônios do cérebro humano, capazes de realizar associações complexas em frações de segundos. Este tipo de rede funciona a partir da conexão entre nós na forma de um grafo dividido entre a camadas, que são divididas entre três tipos: camada de entrada; camada de saída; e camadas ocultas, que são todas as demais presentes entre a de entrada e de saída. 
+    \par O conceito de redes neurais surgiu com o objetivo de simular o funcionamento dos neurônios do cérebro humano, capazes de realizar associações complexas em frações de segundos. Este tipo de rede funciona a partir da conexão entre nós na forma de um grafo dividido entre as camadas, que são divididas entre três tipos: camada de entrada; camada de saída; e camadas ocultas, que são todas as demais presentes entre a de entrada e de saída. 
     
-    \par Apesar de ser um tópico em alta no momento, pesquisas envolvendo redes neurais artificiais não são tão recentes assim. Como apresentado em \cite{book:russell:10}, estudos na área de IA propondo modelos matemáticos de neurônios vem sendo realizados desde a década de 1940. De lá pra cá, segundo \citeonline{site:deep-learning}, os trabalhos neste âmbito evoluíram bastante e nos últimos anos se popularizou o uso de redes neurais de aprendizagem profunda (ou \textit{Deep Learning}), que vem sendo fundamental na implementação de sistemas inteligentes modernos, capazes de reconhecer rostos e vozes de diferentes pessoas.
+    \par Apesar de ser um tópico muito popular atualmente, pesquisas envolvendo redes neurais artificiais não são tão recentes assim. Como apresentado em \cite{book:russell:10}, estudos na área de IA propondo modelos matemáticos de neurônios vem sendo realizados desde a década de 1940. De lá pra cá, segundo \citeonline{site:deep-learning}, os trabalhos neste âmbito evoluíram bastante e nos últimos anos se popularizou o uso de redes neurais de aprendizagem profunda (ou \textit{Deep Learning}), que vem sendo fundamental na implementação de sistemas inteligentes modernos, capazes de reconhecer rostos e vozes de diferentes pessoas.
     
     \par Conforme apresentado em \cite{book:russell:10}, a estrutura de uma rede neural é formada por nós matemáticos, representando neurônios, e ligações direcionadas, representando as conexões entre cada neurônio. Cada nó da rede aplica sobre sua entrada uma determinada função de ativação para gerar o valor de saída. As ligações tem o objetivo de propagar a ativação de um neurônio para o outro, sendo que cada ligação possui um determinado peso definindo força e sinal da conexão. 
     
@@ -675,13 +720,13 @@
         \centering
         \includegraphics[width=1\textwidth]{figuras/deep-learning.png}
         \vspace{\baselineskip} %%% linha em branco para atender a norma
-        \fonte{\citeonline{site:deep-learning}}
+        \fonte{Traduzido de \citeonline{site:deep-learning}}
         \label{fig:deep-learning}
     \end{figure}
     
-    \par Existem vários modelos de arquiteturas de redes neurais propostos, dentre eles, vale a pena citar: Redes Multicamadas Perceptrons; Redes de Hopfield; Redes Neurais Convolucionais; e \textit{Long Short-Term Memory} (LSTM) (pode ser traduzido como Memória de Longo Prazo). No contexto deste trabalho, durante a seção \ref{sec:experimentos}, correspondente aos experimentos, será dado destaque à arquitetura de redes convolucionais e LSTM, por se destacarem e ser muito utilizada no processamento de linguagem natural.
-
-    % \par No contexto deste trabalho, a aplicação de RNNs torna-se interessante aliada ao conceito de \textit{word-embeddings} ou \textit{one-hot vectors}. 
+    \par Existem vários modelos de arquiteturas de redes neurais propostos, dentre eles, vale a pena citar: Redes Multicamadas Perceptrons; Redes de Hopfield; Redes Neurais Convolucionais; e \textit{Long Short-Term Memory} (LSTM) (pode ser traduzido como Memória de Longo Prazo). 
+    
+    % No contexto deste trabalho, durante a seção \ref{sec:experimentos}, correspondente aos experimentos, será dado destaque à arquitetura de redes convolucionais e LSTM, por se destacarem e ser muito utilizada no processamento de linguagem natural.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
 % % % % % % % % % % % % TRABALHOS RELACIONADOS % % % % % % % % % % % % % % % 
@@ -697,7 +742,7 @@
 \chapter{Proposta}
 \label{sec:proposta}
 
-    \par A proposta deste trabalho é a elaboração de um modelo, utilizando algoritmos de aprendizado de máquina supervisionada, capaz de classificar o nível de popularidade de tuítes com base na correlação entre a popularidade dos mesmos em função de um conjunto de características presentes no corpo das mensagens. Para atingir esse objetivo, é necessário coletar os tuítes, extrair suas características e aplicar o algoritmos já mencionados para realizar o treinamento e classificação dos dados. Esta seção apresenta a arquitetura de coleta e extração utilizada neste trabalho.
+    \par A proposta deste trabalho é a elaboração de modelos, utilizando algoritmos de aprendizado de máquina supervisionada, capaz de classificar o nível de popularidade de tuítes com base na correlação entre a popularidade dos mesmos em função de um conjunto de características presentes no corpo das mensagens. Para atingir esse objetivo, é necessário coletar os tuítes, extrair suas características e aplicar o algoritmos já mencionados para realizar o treinamento e classificação dos dados. A partir disso, esta seção apresenta a definição dos atributos, a definição de popularidade e os classificadores utilizados para a realização do trabalho.
 
 % % % % % % % % DEFINIÇÃO DOS ATRIBUTOS % % % % % % % %
 
@@ -743,9 +788,7 @@
 \section{Classificadores}
 \label{sec:classificadores}
 
-    \par Para a realização da predição da popularidade de cada tuíte tendo como base a taxa de engajamento e considerando os atributos já mencionados, serão utilizados os seguintes algoritmos de aprendizado de máquina: Naive Bayes; Árvores de decisão; e Redes Neurais Recorrentes, Convolucionais e LSTM. Os experimentos realizados com cada um destes algoritmos poderão ser realizados através da implementação de código na linguagem Python, devido a sua popularidade para lidar com aprendizado de máquina e manipulação de dados, ou com o auxilio da ferramenta Weka, que já oferece uma coleção de algoritmos capazes de realizar a classificação de dados.
-    
-    \par Os algoritmos de classificação foram escolhidos com base em sua popularidade e destaque para solucionar o problema de classificação. Todos eles inclusive, são frequentemente analisados por pesquisado em artigos que utilizam o aprendizado de máquina como foco.
+    \par Para a realização da predição da popularidade de cada tuíte tendo como base a taxa de engajamento e considerando os atributos já mencionados, serão utilizados os algoritmos de classificação Naive Bayes e Árvores de decisão. Os experimentos com cada algoritmo serão realizados através da implementação de código utilizando a linguagem Python, devido a sua popularidade entre os pesquisadores com aprendizado de máquina e manipulação de dados, ou com o auxilio da ferramenta Weka, que já oferece uma coleção de algoritmos capazes de realizar a classificação de dados.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
 % % % % % % % % % % % % % % METODOLOGIA  % % % % % % % % % % % % % % % % % 
@@ -754,35 +797,43 @@
 \chapter{Metodologia}
 \label{sec:metodologia}
 
-    \par Para alcançar os objetivos elencados, uma série de etapas foi elaborada para a realização deste projeto. A fim de proporcionar maior compreensão, a descrição de cada etapa vem logo a seguir.
+    \par Para alcançar os objetivos elencados, uma série de etapas foi elaborada para a realização deste projeto, nas quais o sucesso de uma está diretamente ligado ao da outra. A fim de proporcionar maior compreensão destas etapas, este capítulo foi destinado à descrição de cada uma destas etapas juntamente com a apresentação do cronograma do projeto, no qual consta a previsão de realização de cada uma delas.
     
-    \par \textbf{Análise de trabalhos similares:} Nesta etapa será realizada pesquisa sobre trabalhos similares que podem vir a auxiliar e contribuir com a proposta do trabalho.
+    \par \textbf{Análise de trabalhos similares:} Nesta etapa será realizada uma pesquisa sobre trabalhos similares já realizados na área envolvendo aprendizado de máquina e extração de dados extraídos do Twitter, com o objetivo de que os mesmos possam vir a auxiliar e contribuir com a proposta do trabalho.
     
     \par \textbf{Definição dos atributos:} Esta etapa é designada para analisar e definir quais serão os atributos de interesse que devem ser extraídos de cada tuíte, considerando a relevância que cada um deles pode inferir sobre a popularidade daquele tuíte.
     
-    \par \textbf{Extração e pré-processamento dos dados:} Dispondo dos atributos de interesse, os tuítes devem ser coletados e seus conteúdos pré-processados. Para isso, será realizado um estudo acerca dos melhores métodos e ferramentas que permitem a extração de dados do Twitter.
+    \par \textbf{Extração e pré-processamento dos dados:} Dispondo dos atributos de interesse, os tuítes devem ser coletados e seus conteúdos pré-processados. Para isso, será realizado um estudo acerca dos melhores métodos e ferramentas que permitem a extração de dados do Twitter e posteriormente de seus atributos de interesse.
     
     \par \textbf{Estudo de algoritmos de aprendizado de máquina:} Estando em posse dos dados já processados, será realizado um estudo acerca dos algoritmos de aprendizado de máquina para classificação de dados e quais são as melhores opções considerando os dados de entrada e os atributos de interesse.
     
-    \par \textbf{Experimentos com os algoritmos selecionados:} Esta etapa corresponde a implementação e realização de testes com os algoritmos estudados na etapa anterior. O experimentos serão realizados com o objetivo de classificar a popularidade dos tuítes com base nos atributos extraídos.
+    \par \textbf{Implementação dos algoritmos:} Dispondo do conhecimento necessário acerca algoritmos de aprendizado de máquina e os atributos disponíveis, serão implementados tais algoritmos utilizando tecnologias adequadas para tal.
     
-    \par \textbf{Análise dos resultados obtidos:} Esta etapa do trabalho destina-se a realização de uma análise sobre os algoritmos testados e os resultados obtidos para a realizar a predição da popularidade dos tuítes.
+    \par \textbf{Experimentos com os algoritmos selecionados:} Esta etapa corresponde a realização de testes com os algoritmos estudados e implementados nas etapas anteriore. O experimentos serão realizados com o objetivo de classificar a popularidade dos tuítes com base nos atributos extraídos.
     
-    A Tabela \ref{tab:cronograma} a seguir resume o cronograma de atividades baseado no itens apresentados. Dividido entre meses, o cronograma tem início a partir do mês de Agosto. As atividades já realizadas até o momento compreendem os itens marcados com bola ($\bullet$) e fundo em cinza, enquanto que os marcadores em xis ($\times$) representam as atividades que ainda devem ser realizadas.
+    \par \textbf{Análise dos resultados obtidos:} Esta etapa do trabalho destina-se a realização de uma análise sobre os algoritmos testados e os resultados obtidos com cada um deles ao tentar realizar a predição da popularidade dos tuítes.
+    
+    \par \textbf{Documentação:} Por fim, é nesta etapa que os resultados obtidos com o decorrer do projeto são analisados e documentados, havendo a chance de originar um artigo, considerando que houve certa contribuição científica com a área, além do próprio relatório do Trabalho de Conclusão de Curso.
+    
+    \section{Cronograma}
+    
+    \par Com base nas etapas descritas, a Tabela \ref{tab:cronograma} a seguir resume o cronograma das atividades previstas. Dividido entre quinzenas, o cronograma tem início a partir do mês de Agosto (08). As atividades já realizadas até o momento compreendem os itens marcados com bola ($\bullet$) e fundo em cinza, enquanto que os marcadores em xis ($\times$) com fundo branco representam as atividades que ainda devem ser realizadas.
     
     \begin{table}[ht]
     \centering
     \caption{Cronograma do projeto}
     \label{tab:cronograma}
-    \begin{tabular}{|l|c|c|c|c|c|}
+    \begin{tabular}{|l|c|c|c|c|c|c|c|c|}
     \hline
-    \textbf{Atividade} & \textbf{Ago} & \textbf{Set} & \textbf{Out} & \textbf{Nov} & \textbf{Dez} \\ \hline
-    Análise de trabalhos similares & \cellcolor[HTML]{E2E2E2}$\bullet$ &  &  &  &  \\ \hline
-    Definição dos Atributos & \cellcolor[HTML]{E2E2E2}$\bullet$ & \cellcolor[HTML]{E2E2E2}$\bullet$ &  &  &  \\ \hline
-    Extração e pré-processamento dos dados &  & \cellcolor[HTML]{E2E2E2}$\bullet$ & \cellcolor[HTML]{E2E2E2}$\bullet$ &  &  \\ \hline
-    Estudo de algoritmos de aprendizado de máquina &  &  & \cellcolor[HTML]{E2E2E2}$\bullet$ & $\times$ &  \\ \hline
-    Experimentos com os algoritmos selecionados &  &  & \cellcolor[HTML]{E2E2E2}$\bullet$ & $\times$ & $\times$ \\ \hline
-    Análise dos resultados obtidos &  &  &  & $\times$ & $\times$ \\ \hline
+    \textbf{Atividade} & \textbf{8/2} & \textbf{9/1} & \textbf{9/2} & \textbf{10/1} & \textbf{10/2} & \textbf{11/1} & \textbf{11/2} & \textbf{12/1} \\ \hline
+    Análise de trabalhos similares & \cellcolor{gray!20}$\bullet$ &  &  &  &  &  &  &  \\ \hline
+    Definição dos Atributos & \cellcolor{gray!20}$\bullet$ & \cellcolor{gray!20}$\bullet$ & \cellcolor{gray!20}$\bullet$ &  &  &  &  &  \\ \hline
+    Extração e pré-processamento &  & \cellcolor{gray!20}$\bullet$ & \cellcolor{gray!20}$\bullet$ & \cellcolor{gray!20}$\bullet$ & \cellcolor{gray!20}$\bullet$ &  &  &  \\ \hline
+    Estudo de algoritmos de IA &  &  &  & \cellcolor{gray!20}$\bullet$ & \cellcolor{gray!20}$\bullet$ & \cellcolor{gray!20}$\bullet$ &  &  \\ \hline
+    Implementação dos algoritmos &  &  &  & \cellcolor{gray!20}$\bullet$ & \cellcolor{gray!20}$\bullet$ & $\times$ & $\times$ & $\times$ \\ \hline
+    Experimentos com algoritmos &  &  &  & \cellcolor{gray!20}$\bullet$ & \cellcolor{gray!20}$\bullet$ & $\times$ & $\times$ & $\times$ \\ \hline
+    Análise dos resultados obtidos &  &  &  &  &  & $\times$ & $\times$ & $\times$ \\ \hline
+    Documentação & \cellcolor{gray!20}$\bullet$ & \cellcolor{gray!20}$\bullet$ & \cellcolor{gray!20}$\bullet$ & \cellcolor{gray!20}$\bullet$ & \cellcolor{gray!20}$\bullet$ & $\times$ & $\times$ & $\times$ \\ \hline
     \end{tabular}
     \end{table}
     
