@@ -189,18 +189,18 @@ Agradeço também todos os colegas e amigos feitos durante essa trajetória que 
 
 % % % % %  RESUMO E PALAVRAS CHAVE DO RESUMO - OBRIGATÓRIO PARA MDT-UFSM
 \resumo{
-    É conhecida a popularidade do Twitter e o poder que um único tuíte pode ter nos dias de hoje, servindo, inclusive, como fonte para portais de notícias renomados. A simplicidade e o volume de dados trafegados pela plataforma diariamente, fazem dela uma fonte de dados poderosa. Focando na análise das mensagens veiculadas e no interesse dos usuários em aumentar o número de seguidores, o objetivo deste trabalho é a elaboração de um modelo, utilizando algoritmos de aprendizado de máquina, para realizar a predição e classificação da popularidade de tuítes com base em atributos extraídos do corpo das mensagens. Para alcançar esse objetivo, a metodologia adotada envolve a definição dos atributos de interesse, extração e processamento dos dados, além do estudo e aplicação de algoritmos de aprendizado de máquina para realizar a classificação dos tuítes.
+    É conhecida a popularidade do Twitter e o poder que um único tuíte pode ter nos dias de hoje, servindo, inclusive, como fonte para portais de notícias renomados. A simplicidade e o volume de dados trafegados pela plataforma diariamente, fazem dela uma fonte de dados poderosa. Focando na análise das mensagens veiculadas e no interesse dos usuários em aumentar o número de seguidores, o objetivo deste trabalho é a elaboração de modelos, utilizando algoritmos de aprendizado de máquina, para realizar a predição e classificação da popularidade de tuítes com base em atributos extraídos do corpo das mensagens. Para alcançar esse objetivo, a metodologia adotada envolve a definição dos atributos de interesse, extração e processamento dos dados, além do estudo e aplicação de algoritmos de aprendizado de máquina para realizar a classificação dos tuítes.
 }
-\palavrachave{Palavra Chave 1. Palavra 2. Palavra 3. (...)}
+\palavrachave{Aprendizado de Máquina Supervisionado. Classificação de Dados. Coleta de Dados.}
 % "... deverão constar, no mínimo, três palavras-chave, iniciadas em
 % letras maiúsculas, cada termo separado dos demais por ponto, e
 % finalizadas também por ponto." MDT 2012
 
 % % % % %  ABSTRACT E PALAVRAS CHAVE DO RESUMO - OBRIGATÓRIO PARA MDT-UFSM
 \abstract{
-    Abstract here.
+    The popularity of Twitter and the power that a single tweet can have today are well-known, even serving as a source for renowned news portals. The simplicity and volume of data trafficked by the platform daily make it a powerful data source. Focusing on the analysis of the messages and in the interest of the users to increase the number of followers, the objective of this work is the elaboration of models, using algorithms of machine learning, to make predictions and classifications of the tweets' popularity based on extracted attributes of the message body. In order to reach this objective, the methodology adopted involves the definition of interest attributes, extraction and processing of data, as well as the study and application of machine learning algorithms to perform the classification of tweets.
 }
-\keywords{Keyword 1. Keyword 2. Keyword 3. (...)}
+\keywords{Supervised Machine Learning. Data Classification. Data collect.}
 
 
 % % %  ATIVAÇÃO DE LISTAS E PAGINAS ESPECIAIS
@@ -234,6 +234,7 @@ Agradeço também todos os colegas e amigos feitos durante essa trajetória que 
 \item[LSTM] \textit{Long Short-Term Memory}
 \item[PCA]  \textit{Principal Component Analysis}
 \item[RNN]  \textit{Recurrent Neural Network}
+\item[SVM]  \textit{Support Vector Machine}
 }
 
 % % % %  LISTA DE SÍMBOLOS
@@ -331,7 +332,7 @@ Agradeço também todos os colegas e amigos feitos durante essa trajetória que 
 
     \par Com a grande popularização dos chamados influenciadores digitais, é notável o crescimento das mídias sociais como meios de comunicação e divulgação de conteúdos. Neste cenário, onde o número de seguidores determina a sua influência, torna-se muito importante que essas personalidades compreendam seu público, pois conteúdos direcionados refletem diretamente no alcance de suas publicações. Dentre as redes sociais mais utilizadas atualmente, o Twitter é um meio de veiculação de mensagens que se destaca, por sua simplicidade e objetividade. Embora não tenha o mesmo destaque que outras plataformas, como o Facebook ou o Instagram, o Twitter conta com cerca de 335 milhões de usuários ativos, segundo Statista~\footnote{\textit{Statista: }\texttt{https://www.statista.com/topics/737/twitter/}}, e em média 500 milhões de tuítes que são publicados diariamente, segundo \textit{Internet Live Stats}~\footnote{\textit{Internet Live Stats: }\texttt{http://www.internetlivestats.com/twitter-statistics/}}, o que faz dessa rede uma fonte de dados muito poderosa.
 
-    \par Uma das preocupações de usuários do Twitter é alavancar sua popularidade, através do aumento no número de seguidores. Essa preocupação é fundamental para empresas e personalidades públicas que utilizam suas imagens para fins monetários. Nesses casos, o uso das redes sociais deve ser planejado e monitorado. Quando isso é realizado da maneira correta, a marca e/ou a pessoa ficam muito mais próximos de seus fãs e seguidores, o que consequentemente, faz sua popularidade e influência aumentar. Como mencionado em \cite{artigo:oliveira:18}, um dos indicadores capaz de medir a influência de um usuário no Twitter, é a quantidade de retuítes que suas mensagens recebem, presente inclusive na fórmula para o cálculo de engajamento, o qual será explanado posteriormente. Considerando esse fator, pode-se afirmar empiricamente que o aumento na quantidade de retuítes leva a um aumento na quantidade de seguidores, devido a propagação exponencial daquele conteúdo.
+    \par Uma das preocupações de usuários do Twitter é alavancar sua popularidade, através do aumento no número de seguidores. Essa preocupação é fundamental para empresas e personalidades públicas que utilizam suas imagens para fins monetários. Nesses casos, o uso das redes sociais deve ser planejado e monitorado. Quando isso é realizado da maneira correta, a marca e/ou a pessoa ficam muito mais próximos de seus fãs e seguidores, o que consequentemente, faz sua popularidade e influência aumentar. Um dos indicadores capaz de medir a influência de um usuário em redes sociais é a taxa de engajamento, que leva em consideração as interação dos usuários com as publicações de uma página, dentre essas interações, podem ser considerados os retuítes, curtidas e comentários. Considerando esse fator, pode-se afirmar empiricamente que o aumento na quantidade de retuítes leva a um aumento na quantidade de seguidores, devido a propagação exponencial daquele conteúdo.
 
     \par Tendo em vista o interesse dos usuários em aumentar o alcance de suas postagens, poder identificar os fatores que têm maior influência sobre a popularidade de suas mensagens pode ser uma grande vantagem ao tentar aumentar o engajamento por parte de seus seguidores. Ser capaz de prever/estimar a popularidade que um tuíte poderá obter, baseando-se nas características presentes no corpo de sua mensagem, permite a realização de diferentes análises a cerca o conteúdo disseminado por aquela conta, o que pode trazer muitos benefícios aos usuários com relativa influência nessa rede social.
 
@@ -339,15 +340,17 @@ Agradeço também todos os colegas e amigos feitos durante essa trajetória que 
     
     \par É conhecido que hoje existem inúmeras pesquisas sendo realizadas envolvendo dados coletados do Twitter. Além de \cite{ieee:suh:10}, outros trabalhos relacionados que podem ser citados aqui, como \cite{acm:duan:2010}, \cite{benevenuto:2010}, \cite{acm:naveed:2011}, \cite{kharde:2016}, \cite{acm:hong:2011} e \cite{ieee:xu:2012}, tem como parte de seus objetivos, a identificação de fatores impactantes no conteúdo das mensagens propagadas no Twitter, além disso, utilizam também técnicas de aprendizado de máquina como forma de realizar suas pesquisas.
     
-    \par Dentre os trabalhos citados logo acima, tal e tal utilizam as técnicas tais para fazer tal coisa. Enquanto que os trabalhos tal, tal e tal propõe a realização de tal coisa utilizando as técnicas tais de aprendizado de máquina.
+    \par Dentre os trabalhos citados logo acima, \cite{acm:duan:2010}, \cite{benevenuto:2010}, \cite{kharde:2016} e \cite{ieee:xu:2012} utilizam técnicas de Máquina de Vetores de Suporte (SVM, do inglês: Support Vector Machine) na realização de seus experimentos. O trabalho \cite{benevenuto:2010} também utilizou métodos da ferramenta Weka para identificar a importância e selecionar os atributos. O trabalho de \cite{kharde:2016} também utilizou o algoritmo Naive Bayes em sua pesquisa, além de outras técnicas também apresentadas. O trabalho de \cite{ieee:xu:2012} também utilizou árvores de decisão para realizar a classificação dos dados.
+    
+    \par Tratando-se da proposta dos trabalhos, \cite{ieee:suh:10}, \cite{acm:naveed:2011} e \cite{acm:hong:2011} realizam análises sobre fatores que influenciam na popularidade de um tuíte. Além disso, os trabalhos \cite{ieee:suh:10}, \cite{acm:duan:2010} e \cite{benevenuto:2010} identificaram a utilização de URLs, e o alcance do autor do tuíte (podendo ser medido por seus seguidores ou métricas mais complexas) como fatores de grande relevância durante seus experimentos.
     
     % ? Definir ou agrupar por características, cada um dos trabalhos. Apresentar que o que pretende-se nesse trabalho, diferentemente dos demais, é que utilizamos contas influentes e tentamos predizer uma taxa de engajamento para cada conta. Definir um cenário para cada conta que o alcance pode ser previsto até uma determinada taxa. ?
 
-    \par Dentro deste contexto, o objetivo deste trabalho é monitorar e extrair tuítes de determinadas contas do Twitter, a fim de elaborar modelos, utilizando algoritmos de aprendizado de máquina, para realizar a predição e classificação da popularidade de tuítes com base em suas características. Devido ao grande volume de dados, faz-se necessário automatizar o processo de análise e classificação dos dados, para isso, serão estudados e testados algoritmos já consolidados, como Naive Bayes e árvores de decisão, contando inclusive com o auxílio de ferramentas já reconhecidas como Weka, para a aplicação e análise dos resultados destes algoritmos. Como entrada para estes algoritmos, serão utilizados dados provenientes do pré-processamento dos tuítes coletados, sendo consideradas três características que não foram contempladas pelo estudo de \cite{ieee:suh:10}: o tamanho em caracteres, o sentimento (que mede a emoção transmitida) e a banalidade (que mede a relevância da mensagem). Para fins de comparação, a presença de \textit{hashtags} e URLs também foi avaliada.
+    \par Dentro deste contexto, o objetivo deste trabalho é monitorar e extrair tuítes de determinadas contas do Twitter, a fim de elaborar modelos, utilizando algoritmos de aprendizado de máquina, para realizar a predição e classificação da popularidade de tuítes com base em suas características. Serão estudados e testados algoritmos já consolidados, como Naive Bayes e árvores de decisão. Como entrada para estes algoritmos, serão utilizados dados provenientes do pré-processamento dos tuítes coletados, sendo consideradas três características que não foram contempladas pelo estudo de \cite{ieee:suh:10}: o tamanho em caracteres, o sentimento (que mede a emoção transmitida) e a banalidade (que mede a relevância da mensagem). Para fins de comparação, a presença de \textit{hashtags} e URLs também foi avaliada.
     
     \par A escolha dos algoritmos de classificação foi feita com base em sua popularidade e destaque para solucionar o problema de classificação de dados. Além disso, são frequentemente analisados e aplicados por pesquisadores em artigos que utilizam o aprendizado de máquina como foco.
 
-    \par Este trabalho está estruturado nas seguintes seções. O capítulo \ref{sec:fund-teorica} apresenta a fundamentação teórica, abordando conceitos e algoritmos de aprendizado de máquina. O capítulo \ref{sec:proposta} apresenta a definição dos atributo e a arquitetura de extração de tuítes usada, que realiza desde a coleta até a preparação dos dados para análise. O capítulo \ref{sec:experimentos} apresenta as análises realizadas a partir dos dados coletados juntamente com os algoritmos de aprendizado de máquina estudados. O capítulo \ref{sec:conclusao} apresenta as considerações finais a cerca do trabalho realizado.
+    \par Este trabalho está estruturado nas seguintes seções. O capítulo \ref{sec:fund-teorica} apresenta a fundamentação teórica, abordando conceitos e algoritmos de aprendizado de máquina. O capítulo \ref{sec:proposta} apresenta a definição dos atributo e a arquitetura de extração de tuítes usada, que realiza desde a coleta até a preparação dos dados para análise. O capítulo de Experimentos apresentará as análises realizadas a partir dos dados coletados juntamente com a aplicação dos algoritmos de aprendizado de máquina estudados. O capítulo de Conclusões apresenta as considerações finais a cerca do trabalho realizado.
 
 % O capítulo \ref{sec:trab-relacionados} apresenta os trabalhos relacionados
 
@@ -570,7 +573,7 @@ Agradeço também todos os colegas e amigos feitos durante essa trajetória que 
     
     \par No caso de dados textuais, existem técnicas para realizar a preparação do texto, ou pré-processamento, que podem envolve alguns procedimentos como transformação em letras minúsculas, lematização das palavras, remoção de acentuações, caracteres não textuais e palavras comuns (ou \textit{stopwords}). Além disso, outros métodos de engenharia de atributos podem ser aplicados, como vetorização do texto com técnicas como \textit{bag-of-words} e \textit{word embeddings} (respectivamente bolsa de palavras e incorporação de palavras, em tradução livre), que buscam determinar a frequência e similaridade das as palavras presentes nos textos.
     
-    \par Em consequência de todos os procedimentos, muitos atributos novos podem ser gerados e o processamento de todos eles pode se tornar muito custoso. Nestes casos, existem abordagens com o intuito de selecionar os atributos mais representativos dentre todos disponíveis. Dentre estas abordagens de seleção, pode-se citar \textit{Principal Component Analysis} (PCA) (traduzido como Análise de componentes principais); método de filtragem, que busca identificar correlações entre os dados; método \textit{Wrapper} (ou de embrulhar, em tradução livre), que é baseado na tentativa e erro para encontrar a melhor combinação de atributos; e o método \textit{Embedded} (ou incorporado, em tradução livre), casos em que a seleção destes atributos já faz parte do modelo.
+    \par Em consequência de todos os procedimentos, muitos atributos novos podem ser gerados e o processamento de todos eles pode se tornar muito custoso. Nestes casos, existem abordagens com o intuito de selecionar os atributos mais representativos dentre todos disponíveis. Dentre estas abordagens de seleção, pode-se citar Análise de Componentes Principais(PCA, do inglês: \textit{Principal Component Analysis}); método de filtragem, que busca identificar correlações entre os dados; método \textit{Wrapper} (ou de embrulhar, em tradução livre), que é baseado na tentativa e erro para encontrar a melhor combinação de atributos; e o método \textit{Embedded} (ou incorporado, em tradução livre), casos em que a seleção destes atributos já faz parte do modelo.
 
 % % % % % % % ALGORITMOS DE APRENDIZADO DE MÁQUINA SUPERVISIONADO % % % % % % %
 
@@ -700,7 +703,7 @@ Agradeço também todos os colegas e amigos feitos durante essa trajetória que 
 
 
 % % % % % % % % REDES NEURAIS % % % % % % % %
-
+\begin{comment}
 \subsection{Redes Neurais e Aprendizagem Profunda} % Recorrentes
 \label{sec:redes-neurais}
 
@@ -724,10 +727,10 @@ Agradeço também todos os colegas e amigos feitos durante essa trajetória que 
         \label{fig:deep-learning}
     \end{figure}
     
-    \par Existem vários modelos de arquiteturas de redes neurais propostos, dentre eles, vale a pena citar: Redes Multicamadas Perceptrons; Redes de Hopfield; Redes Neurais Convolucionais; e \textit{Long Short-Term Memory} (LSTM) (pode ser traduzido como Memória de Longo Prazo). 
+    \par Existem vários modelos de arquiteturas de redes neurais propostos, dentre eles, vale a pena citar: Redes Multicamadas Perceptrons; Redes de Hopfield; Redes Neurais Convolucionais; e Memória de Longo Prazo (LSTM, do inglês: \textit{Long Short-Term Memory}).
     
     % No contexto deste trabalho, durante a seção \ref{sec:experimentos}, correspondente aos experimentos, será dado destaque à arquitetura de redes convolucionais e LSTM, por se destacarem e ser muito utilizada no processamento de linguagem natural.
-
+\end{comment}
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
 % % % % % % % % % % % % TRABALHOS RELACIONADOS % % % % % % % % % % % % % % % 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
@@ -788,7 +791,7 @@ Agradeço também todos os colegas e amigos feitos durante essa trajetória que 
 \section{Classificadores}
 \label{sec:classificadores}
 
-    \par Para a realização da predição da popularidade de cada tuíte tendo como base a taxa de engajamento e considerando os atributos já mencionados, serão utilizados os algoritmos de classificação Naive Bayes e Árvores de decisão. Os experimentos com cada algoritmo serão realizados através da implementação de código utilizando a linguagem Python, devido a sua popularidade entre os pesquisadores com aprendizado de máquina e manipulação de dados, ou com o auxilio da ferramenta Weka, que já oferece uma coleção de algoritmos capazes de realizar a classificação de dados.
+    \par Para a realização da predição da popularidade de cada tuíte tendo como base a taxa de engajamento e considerando os atributos já mencionados, serão utilizados os algoritmos de classificação Naive Bayes e Árvores de decisão. Os experimentos com cada algoritmo serão realizados através da implementação de código utilizando a linguagem Python, devido a sua popularidade e recursos para lidar com aprendizado de máquina e manipulação de dados, ou com o auxilio da ferramenta Weka, que já oferece uma coleção de algoritmos capazes de realizar a classificação de dados.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
 % % % % % % % % % % % % % % METODOLOGIA  % % % % % % % % % % % % % % % % % 
@@ -841,7 +844,7 @@ Agradeço também todos os colegas e amigos feitos durante essa trajetória que 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
 % % % % % % % % % % % % % % EXPERIMENTOS  % % % % % % % % % % % % % % % % % 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
-
+\begin{comment}
 \chapter{Experimentos}
 \label{sec:experimentos}
 
@@ -949,16 +952,16 @@ Agradeço também todos os colegas e amigos feitos durante essa trajetória que 
 \label{sec:classificacao-popularidade}
 
     \par Dois parágrafos falando sobre a ideia da classificação no trabalho, para não deixar em branco a de classificação dos experimentos até o seminário de andamento.
-
+\end{comment}
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
 % % % % % % % % % % % % % % % CONCLUSÕES % % % % % % % % % % % % % % % % % %
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
-
+\begin{comment}
 \chapter{Conclusões}
 \label{sec:conclusao}
 
     \par Considerações finais e trabalhos futuros.
-
+\end{comment}
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
 % % % % % % % % % % % % FIM DAS PAGINAS TEXTUAIS % % % % % % % % % % % % % % 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
