@@ -702,7 +702,7 @@
 
 
 % % % % % % % % REDES NEURAIS % % % % % % % %
-\begin{comment}
+
 \subsection{Redes Neurais e Aprendizagem Profunda} % Recorrentes
 \label{sec:redes-neurais}
 
@@ -729,7 +729,7 @@
     \par Existem vários modelos de arquiteturas de redes neurais propostos, dentre eles, vale a pena citar: Redes Multicamadas Perceptrons; Redes de Hopfield; Redes Neurais Convolucionais; e Memória de Longo Prazo (LSTM, do inglês: \textit{Long Short-Term Memory}).
     
     % No contexto deste trabalho, durante a seção \ref{sec:experimentos}, correspondente aos experimentos, será dado destaque à arquitetura de redes convolucionais e LSTM, por se destacarem e ser muito utilizada no processamento de linguagem natural.
-\end{comment}
+
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
 % % % % % % % % % % % % TRABALHOS RELACIONADOS % % % % % % % % % % % % % % % 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
@@ -746,9 +746,32 @@
 
     \par A proposta deste trabalho é a elaboração de modelos, utilizando algoritmos de aprendizado de máquina supervisionada, capaz de classificar o nível de popularidade de tuítes com base na correlação entre a popularidade dos mesmos em função de um conjunto de características presentes no corpo das mensagens. Para atingir esse objetivo, é necessário coletar os tuítes, extrair suas características e aplicar o algoritmos já mencionados para realizar o treinamento e classificação dos dados. A partir disso, esta seção apresenta a definição dos atributos, a definição de popularidade e os classificadores utilizados para a realização do trabalho.
 
+% % % % % % % % % % % % % % % % % % % % % % % % % % % %
+% % % % % % % % % EXTRAÇÃO DOS TUÍTES % % % % % % % % %
+% % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+\section{Extração dos Tuítes}
+
+    \par Esta seção engloba a descrição e detalhamento dos processos envolvidos na arquitetura adotada, apresentada na Figura \ref{fig:arquitetura}, para realizar o processamento dos tuítes. Esta arquitetura, contém os seguintes módulos principais: (a) \textbf{Coleta} dos tuítes publicados por cada uma das contas acompanhadas; (b) \textbf{Extração} das características de cada tuíte; e (c) \textbf{Atualização} periódica dos dados coletados.
+    
+    % IMAGEM
+    \begin{figure}[ht]
+        \caption{Arquitetura adotada para extração de tuítes}
+        \centering
+        \includegraphics[width=1\textwidth]{figuras/arquitetura.png}
+        \vspace{\baselineskip} %%% linha em branco para atender a norma
+        \fonte{Produção do próprio autor.}
+        \label{fig:arquitetura}
+    \end{figure}
+    
+    \par A coleta dos tuítes foi realizada tendo como base contas de personalidades influentes que utilizam o Twitter periodicamente. Ao todo, foram consideradas 40 contas de diversas áreas de atuação, como por exemplo Donald J. Trump (atual presidente dos Estados Unidos), Jimmy Fallon (famoso apresentador de TV americano) e Katy Perry (cantora detentora da conta com o maior número de seguidores no Twitter). 
+    
+    \par A escolha deve-se ao fato de que a análise do impacto de publicações em redes sociais é mais relevante para esse tipo de usuário, uma vez o cálculo da taxa de engajamento para contas com poucos seguidores resultaria sempre em um valor próximo a zero. O que também é reforçado por \cite{ieee:suh:10}, quanto maior a audiência, maiores são as chances de um tuíte ser retuitado. A coleta dos tuítes foi realizada durante o ano de 2018, totalizando cerca de 9500 registros distribuídos entre as contas de interesse que foram escritos na língua inglesa.
+    % período entre Novembro de 2017 e Setembro de 2018
+
 % % % % % % % % DEFINIÇÃO DOS ATRIBUTOS % % % % % % % %
 
-\section{Definição dos Atributos}
+\subsection{Definição dos Atributos de Interesse}
 \label{sec:def-atributos}
 
     \par Como parte do objetivo deste trabalho é a correlação entre a popularidade e as características do texto de cada tuíte, é de fundamental importância a definição e extração de características relevantes que possam influenciar no interesse dos usuários sobre uma determinada mensagem. Esta etapa corresponde a definição dos atributos que serão extraídos de cada um dos tuítes coletados. Os itens abaixo definem cada um destes atributos e a razão de terem sido escolhidos:
@@ -769,109 +792,8 @@
     
     \par onde o conjunto $\{P_1, ..., P_n\}$ são as palavras da mensagem após a remoção de \textit{stopwords} (preposições e artigos que normalmente são descartados durante o processamento de um texto). Já a função $freq(P)$ retorna 1 caso a palavra $P$ seja frequente e zero caso não seja.
 
-% % % % % % % % DEFINIÇÃO DE POPULARIDADE % % % % % % % %
-
-\section{Definição de Popularidade}
-\label{sec:def-popularidade}
-
-    \par De maneira geral, em mídias sociais, a popularidade de uma conta pode ser medida através da quantidade de seguidores que ela detém, quanto maior o número de seguidores, mais influente, ou popular, a conta é considerada. Porém, este é um indicador simples que não determina o alcance real das publicações. Para isso, existem várias métricas que permitem uma medição mais precisa sobre o impacto causado pelas ações realizadas por uma determinada página ou usuário. Uma métrica muito conhecida e utilizada para medir o alcance real de uma página sobre seus seguidores é a taxa de engajamento. Esse índice considera as interações dos fãs com os conteúdos publicados, de forma que quanto maior é essa interação, maior é o nível de engajamento.
-
-    \par Como exposto em \cite{artigo:pillat:17}, para calcular a taxa de engajamento de uma determinada publicação, por convenção, é realizada a fórmula apresentada na Equação \ref{eq:engajamento}. Cada elemento da equação refere-se estritamente ao valor, em quantidade, obtido por cada publicação. Trazendo para a realidade do Twitter, os compartilhamentos são substituídos pelos retuítes e os comentários pelas respostas a um determinado tuíte.
-    
-    % EQUAÇÃO
-    \begin{equation} \label{eq:engajamento}
-    E(x) = \frac{curtidas + compartilhamentos + coment\acute{a}rios}{seguidores}*100
-    \end{equation}
-    
-    \par Apesar de existir esta convenção para o cálculo do engajamento, a fórmula pode variar, dependendo das informações fornecidas por cada rede social. Como por exemplo, no caso do Facebook, o total de seguidores pode ser substituído pelo total de visualizações obtidas por cada publicação, ou então, como também apresentado em \cite{artigo:pillat:17}, substituído pelo seguidores da própria página mais os seguidores dos próprios fãs.
-
-% % % % % % % % CLASSIFICADORES % % % % % % % %
-
-\section{Classificadores}
-\label{sec:classificadores}
-
-    \par Para a realização da predição da popularidade de cada tuíte tendo como base a taxa de engajamento e considerando os atributos já mencionados, serão utilizados os algoritmos de classificação Naive Bayes e Árvores de decisão. Os experimentos com cada algoritmo serão realizados através da implementação de código utilizando a linguagem Python, devido a sua popularidade e recursos para lidar com aprendizado de máquina e manipulação de dados, ou com o auxilio da ferramenta Weka, que já oferece uma coleção de algoritmos capazes de realizar a classificação de dados.
-
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
-% % % % % % % % % % % % % % METODOLOGIA  % % % % % % % % % % % % % % % % % 
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
-
-\chapter{Metodologia}
-\label{sec:metodologia}
-
-    \par Para alcançar os objetivos elencados, uma série de etapas foi elaborada para a realização deste projeto, nas quais o sucesso de uma está diretamente ligado ao da outra. A fim de proporcionar maior compreensão destas etapas, este capítulo foi destinado à descrição de cada uma destas etapas juntamente com a apresentação do cronograma do projeto, no qual consta a previsão de realização de cada uma delas.
-    
-    \par \textbf{Análise de trabalhos similares:} Nesta etapa será realizada uma pesquisa sobre trabalhos similares já realizados na área envolvendo aprendizado de máquina e extração de dados extraídos do Twitter, com o objetivo de que os mesmos possam vir a auxiliar e contribuir com a proposta do trabalho.
-    
-    \par \textbf{Definição dos atributos:} Esta etapa é designada para analisar e definir quais serão os atributos de interesse que devem ser extraídos de cada tuíte, considerando a relevância que cada um deles pode inferir sobre a popularidade daquele tuíte.
-    
-    \par \textbf{Extração e pré-processamento dos dados:} Dispondo dos atributos de interesse, os tuítes devem ser coletados e seus conteúdos pré-processados. Para isso, será realizado um estudo acerca dos melhores métodos e ferramentas que permitem a extração de dados do Twitter e posteriormente de seus atributos de interesse.
-    
-    \par \textbf{Estudo de algoritmos de aprendizado de máquina:} Estando em posse dos dados já processados, será realizado um estudo acerca dos algoritmos de aprendizado de máquina para classificação de dados e quais são as melhores opções considerando os dados de entrada e os atributos de interesse.
-    
-    \par \textbf{Implementação dos algoritmos:} Dispondo do conhecimento necessário acerca algoritmos de aprendizado de máquina e os atributos disponíveis, serão implementados tais algoritmos utilizando tecnologias adequadas para tal.
-    
-    \par \textbf{Experimentos com os algoritmos selecionados:} Esta etapa corresponde a realização de testes com os algoritmos estudados e implementados nas etapas anteriore. O experimentos serão realizados com o objetivo de classificar a popularidade dos tuítes com base nos atributos extraídos.
-    
-    \par \textbf{Análise dos resultados obtidos:} Esta etapa do trabalho destina-se a realização de uma análise sobre os algoritmos testados e os resultados obtidos com cada um deles ao tentar realizar a predição da popularidade dos tuítes.
-    
-    \par \textbf{Documentação:} Por fim, é nesta etapa que os resultados obtidos com o decorrer do projeto são analisados e documentados, havendo a chance de originar um artigo, considerando que houve certa contribuição científica com a área, além do próprio relatório do Trabalho de Conclusão de Curso.
-    
-    \section{Cronograma}
-    
-    \par Com base nas etapas descritas, a Tabela \ref{tab:cronograma} a seguir resume o cronograma das atividades previstas. Dividido entre quinzenas, o cronograma tem início a partir do mês de Agosto (08). As atividades já realizadas até o momento compreendem os itens marcados com bola ($\bullet$) e fundo em cinza, enquanto que os marcadores em xis ($\times$) com fundo branco representam as atividades que ainda devem ser realizadas.
-    
-    \begin{table}[ht]
-    \centering
-    \caption{Cronograma do projeto}
-    \label{tab:cronograma}
-    \begin{tabular}{|l|c|c|c|c|c|c|c|c|}
-    \hline
-    \textbf{Atividade} & \textbf{8/2} & \textbf{9/1} & \textbf{9/2} & \textbf{10/1} & \textbf{10/2} & \textbf{11/1} & \textbf{11/2} & \textbf{12/1} \\ \hline
-    Análise de trabalhos similares & \cellcolor{gray!20}$\bullet$ &  &  &  &  &  &  &  \\ \hline
-    Definição dos Atributos & \cellcolor{gray!20}$\bullet$ & \cellcolor{gray!20}$\bullet$ & \cellcolor{gray!20}$\bullet$ &  &  &  &  &  \\ \hline
-    Extração e pré-processamento &  & \cellcolor{gray!20}$\bullet$ & \cellcolor{gray!20}$\bullet$ & \cellcolor{gray!20}$\bullet$ & \cellcolor{gray!20}$\bullet$ &  &  &  \\ \hline
-    Estudo de algoritmos de IA &  &  &  & \cellcolor{gray!20}$\bullet$ & \cellcolor{gray!20}$\bullet$ & \cellcolor{gray!20}$\bullet$ &  &  \\ \hline
-    Implementação dos algoritmos &  &  &  & \cellcolor{gray!20}$\bullet$ & \cellcolor{gray!20}$\bullet$ & $\times$ & $\times$ & $\times$ \\ \hline
-    Experimentos com algoritmos &  &  &  & \cellcolor{gray!20}$\bullet$ & \cellcolor{gray!20}$\bullet$ & $\times$ & $\times$ & $\times$ \\ \hline
-    Análise dos resultados obtidos &  &  &  &  &  & $\times$ & $\times$ & $\times$ \\ \hline
-    Documentação & \cellcolor{gray!20}$\bullet$ & \cellcolor{gray!20}$\bullet$ & \cellcolor{gray!20}$\bullet$ & \cellcolor{gray!20}$\bullet$ & \cellcolor{gray!20}$\bullet$ & $\times$ & $\times$ & $\times$ \\ \hline
-    \end{tabular}
-    \end{table}
-    
-
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
-% % % % % % % % % % % % % % EXPERIMENTOS  % % % % % % % % % % % % % % % % % 
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
-\begin{comment}
-\chapter{Experimentos}
-\label{sec:experimentos}
-
-    \par Com base nos fundamentos e proposta apresentados, respectivamente nas seções \ref{sec:fund-teorica} e \ref{sec:proposta}, neste capítulo serão apresentados os passos para construção da base de dados, experimentos realizados e resultados obtidos com a aplicação dos algoritmos sugeridos sobre os dados coletados. De maneira geral, os experimentos tem por objetivo realizar análises sobre a aplicação dos algoritmos de aprendizado de máquina correlacionando as características extraídas de tuítes com a sua respectiva taxa de engajamento.
-
-% % % % % % % % EXTRAÇÃO DE TUÍTES % % % % % % % %
-
-\section{Extração de Tuítes}
-\label{sec:extracao-tweets}
-
-    \par Esta seção é responsável por descrever todos os processos envolvidos na coleta dos tuítes que formam a base de dados utilizada nos experimentos. Para realizar todo o processo foi adotada a arquitetura, exibida na Figura~\ref{fig:arquitetura}, contendo os seguintes módulos principais: (a) \textbf{Coleta} dos tuítes publicados por cada uma das contas acompanhadas; (b) \textbf{Extração} das características de cada tuíte; e (c) \textbf{Atualização} periódica dos dados coletados.
-    
-    % IMAGEM
-    \begin{figure}[ht]
-        \caption{Arquitetura adotada para extração de tuítes}
-        \centering
-        \includegraphics[width=1\textwidth]{figuras/arquitetura.png}
-        \vspace{\baselineskip} %%% linha em branco para atender a norma
-        \fonte{Produção do próprio autor.}
-        \label{fig:arquitetura}
-    \end{figure}
-    
-    \par A coleta dos tuítes foi realizada tendo como base contas de personalidades influentes que utilizam o Twitter periodicamente. Ao todo, foram consideradas 40 contas de diversas áreas de atuação, como por exemplo Donald J. Trump (atual presidente dos Estados Unidos), Jimmy Fallon (famoso apresentador de TV americano) e Katy Perry (cantora detentora da conta com o maior número de seguidores no Twitter). 
-    
-    \par A escolha deve-se ao fato de que a análise do impacto de publicações em redes sociais é mais relevante para esse tipo de usuário, uma vez o cálculo da taxa de engajamento para contas com poucos seguidores resultaria sempre em um valor próximo a zero. O que também é reforçado por \cite{ieee:suh:10}, quanto maior a audiência, maiores são as chances de um tuíte ser retuitado. A coleta dos tuítes foi realizada durante o ano de 2018, totalizando cerca de 9500 registros distribuídos entre as contas de interesse que foram escritos na língua inglesa.
-    % período entre Novembro de 2017 e Setembro de 2018
-
 % % % % % % % % COLETA DE TUÍTES % % % % % % % %
+
 \subsection{Coleta de tuítes}
 
     \par O módulo de coleta é responsável por extrair tuítes de usuários específicos. A extração ocorre de forma contínua, usando recursos de \textit{streaming} disponibilizados pela API do Twitter\footnote{\textit{Twitter Developer Platform:} \texttt{https://dev.twitter.com}}. São coletados todos tuítes publicados a partir do momento que o \textit{streaming} entra em execução.
@@ -906,6 +828,7 @@
     \end{equation}
 
 % % % % % % % % EXTRAÇÃO DAS CARACTERÍSTICAS % % % % % % % %
+
 \subsection{Extração das Características}
 
     \par Esta etapa corresponde a extração das características de cada um dos tuítes coletados. A extração ocorre imediatamente após a coleta. Os itens abaixo mostram como cada característica foi extraída:
@@ -941,26 +864,125 @@
 
 
 % % % % % % % % ATUALIZAÇÃO DOS DADOS % % % % % % % %
+
 \subsection{Atualização dos dados de retuítes e curtidas}
 
     \par Como o módulo de coleta funciona por meio de \textit{streaming}, os tuítes são coletados no instante de sua criação. Nesse momento, a quantidade de retuítes e curtidas recebidos têm o valor zero. Dessa forma, é necessária uma conferência periódica para a obtenção dos dados atualizados.
     
     \par A atualização é realizada através de um recurso da API do Twitter que obtém informações de um tuíte a partir do seu código de identificação. Para evitar sobrecarga de processamento, apenas os tuítes publicados no intervalo de 15 dias são atualizados. Como os dados de tuítes mais antigos raramente são modificados, a busca para a atualização de cada um deles seria ao mesmo tempo custosa e improdutiva.
 
-\section{Classificação da Popularidade de Tuítes}
-\label{sec:classificacao-popularidade}
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+% % % % % % % % CLASSIFICAÇÃO DOS TUÍTES % % % % % % % %
+% % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
-    \par Dois parágrafos falando sobre a ideia da classificação no trabalho, para não deixar em branco a de classificação dos experimentos até o seminário de andamento.
+\section{Classificação dos Tuítes}
+
+    \par Esta etapa descreve os processos e métricas necessários para a realização da classificação dos tuítes como populares ou não populares. Para a realização da predição da popularidade de cada tuíte tendo como base a taxa de engajamento e considerando os atributos já mencionados, serão utilizados os algoritmos de classificação já mencionados Naive Bayes e Árvores de decisão. Os experimentos com cada algoritmo serão realizados através da implementação de código utilizando a linguagem de programação Python, devido a sua popularidade e recursos para lidar com aprendizado de máquina e manipulação de dados, ou com o auxilio da ferramenta Weka, que já oferece uma coleção de algoritmos capazes de realizar a classificação de dados.
+    
+    \par Explicar e referenciar site do Weka, SciKit Learn e TextBlob.
+
+% % % % % % % % DEFINIÇÃO DE POPULARIDADE % % % % % % % %
+
+\subsection{Definição de Popularidade}
+\label{sec:def-popularidade}
+
+    \par De maneira geral, em mídias sociais, a popularidade de uma conta pode ser medida através da quantidade de seguidores que ela detém, quanto maior o número de seguidores, mais influente, ou popular, a conta é considerada. Porém, este é um indicador simples que não determina o alcance real das publicações. Para isso, existem várias métricas que permitem uma medição mais precisa sobre o impacto causado pelas ações realizadas por uma determinada página ou usuário. Uma métrica muito conhecida e utilizada para medir o alcance real de uma página sobre seus seguidores é a taxa de engajamento. Esse índice considera as interações dos fãs com os conteúdos publicados, de forma que quanto maior é essa interação, maior é o nível de engajamento.
+
+    \par Como exposto em \cite{artigo:pillat:17}, para calcular a taxa de engajamento de uma determinada publicação, por convenção, é realizada a fórmula apresentada na Equação \ref{eq:engajamento}. Cada elemento da equação refere-se estritamente ao valor, em quantidade, obtido por cada publicação. Trazendo para a realidade do Twitter, os compartilhamentos são substituídos pelos retuítes e os comentários pelas respostas a um determinado tuíte.
+    
+    % EQUAÇÃO
+    \begin{equation} \label{eq:engajamento}
+    E(x) = \frac{curtidas + compartilhamentos + coment\acute{a}rios}{seguidores}*100
+    \end{equation}
+    
+    \par Apesar de existir esta convenção para o cálculo do engajamento, a fórmula pode variar, dependendo das informações fornecidas por cada rede social. Como por exemplo, no caso do Facebook, o total de seguidores pode ser substituído pelo total de visualizações obtidas por cada publicação, ou então, como também apresentado em \cite{artigo:pillat:17}, substituído pelo seguidores da própria página mais os seguidores dos próprios fãs.
+
+% % % % % % % % CLASSIFICADORES % % % % % % % %
+
+% % % % % % % % CLASSIFICAÇÃO COM NAIVE BAYES % % % % % % % %
+
+\subsection{Classificação utilizando Naive Bayes}
+\label{sec:class-naive}
+
+    \par Explicar as duas vertentes que serão utilizadas com o Naive Bayes.
+
+% % % % % % % % CLASSIFICAÇÃO COM ÁRVORES DE DECISÃO % % % % % % % %
+
+\subsection{Classificação utilizando Árvores de Decisão}
+\label{sec-class-arvores}
+
+    \par Explanar os algoritmos J48 e LTM, por exemplo.
+
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+% % % % % % % % % % % % % % METODOLOGIA  % % % % % % % % % % % % % % % % % 
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+
+\begin{comment}
+
+\chapter{Metodologia}
+\label{sec:metodologia}
+
+    \par Para alcançar os objetivos elencados, uma série de etapas foi elaborada para a realização deste projeto, nas quais o sucesso de uma está diretamente ligado ao da outra. A fim de proporcionar maior compreensão destas etapas, este capítulo foi destinado à descrição de cada uma destas etapas juntamente com a apresentação do cronograma do projeto, no qual consta a previsão de realização de cada uma delas.
+    
+    \par \textbf{Análise de trabalhos similares:} Nesta etapa será realizada uma pesquisa sobre trabalhos similares já realizados na área envolvendo aprendizado de máquina e extração de dados extraídos do Twitter, com o objetivo de que os mesmos possam vir a auxiliar e contribuir com a proposta do trabalho.
+    
+    \par \textbf{Definição dos atributos:} Esta etapa é designada para analisar e definir quais serão os atributos de interesse que devem ser extraídos de cada tuíte, considerando a relevância que cada um deles pode inferir sobre a popularidade daquele tuíte.
+    
+    \par \textbf{Extração e pré-processamento dos dados:} Dispondo dos atributos de interesse, os tuítes devem ser coletados e seus conteúdos pré-processados. Para isso, será realizado um estudo acerca dos melhores métodos e ferramentas que permitem a extração de dados do Twitter e posteriormente de seus atributos de interesse.
+    
+    \par \textbf{Estudo de algoritmos de aprendizado de máquina:} Estando em posse dos dados já processados, será realizado um estudo acerca dos algoritmos de aprendizado de máquina para classificação de dados e quais são as melhores opções considerando os dados de entrada e os atributos de interesse.
+    
+    \par \textbf{Implementação dos algoritmos:} Dispondo do conhecimento necessário acerca algoritmos de aprendizado de máquina e os atributos disponíveis, serão implementados tais algoritmos utilizando tecnologias adequadas para tal.
+    
+    \par \textbf{Experimentos com os algoritmos selecionados:} Esta etapa corresponde a realização de testes com os algoritmos estudados e implementados nas etapas anteriore. O experimentos serão realizados com o objetivo de classificar a popularidade dos tuítes com base nos atributos extraídos.
+    
+    \par \textbf{Análise dos resultados obtidos:} Esta etapa do trabalho destina-se a realização de uma análise sobre os algoritmos testados e os resultados obtidos com cada um deles ao tentar realizar a predição da popularidade dos tuítes.
+    
+    \par \textbf{Documentação:} Por fim, é nesta etapa que os resultados obtidos com o decorrer do projeto são analisados e documentados, havendo a chance de originar um artigo, considerando que houve certa contribuição científica com a área, além do próprio relatório do Trabalho de Conclusão de Curso.
+    
+    \section{Cronograma}
+    
+    \par Com base nas etapas descritas, a Tabela \ref{tab:cronograma} a seguir resume o cronograma das atividades previstas. Dividido entre quinzenas, o cronograma tem início a partir do mês de Agosto (08). As atividades já realizadas até o momento compreendem os itens marcados com bola ($\bullet$) e fundo em cinza, enquanto que os marcadores em xis ($\times$) com fundo branco representam as atividades que ainda devem ser realizadas.
+    
+    \begin{table}[ht]
+    \centering
+    \caption{Cronograma do projeto}
+    \label{tab:cronograma}
+    \begin{tabular}{|l|c|c|c|c|c|c|c|c|}
+    \hline
+    \textbf{Atividade} & \textbf{8/2} & \textbf{9/1} & \textbf{9/2} & \textbf{10/1} & \textbf{10/2} & \textbf{11/1} & \textbf{11/2} & \textbf{12/1} \\ \hline
+    Análise de trabalhos similares & \cellcolor{gray!20}$\bullet$ & \cellcolor{gray!20}$\bullet$  &  &  &  &  &  &  \\ \hline
+    Definição dos Atributos & \cellcolor{gray!20}$\bullet$ & \cellcolor{gray!20}$\bullet$ & \cellcolor{gray!20}$\bullet$ &  &  &  &  &  \\ \hline
+    Extração e pré-processamento &  & \cellcolor{gray!20}$\bullet$ & \cellcolor{gray!20}$\bullet$ & \cellcolor{gray!20}$\bullet$ & \cellcolor{gray!20}$\bullet$ &  &  &  \\ \hline
+    Estudo de algoritmos de IA &  &  &  & \cellcolor{gray!20}$\bullet$ & \cellcolor{gray!20}$\bullet$ & \cellcolor{gray!20}$\bullet$ &  &  \\ \hline
+    Implementação dos algoritmos &  &  &  & \cellcolor{gray!20}$\bullet$ & \cellcolor{gray!20}$\bullet$ & $\times$ & $\times$ & $\times$ \\ \hline
+    Experimentos com algoritmos &  &  &  & \cellcolor{gray!20}$\bullet$ & \cellcolor{gray!20}$\bullet$ & $\times$ & $\times$ & $\times$ \\ \hline
+    Análise dos resultados obtidos &  &  &  &  &  & $\times$ & $\times$ & $\times$ \\ \hline
+    Documentação & \cellcolor{gray!20}$\bullet$ & \cellcolor{gray!20}$\bullet$ & \cellcolor{gray!20}$\bullet$ & \cellcolor{gray!20}$\bullet$ & \cellcolor{gray!20}$\bullet$ & $\times$ & $\times$ & $\times$ \\ \hline
+    \end{tabular}
+    \end{table}
+    
 \end{comment}
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+% % % % % % % % % % % % % % EXPERIMENTOS  % % % % % % % % % % % % % % % % % 
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+
+\chapter{Experimentos}
+\label{sec:experimentos}
+
+    \par Com base nos fundamentos e proposta apresentados, respectivamente nas seções \ref{sec:fund-teorica} e \ref{sec:proposta}, neste capítulo serão apresentados os experimentos realizados e resultados obtidos com a aplicação dos algoritmos sugeridos sobre os dados coletados. De maneira geral, os experimentos tem por objetivo realizar análises sobre a aplicação dos algoritmos de aprendizado de máquina correlacionando as características extraídas de tuítes com a sua respectiva taxa de engajamento.
+
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
 % % % % % % % % % % % % % % % CONCLUSÕES % % % % % % % % % % % % % % % % % %
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
-\begin{comment}
+
 \chapter{Conclusões}
 \label{sec:conclusao}
 
     \par Considerações finais e trabalhos futuros.
-\end{comment}
+
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
 % % % % % % % % % % % % FIM DAS PAGINAS TEXTUAIS % % % % % % % % % % % % % % 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
