@@ -1038,7 +1038,7 @@
 \section{Métricas de Avaliação}
 \label{sec:class-metricas}
 
-    \par Para poder realizar a avaliação dos modelos de avaliação, é importante definir as métricas que serão utilizadas para realizar essa comparação entre os modelos. Para isso, serão consideradas cinco métricas, sendo acurácia, sensibilidade, especificidade, valor preditivo positivo e valor preditivo negativo.
+    \par Para poder realizar a avaliação dos modelos de avaliação, é importante definir as métricas que serão utilizadas para realizar essa comparação entre os modelos. Para isso, serão consideradas cinco métricas, sendo acurácia, sensibilidade, especificidade, valor preditivo positivo e valor preditivo negativo. Estas medidas, apresentadas nas equações \ref{eq:acuracidade}, \ref{eq:sensibilidade}, \ref{eq:especificidade}, \ref{eq:predit-neg} e \ref{eq:predit-neg}, retiradas de \cite{book:han:11}, são aplicadas após a etapa de validação e consideram os acertos e erros dos algoritmos sobre cada uma das classes em relação ao total de cada classe.
     
     % EQUAÇÃO
     \begin{equation} \label{eq:acuracidade}
@@ -1057,13 +1057,15 @@
     
     % EQUAÇÃO
     \begin{equation} \label{eq:predit-pos}
-    PreditivoPositivo = \frac{AcertosPositivos}{AcertosPositivos + ErrosPositivos}
+    PreditivoPositivo = \frac{AcertosPositivos}{AcertosPositivos + FalsosPositivos}
     \end{equation}
     
     % EQUAÇÃO
     \begin{equation} \label{eq:predit-neg}
-    PreditivoNegativo = \frac{AcertosNegativos}{AcertosNegativos + ErrosNegativos}
+    PreditivoNegativo = \frac{AcertosNegativos}{AcertosNegativos + FalsosNegativos}
     \end{equation}
+    
+    \par A acuracidade é uma medida de análise geral dos acertos, sem diferenciar as classes. Enquanto que a Sensibilidade e a Especificidade são as medidas que indicam a capacidade do modelo em realizar a predição das entradas como a classe positiva e negativa, respectivamente. Já os valores preditivos, estão relacionados com o total de predições corretas de uma das classes com o total de predições realizadas. 
     
 % % % % % % % % APLICAÇÃO DOS CLASSIFICADORES % % % % % % % %
 
@@ -1108,6 +1110,70 @@
     \end{tikzpicture}
     \fonte{Produção do próprio autor.}
     \label{fig:exp-1}
+    \end{figure}
+    
+    \begin{figure}[!ht]
+    \caption{Análise da taxa de popularidade pelo uso de URLs e \textit{hashtags}. No eixo Y, N corresponde a Não e S corresponde a Sim}
+    \centering
+    \subfigure[ref1][Popularidade X uso de URLs]
+    	{
+            \begin{tikzpicture}[scale=0.8]
+            \begin{axis}[
+                xbar,
+                bar width=20pt,
+                enlargelimits=0.25,
+                enlarge y limits=0.5,
+                legend style={at={(0.5,1.23)},
+                  anchor=north,legend columns=2},
+                ylabel={Uso de URL},
+                symbolic y coords={N, S},
+                ytick=data,
+                nodes near coords,
+                nodes near coords align={horizontal},
+                legend image code/.code={%
+                   \draw[#1, draw=none] (0cm,-0.2cm) rectangle (0.6cm,0.2cm);
+                },
+            ]
+            \legend{Retuítes,Curtidas}
+            \addplot [xbar, fill=blue!65,postaction={pattern=vertical lines}]
+            	coordinates {(3053,S) (3759,N)};
+            \addplot [xbar, fill=blue!15,postaction={pattern=north east lines}] 
+            	coordinates {(12928,S) (9822,N)};
+            
+            \end{axis}
+            \end{tikzpicture}
+        }
+    \hspace{0.1cm}
+    \subfigure[ref1][Popularidade X uso de \textit{Hashtags}]
+    	{
+            \begin{tikzpicture}[scale=0.8]
+            \begin{axis}[
+                xbar,
+                bar width=20pt,
+                enlargelimits=0.2,
+                enlarge y limits=0.5,
+                legend style={at={(0.5,1.23)},
+                  anchor=north,legend columns=2},
+                ylabel={Uso de Hashtags},
+                symbolic y coords={N, S},
+                ytick=data,
+                nodes near coords,
+                nodes near coords align={horizontal},
+                legend image code/.code={%
+                   \draw[#1, draw=none] (0cm,-0.2cm) rectangle (0.6cm,0.2cm);
+                },
+            ]
+            \legend{Retuítes,Curtidas}
+            \addplot [xbar, fill=blue!65,postaction={pattern=vertical lines}]
+            	coordinates {(1395,S) (3915,N)};
+            \addplot [xbar, fill=blue!15,postaction={pattern=north east lines}] 
+            	coordinates {(4483,S) (15247,N)};
+            
+            \end{axis}
+            \end{tikzpicture}
+        }
+    \label{fig:exp-2}
+    \fonte{Produção do próprio autor.}
     \end{figure}
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
