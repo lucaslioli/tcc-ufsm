@@ -61,6 +61,9 @@
 \usepackage{forest}
 \usetikzlibrary{patterns}
 
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+
 % Configuração da área máxima que pode ser utilizada por imagem de gráfico.
 \pgfplotsset{width=8cm,height=8cm,compat=1.8}
 
@@ -74,8 +77,14 @@
   dummy/.style    = {circle, draw, top color=white, bottom color=gray!10}
 }
 
+% Configuração de cores RGB
 \definecolor{myred}{RGB}{215,21,21}
 \definecolor{myblue}{RGB}{0,130,230}
+
+% Configuração para a exibição do caption
+\makeatletter
+\renewcommand{\ALG@name}{Algoritmo}
+\renewcommand{\listalgorithmname}{Lista de \ALG@name s}
 
 % % % % % %  DEFINIÇÕES PESSOAIS  
 
@@ -132,10 +141,10 @@
 
 % % % % % % % % % % INFORMAÇÕES SOBRE O TRABALHO % % % % % % % % % %
 % % % %  TITULO DO TRABALHO
-\titulo{Utilização de Algoritmos de Aprendizado de Máquina para Prever a Popularidade de Tuítes} %% NÃO EH NECESSÁRIO CAPITALIZAR
+\titulo{Predição da popularidade de tuítes utilizando algoritmos de aprendizado de máquina} %% NÃO EH NECESSÁRIO CAPITALIZAR
 
 % % % %  TITULO DO TRABALHO EM INGLÊS
-\englishtitle{Use of Machine Learning Algorithms to Predict Tweets Popularity}  %% NÃO EH NECESSÁRIO CAPITALIZAR
+\englishtitle{Prediction of Tweets' Popularity using machine learning algorithms}  %% NÃO EH NECESSÁRIO CAPITALIZAR
 
 % % % ÁREA DE CONCENTRAÇÃO DO TRABALHO (CNPQ)
 \areaconcentracao{Área de concentração do CNPq}
@@ -156,7 +165,7 @@
 %     \concordagenerico{o}
 %     \graugenerico{Engenheiro Eletricista}
 % % % DATA DA DEFESA 
-\data{01}{11}{2018} %% FORMATO {DD}{MM}{AAAA}
+\data{06}{12}{2018} %% FORMATO {DD}{MM}{AAAA}
 
 
 
@@ -201,7 +210,7 @@
 \abstract{
     The popularity of Twitter and the power that a single tweet can have today are well-known, even serving as a source for renowned news portals. The simplicity and volume of data trafficked by the platform daily make it a powerful data source. Focusing on the analysis of the messages and in the interest of the users to increase the number of followers, the objective of this work is the elaboration of models, using algorithms of machine learning, to make predictions and classifications of the tweets' popularity based on extracted attributes of the message body. In order to reach this objective, the methodology adopted involves the definition of interest attributes, extraction and processing of data, as well as the study and application of machine learning algorithms to perform the classification of tweets.
 }
-\keywords{Supervised Machine Learning. Data Classification. Data collect.}
+\keywords{Supervised Machine Learning. Data Classification. Data collection.}
 
 
 % % %  ATIVAÇÃO DE LISTAS E PAGINAS ESPECIAIS
@@ -227,15 +236,18 @@
 % % % %  LISTA DE ABREVIATURAS E SIGLAS
 %%%%%%%% OBS: O espaço entre colchetes \item[] e um ambiente matemático
 %%%%%%%% para não utilizar comente as linhas abaixo.
-\siglamax{CART} %%%% coloque aqui a maior sigla (indentação)
+\siglamax{WEKA} %%%% coloque aqui a maior sigla (indentação)
 \listadeabreviaturasesiglas{
 \item[API]  \textit{Application Programming Interface}
+\item[ARFF] \textit{Attribute-Relation File Format}
 \item[CART] \textit{Classification and Regression Trees}
 \item[IA]   Inteligência Artificial
+\item[LMT]  \textit{Logistic Model Trees}
 \item[LSTM] \textit{Long Short-Term Memory}
 \item[PCA]  \textit{Principal Component Analysis}
 \item[RNN]  \textit{Recurrent Neural Network}
 \item[SVM]  \textit{Support Vector Machine}
+\item[WEKA] \textit{Waikato Environment for Knowledge Analysis}
 }
 
 % % % %  LISTA DE SÍMBOLOS
@@ -250,7 +262,7 @@
 
 
 % % FICHA CATALOGRÁFICA
-% \semcatalografica  %%%%  (QUANDO ATIVADA NÃO EXIBE A FICHA CATALOGRÁFICA NECESSITA DO ARQUIVO DA FICHA: ficha_catalografica.pdf
+\semcatalografica  %%%%  (QUANDO ATIVADA NÃO EXIBE A FICHA CATALOGRÁFICA NECESSITA DO ARQUIVO DA FICHA: ficha_catalografica.pdf
 
 % % % A FICHA CATALOGRÁFICA FORNECIDA PELA UFSM EH UM PDF DO TAMANHO A4
 % % % OS COMANDOS ABAIXO DEFINEM AS MARGENS PARA CORTAR A FICHA FORNECIDA E COLOCA-LA COMO UMA FIGURA NO DOCUMENTO LATEX
@@ -339,15 +351,16 @@
 
     \par Como afirma \cite{ieee:suh:10}, a propagação de um tuíte está diretamente ligada ao conteúdo e valor informativo contido nele. Nesse sentido, os autores avaliaram um conjunto de características extraídas das mensagens. Os resultados mostraram que a utilização de \textit{hashtags} e URLs são fatores muito significativos e que ajudam a impulsionar uma publicação. Apesar de ser um resultado muito relevante, o trabalho não realizou uma análise exaustiva das características que podem ser extraídas do corpo das mensagens de cada tuíte.
     
-    \par É conhecido que hoje existem inúmeras pesquisas sendo realizadas envolvendo dados coletados do Twitter. Além de \cite{ieee:suh:10}, outros trabalhos relacionados que podem ser citados aqui, como \cite{acm:duan:2010}, \cite{benevenuto:2010}, \cite{acm:naveed:2011}, \cite{kharde:2016}, \cite{acm:hong:2011} e \cite{ieee:xu:2012}, tem como parte de seus objetivos, a análise e identificação de fatores impactantes no conteúdo das mensagens propagadas no Twitter, além disso, utilizam também técnicas de aprendizado de máquina na realização de suas pesquisas.
+    \par É conhecido que hoje existem inúmeras pesquisas sendo realizadas envolvendo dados coletados do Twitter. Além de \cite{ieee:suh:10}, outros trabalhos relacionados que podem ser citados aqui, como \cite{acm:duan:2010}, \cite{benevenuto:2010}, \cite{acm:naveed:2011}, \cite{kharde:2016} e \cite{ieee:xu:2012}, tem como parte de seus objetivos, a análise e identificação de fatores impactantes no conteúdo das mensagens propagadas no Twitter, além disso, utilizam também técnicas de aprendizado de máquina na realização de suas pesquisas.
+    % \cite{acm:hong:2011}
     
     \par Dentre as principais técnicas utilizadas nestes trabalhos, estão: Máquina de Vetores de Suporte (SVM, do inglês: \textit{Support Vector Machine}); árvores de decisão, que em alguns dos casos são utilizadas para identificar a importância e selecionar os atributos; Naive Bayes; e Regressão logística. No caso dos atributos utilizados nestas pesquisas, foram considerados como fatores de relevância: utilização de URLs e \textit{hashtags}; o alcance do autor do tuíte (podendo ser medido por seus seguidores ou métricas mais complexas); sentimento da mensagem; além dos fatores de popularidade relacionados a cada tuíte, como as curtidas e os retuítes.
     
     \par Ainda que cada um destes trabalhos apresentem contribuições muito significativas no contexto da descoberta de conhecimento através de dados coletados do Twitter com aprendizagem de máquina, as análises e experimentos são realizados de maneira genérica, sendo aplicadas as mesmas regras para todos os tipos de usuários. Além disso, as análises sobre os modelos não medem a qualidade das previsões com base em fatores variáveis de engajamento.
 
-    \par Dentro deste contexto, o objetivo deste trabalho é monitorar e extrair tuítes de determinadas contas do Twitter que possuam certo grau de influência, a fim de elaborar modelos, utilizando algoritmos de aprendizado de máquina, para realizar a predição e classificação da popularidade de tuítes com base em suas características e considerando uma taxa de engajamento variável. Serão estudados e testados algoritmos já consolidados, como Naive Bayes e árvores de decisão. Como entrada para estes algoritmos, serão utilizados dados provenientes do pré-processamento dos tuítes coletados, sendo consideradas as seguintes características: o tamanho em caracteres; o sentimento (que mede a emoção transmitida); a banalidade (que mede a relevância da mensagem); além a presença de \textit{hashtags} e URLs, que também foram utilizados nos trabalhos relacionados.
+    \par Dentro deste contexto, o objetivo deste trabalho é elaborar modelos, utilizando algoritmos de aprendizado de máquina, para realizar a predição e classificação da popularidade de tuítes, com base em suas características e considerando uma taxa de engajamento variável. Para formar a base de dados, também é estabelecido como parte do objetivo monitorar e extrair tuítes de determinadas contas do Twitter que possuam certo grau de influência.
     
-    \par A escolha dos algoritmos de classificação foi feita com base em sua popularidade e destaque para solucionar o problema de classificação de dados. Além disso, são frequentemente analisados e aplicados por pesquisadores em artigos que utilizam o aprendizado de máquina como foco.
+    \par No que se refere a aprendizagem de máquina, serão estudados e testados algoritmos já consolidados, como Naive Bayes e árvores de decisão, como entrada para estes algoritmos, serão utilizados dados provenientes do pré-processamento dos tuítes coletados, sendo consideradas as seguintes características: o tamanho em caracteres; o sentimento (que mede a emoção transmitida); a banalidade (que mede a relevância da mensagem); a presença de \textit{hashtags} e URLs, que também foram utilizados nos trabalhos relacionados, além do próprio texto do tuíte. A escolha dos algoritmos de classificação foi feita com base em sua popularidade e destaque para solucionar o problema de classificação de dados.
 
     \par Este trabalho está estruturado nas seguintes seções. O capítulo \ref{sec:fund-teorica} apresenta a fundamentação teórica, abordando conceitos e algoritmos de aprendizado de máquina. O capítulo \ref{sec:proposta} apresenta a definição dos atributo e a arquitetura de extração de tuítes usada, que realiza desde a coleta até a preparação dos dados para análise. O capítulo de Experimentos apresentará as análises realizadas a partir dos dados coletados juntamente com a aplicação dos algoritmos de aprendizado de máquina estudados. O capítulo de Conclusões apresenta as considerações finais a cerca do trabalho realizado.
 
@@ -366,7 +379,7 @@
 \chapter{Fundamentação Teórica}
 \label{sec:fund-teorica}
 
-    \par Neste capítulo serão apresentados os conceitos relacionados ao aprendizado de máquina, na seção \ref{sec:aprend-maquina}, definindo as diferenças entre a aprendizagem supervisionada e a não supervisionada. Em seguida, na seção \ref{sec:alg-aprend-maquina-sup}, são apresentados alguns dos principais algoritmos do segmento supervisionado, os quais também foram utilizados na realização de experimentos no decorrer deste trabalho, sendo estes o Naive Bayes, Árvores de Decisão e Redes Neurais.
+    \par Neste capítulo serão apresentados os conceitos relacionados ao aprendizado de máquina, na seção \ref{sec:aprend-maquina}, definindo as diferenças entre a aprendizagem supervisionada e a não supervisionada. Em seguida, na seção \ref{sec:alg-aprend-maquina-sup}, são apresentados alguns dos principais algoritmos do segmento supervisionado, os quais também foram utilizados na realização de experimentos no decorrer deste trabalho, sendo estes o Naive Bayes e algoritmos populares para a indução de Árvores de Decisão.
 
 % % % % % % % % APRENDIZADO DE MÁQUINA % % % % % % % %
 
@@ -696,13 +709,14 @@
     
     \par Utilizando novamente como exemplo a frase ``\textit{With great power comes great responsibility}'', ao aplicá-la na árvore de decisão apresentada, ela seria classificada como popular, pois percorreria o seguinte caminho: Sentimento positivo; Menor que 140 caracteres; e não possui \textit{hashtag}. Uma diferença em relação a técnica \textit{Naive Bayes} que já é possível notar através deste exemplo, é que árvores de decisão são capazes de lidar com a correlação entre os atributos.
     
-    \par Mesmo existindo vários vários algoritmos com diferentes propostas para realizar a indução de árvores de decisão, duas etapas estão presentes na grande maioria deles durante o construção da árvore, a seleção das medidas de atributos e a ``poda da árvore'' que, respectivamente, são responsáveis por definir quais a melhores partições dos dados; e por remover, ou reduzir, ruídos nas ramificações gerados durante o treinamento. Apesar de serem etapas comuns na implementação deste tipo de algoritmo, também são as etapas que os diferenciam uns dos outros dependendo da abordagem adotada para realiza-las.
+    \par Mesmo existindo vários algoritmos com diferentes propostas para realizar a indução de árvores de decisão, duas etapas estão presentes na grande maioria deles durante o construção da árvore, a seleção das medidas de atributos e a ``poda da árvore'' que, respectivamente, são responsáveis por definir quais a melhores partições dos dados; e por remover, ou reduzir, ruídos nas ramificações gerados durante o treinamento. Apesar de serem etapas comuns na implementação deste tipo de algoritmo, também são as etapas que os diferenciam uns dos outros dependendo da abordagem adotada para realiza-las.
     
     \par Um dos algoritmos que merece destaque por ser referência neste âmbito, é o CART (\textit{Classification and Regression Trees}), criado em 1984 por um grupo de estatísticos (L. Breiman, J. Friedman, R. Olshen, and C. Stone). Ele realiza uma abordagem de construção recursiva de divisão e conquista partindo de cima para baixo, segundo \cite{book:han:11}.
 
 
 % % % % % % % % REDES NEURAIS % % % % % % % %
 
+\begin{comment}
 \subsection{Redes Neurais e Aprendizagem Profunda} % Recorrentes
 \label{sec:redes-neurais}
 
@@ -729,7 +743,7 @@
     \par Existem vários modelos de arquiteturas de redes neurais propostos, dentre eles, vale a pena citar: Redes Multicamadas Perceptrons; Redes de Hopfield; Redes Neurais Convolucionais; e Memória de Longo Prazo (LSTM, do inglês: \textit{Long Short-Term Memory}).
     
     % No contexto deste trabalho, durante a seção \ref{sec:experimentos}, correspondente aos experimentos, será dado destaque à arquitetura de redes convolucionais e LSTM, por se destacarem e ser muito utilizada no processamento de linguagem natural.
-
+\end{comment}
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
 % % % % % % % % % % % % TRABALHOS RELACIONADOS % % % % % % % % % % % % % % % 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
@@ -744,13 +758,52 @@
 \chapter{Proposta}
 \label{sec:proposta}
 
-    \par A proposta deste trabalho é a elaboração de modelos, utilizando algoritmos de aprendizado de máquina supervisionada, capaz de classificar o nível de popularidade de tuítes com base na correlação entre a popularidade dos mesmos em função de um conjunto de características presentes no corpo das mensagens. Para atingir esse objetivo, é necessário coletar os tuítes, extrair suas características e aplicar o algoritmos já mencionados para realizar o treinamento e classificação dos dados. A partir disso, esta seção apresenta a definição dos atributos, a definição de popularidade e os classificadores utilizados para a realização do trabalho.
+    \par A proposta deste trabalho é a elaboração de modelos, utilizando algoritmos de aprendizado de máquina supervisionado, capaz de classificar o nível de popularidade de tuítes com base na correlação entre a taxa de engajamento dos mesmos em função de um conjunto de características presentes no corpo das mensagens e o próprio texto. Para atingir esse objetivo, é necessário coletar os tuítes, extrair suas características e aplicar os algoritmos já mencionados para realizar o treinamento e classificação dos dados. A partir disso, esta seção apresenta a definição dos atributos, definição de popularidade, arquitetura de processamento dos tuítes e os classificadores utilizados na realização do trabalho.
+
+% % % % % % % % DEFINIÇÃO DOS ATRIBUTOS % % % % % % % %
+
+\section{Definição dos Atributos de Interesse}
+\label{sec:def-atributos}
+
+    \par Como parte do objetivo deste trabalho é a correlação entre a popularidade e as características do texto de cada tuíte, é de fundamental importância a definição e extração de características relevantes que possam influenciar no interesse dos usuários sobre uma determinada mensagem. Esta etapa corresponde a definição dos atributos que serão extraídos de cada um dos tuítes coletados. Os itens abaixo definem cada um destes atributos e a razão de terem sido escolhidos:
+
+    \par \textbf{Presença de URLs}: O uso de URLs em um tuíte pode indicar uma informação proveniente de outros meios, podendo ser sites de notícias ou outras mídias sociais, o que pode despertar, ou não, o interesse de usuários por um determinado tipo de informação. Esse atributo é representado pelo tipo de dados booleano, podendo ser verdadeiro ou falso.
+
+    \par \textbf{Presença de \textit{hashtags}}: De maneira geral, as \textit{hashtags} são palavras-chave ou termos utilizados para indicar que uma determinada mensagem está diretamente ligada a um tópico ou discussão específica. O que, de maneira semelhante ao uso de URLs, pode atrair o interesse de usuários por determinados tópicos. Este atributo também é do tipo booleano.
+
+    \par \textbf{Tamanho da mensagem}: Essa característica é basicamente a contagem da quantidade de caracteres usados no corpo do tuíte, que pode fazer com que os usuários percam o interesse em ler seu conteúdo, por ser muito curto ou muito extenso. Por tratar-se de um valor contínuo, este atributo é representado por um valor inteiro.
+
+    \par \textbf{Sentimento da mensagem:} O sentimento é um valor que classifica o teor do texto como positivo ou negativo. Fator que pode estar diretamente ligado a intenção de cada usuário em propagar mensagens com um determinado humor. Este atributo também pode ser chamado de polaridade da mensagem e trata-se de um valor decimal, que pode variar entre -1 e 1, onde -1 corresponde a uma mensagem totalmente negativa, 0 corresponde a neutra e 1 corresponde a totalmente positiva.
+
+    \par \textbf{Banalidade da mensagem:} No contexto deste trabalho, como também em \cite{artigo:oliveira:18}, a banalidade corresponde à importância do que foi escrito no corpo do tuíte, levando em consideração a presença de palavras que são frequentemente usadas em textos escritos na língua inglesa. Sendo assim, quanto maior o número de palavras frequentes, mais banal é a mensagem. Este atributo é representado por um valor decimal, que varia entre 0 e 1, sendo que quanto mais próximo de 1, mais banal é a mensagem. O cálculo desta métrica utiliza a Equação \ref{eq:banalidade}, apresentada logo abaixo.
+
+    \begin{equation} \label{eq:banalidade}
+    \frac{\sum_{i=1}^n (freq(P_i))}{n}
+    \end{equation}
+    
+    \par onde o conjunto $\{P_1, ..., P_n\}$ são as palavras da mensagem após a remoção de \textit{stopwords} (preposições e artigos que normalmente são descartados durante o processamento de um texto). Já a função $freq(P)$ retorna 1 caso a palavra $P$ seja frequente e zero caso não seja.
+
+% % % % % % % % DEFINIÇÃO DE POPULARIDADE % % % % % % % %
+
+\section{Definição de Popularidade}
+\label{sec:def-popularidade}
+
+    \par De maneira geral, em mídias sociais, a popularidade de uma conta pode ser medida através da quantidade de seguidores que ela detém, quanto maior o número de seguidores, mais influente, ou popular, a conta é considerada. Porém, este é um indicador simples que não determina o alcance real das publicações. Para isso, existem várias métricas que permitem uma medição mais precisa sobre o impacto causado pelas ações realizadas por uma determinada página ou usuário. Uma métrica muito conhecida e utilizada para medir o alcance real de uma página sobre seus seguidores é a taxa de engajamento. Esse índice considera as interações dos fãs com os conteúdos publicados, de forma que quanto maior é essa interação, maior é o nível de engajamento.
+
+    \par Como exposto em \cite{artigo:pillat:17}, para calcular a taxa de engajamento de uma determinada publicação, por convenção, é realizada a fórmula apresentada na Equação \ref{eq:engajamento}. Cada elemento da equação refere-se estritamente ao valor, em quantidade, obtido por cada publicação. Trazendo para a realidade do Twitter, os compartilhamentos são substituídos pelos retuítes e os comentários pelas respostas a um determinado tuíte.
+    
+    % EQUAÇÃO
+    \begin{equation} \label{eq:engajamento}
+    E(x) = \frac{curtidas + compartilhamentos + coment\acute{a}rios}{seguidores}*100
+    \end{equation}
+    
+    \par Apesar de existir esta convenção para o cálculo do engajamento, a fórmula pode variar, dependendo das informações fornecidas por cada rede social. Como por exemplo, no caso do Facebook, o total de seguidores pode ser substituído pelo total de visualizações obtidas por cada publicação, ou então, como também apresentado em \cite{artigo:pillat:17}, substituído pelo seguidores da própria página mais os seguidores dos próprios fãs.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % % % % % % % % % EXTRAÇÃO DOS TUÍTES % % % % % % % % %
 % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
-\section{Extração dos Tuítes}
+\section{Processamento dos Tuítes}
 
     \par Esta seção engloba a descrição e detalhamento dos processos envolvidos na arquitetura adotada, apresentada na Figura \ref{fig:arquitetura}, para realizar o processamento dos tuítes. Esta arquitetura, contém os seguintes módulos principais: (a) \textbf{Coleta} dos tuítes publicados por cada uma das contas acompanhadas; (b) \textbf{Extração} das características de cada tuíte; e (c) \textbf{Atualização} periódica dos dados coletados.
     
@@ -764,41 +817,18 @@
         \label{fig:arquitetura}
     \end{figure}
     
-    \par A coleta dos tuítes foi realizada tendo como base contas de personalidades influentes que utilizam o Twitter periodicamente. Ao todo, foram consideradas 40 contas de diversas áreas de atuação, como por exemplo Donald J. Trump (atual presidente dos Estados Unidos), Jimmy Fallon (famoso apresentador de TV americano) e Katy Perry (cantora detentora da conta com o maior número de seguidores no Twitter). 
+    \par A coleta dos tuítes é realizada tendo como base contas de personalidades influentes que utilizam o Twitter periodicamente. Ao todo, foram consideradas 30 contas de diversas áreas de atuação, como por exemplo Donald J. Trump (atual presidente dos Estados Unidos), Jimmy Fallon (famoso apresentador de TV americano) e Katy Perry (cantora detentora da conta com o maior número de seguidores no Twitter).
     
     \par A escolha deve-se ao fato de que a análise do impacto de publicações em redes sociais é mais relevante para esse tipo de usuário, uma vez o cálculo da taxa de engajamento para contas com poucos seguidores resultaria sempre em um valor próximo a zero. O que também é reforçado por \cite{ieee:suh:10}, quanto maior a audiência, maiores são as chances de um tuíte ser retuitado. A coleta dos tuítes foi realizada durante o ano de 2018, totalizando cerca de 9500 registros distribuídos entre as contas de interesse que foram escritos na língua inglesa.
     % período entre Novembro de 2017 e Setembro de 2018
 
-% % % % % % % % DEFINIÇÃO DOS ATRIBUTOS % % % % % % % %
-
-\subsection{Definição dos Atributos de Interesse}
-\label{sec:def-atributos}
-
-    \par Como parte do objetivo deste trabalho é a correlação entre a popularidade e as características do texto de cada tuíte, é de fundamental importância a definição e extração de características relevantes que possam influenciar no interesse dos usuários sobre uma determinada mensagem. Esta etapa corresponde a definição dos atributos que serão extraídos de cada um dos tuítes coletados. Os itens abaixo definem cada um destes atributos e a razão de terem sido escolhidos:
-
-    \par \textbf{Presença de URLs}: O uso de URLs em um tuíte pode indicar uma informação proveniente de outros meios, podendo ser sites de notícias ou outras mídias sociais, o que pode despertar, ou não, o interesse de usuários por um determinado tipo de informação. Esse atributo é representado pelo tipo de dados booleano, podendo ser verdadeiro ou falso.
-
-    \par \textbf{Presença de \textit{hashtags}}: De maneira geral, as \textit{hashtags} são palavras-chave ou termos utilizados para indicar que uma determinada mensagem está diretamente ligada a um tópico ou discussão em específico. O que, de maneira semelhante ao uso de URLs, pode atrair o interesse de usuários por tópicos específicos. Este atributo também é do tipo booleano.
-
-    \par \textbf{Tamanho da mensagem}: Essa característica é basicamente a contagem da quantidade de caracteres usados no corpo do tuíte, que pode fazer com que os usuários percam o interesse em ler seu conteúdo, por ser muito curto ou muito extenso. Por tratar-se de um valor contínuo, este atributo é representado por um valor inteiro.
-
-    \par \textbf{Sentimento da mensagem:} O sentimento é um valor que classifica o teor do texto como positivo ou negativo. Fator que pode estar diretamente ligado a intenção de cada usuário em propagar mensagens com um determinado humor. Este atributo também pode chamado de polaridade da mensagem e trata-se de um valor decimal, que pode variar entre -1 e 1, onde -1 corresponde a uma mensagem totalmente negativa, 0 corresponde a neutra e 1 corresponde a totalmente positiva.
-
-    \par \textbf{Banalidade da mensagem:} No contexto deste trabalho, a banalidade corresponde à importância do que foi escrito no corpo do tuíte, levando em consideração a presença de palavras que são frequentemente usadas em textos escritos. Sendo assim, quanto maior o número de palavras frequentes, mais banal é a mensagem. Este atributo é representado por um valor decimal, que varia entre 0 e 1, sendo que quanto mais próximo de 1, mais banal é a mensagem. O cálculo desta métrica utiliza a Equação \ref{eq:banalidade}, apresentada logo abaixo.
-
-    \begin{equation} \label{eq:banalidade}
-    \frac{\sum_{i=1}^n (freq(P_i))}{n}
-    \end{equation}
-    
-    \par onde o conjunto $\{P_1, ..., P_n\}$ são as palavras da mensagem após a remoção de \textit{stopwords} (preposições e artigos que normalmente são descartados durante o processamento de um texto). Já a função $freq(P)$ retorna 1 caso a palavra $P$ seja frequente e zero caso não seja.
-
 % % % % % % % % COLETA DE TUÍTES % % % % % % % %
 
-\subsection{Coleta de tuítes}
+\subsection{Coleta dos Tuítes}
 
-    \par O módulo de coleta é responsável por extrair tuítes de usuários específicos. A extração ocorre de forma contínua, usando recursos de \textit{streaming} disponibilizados pela API do Twitter\footnote{\textit{Twitter Developer Platform:} \texttt{https://dev.twitter.com}}. São coletados todos tuítes publicados a partir do momento que o \textit{streaming} entra em execução.
+    \par O módulo de coleta é responsável por extrair tuítes de usuários específicos. A extração ocorre de forma contínua, usando recursos de \textit{streaming} disponibilizados pela API do Twitter \cite{site:twitter-api}. São coletados todos tuítes publicados a partir do momento que o \textit{streaming} entra em execução.
     
-    \par A especificação das contas a serem seguidas é feita a partir de uma conta raiz, a partir da qual são extraídos os tuítes publicados em inglês por todos usuários seguidos por essa conta. Essa estratégia permite que novas contas sejam adicionadas à lista sem que haja interrupções na execução do algoritmo. O módulo também conta com tratamento de exceções para que a coleta não seja interrompida devido à problemas temporários de acesso aos dados, como indisponibilidade do serviço ou extrapolação do limite de requisições permitido por instante de tempo.
+    \par A especificação das contas a serem seguidas é feita através de uma conta raiz, a partir da qual são extraídos os tuítes publicados por todos usuários seguidos por esta conta. Esta estratégia permite que novas contas sejam adicionadas à lista sem que haja interrupções na execução do algoritmo. O módulo também conta com tratamento de exceções para que a coleta não seja interrompida devido à problemas temporários de acesso aos dados, como indisponibilidade do serviço ou extrapolação do limite de requisições permitido por instante de tempo.
     
     \par Na Tabela \ref{tab:dados-coleta} podem ser visualizadas as informações extraídas de cada tuíte através da API. O campo ``mensagem'' é usado para a extração das características. Já os campos ``seguidores'', ``retuítes'' e ``curtidas'' são utilizados no cálculo para medir a taxa de engajamento de cada tuíte. Por sua vez, os campos ``identificação'' e ``data/hora'' são usados pelo módulo de atualização.
     
@@ -829,7 +859,7 @@
 
 % % % % % % % % EXTRAÇÃO DAS CARACTERÍSTICAS % % % % % % % %
 
-\subsection{Extração das Características}
+\subsection{Extração dos Atributos}
 
     \par Esta etapa corresponde a extração das características de cada um dos tuítes coletados. A extração ocorre imediatamente após a coleta. Os itens abaixo mostram como cada característica foi extraída:
     
@@ -865,7 +895,7 @@
 
 % % % % % % % % ATUALIZAÇÃO DOS DADOS % % % % % % % %
 
-\subsection{Atualização dos dados de retuítes e curtidas}
+\subsection{Atualização dos Dados de Retuítes e Curtidas}
 
     \par Como o módulo de coleta funciona por meio de \textit{streaming}, os tuítes são coletados no instante de sua criação. Nesse momento, a quantidade de retuítes e curtidas recebidos têm o valor zero. Dessa forma, é necessária uma conferência periódica para a obtenção dos dados atualizados.
     
@@ -877,41 +907,72 @@
 
 \section{Classificação dos Tuítes}
 
-    \par Esta etapa descreve os processos e métricas necessários para a realização da classificação dos tuítes como populares ou não populares. Para a realização da predição da popularidade de cada tuíte tendo como base a taxa de engajamento e considerando os atributos já mencionados, serão utilizados os algoritmos de classificação já mencionados Naive Bayes e Árvores de decisão. Os experimentos com cada algoritmo serão realizados através da implementação de código utilizando a linguagem de programação Python, devido a sua popularidade e recursos para lidar com aprendizado de máquina e manipulação de dados, ou com o auxilio da ferramenta Weka, que já oferece uma coleção de algoritmos capazes de realizar a classificação de dados.
+    \par Esta etapa descreve os processos e ferramentas utilizados na realização da classificação dos tuítes como populares ou não populares. Para a realização da predição dos tuíte tendo como base a taxa de engajamento e considerando os atributos já mencionados, serão utilizados os algoritmos de classificação já apresentados Naive Bayes e Árvores de decisão. Os experimentos com cada algoritmo são realizados através da implementação de código utilizando a linguagem de programação Python \cite{site:python} ou com o auxilio da ferramenta Weka \cite{site:weka}.
     
-    \par Explicar e referenciar site do Weka, SciKit Learn e TextBlob.
-
-% % % % % % % % DEFINIÇÃO DE POPULARIDADE % % % % % % % %
-
-\subsection{Definição de Popularidade}
-\label{sec:def-popularidade}
-
-    \par De maneira geral, em mídias sociais, a popularidade de uma conta pode ser medida através da quantidade de seguidores que ela detém, quanto maior o número de seguidores, mais influente, ou popular, a conta é considerada. Porém, este é um indicador simples que não determina o alcance real das publicações. Para isso, existem várias métricas que permitem uma medição mais precisa sobre o impacto causado pelas ações realizadas por uma determinada página ou usuário. Uma métrica muito conhecida e utilizada para medir o alcance real de uma página sobre seus seguidores é a taxa de engajamento. Esse índice considera as interações dos fãs com os conteúdos publicados, de forma que quanto maior é essa interação, maior é o nível de engajamento.
-
-    \par Como exposto em \cite{artigo:pillat:17}, para calcular a taxa de engajamento de uma determinada publicação, por convenção, é realizada a fórmula apresentada na Equação \ref{eq:engajamento}. Cada elemento da equação refere-se estritamente ao valor, em quantidade, obtido por cada publicação. Trazendo para a realidade do Twitter, os compartilhamentos são substituídos pelos retuítes e os comentários pelas respostas a um determinado tuíte.
+    \par A utilização da linguagem Python é justificada pela grande quantidade de bibliotecas que proporcionam maior facilidade em lidar com a manipulação de dados e aprendizado de máquina. Além disso, a linguagem conquistou grande popularidade dentre a comunidade que trabalha com inteligência artificial. Dentre estas bibliotecas, uma delas merece ser destacada aqui, que é a SciKit-Learn \cite{site:scikit-learn}, que consiste em um conjunto de funcionalidades específicas para trabalhar com diferentes modelos de aprendizado de máquina, dentre elas classificação, regressão, agrupamento, redução de dimensionalidade e pré-processamento.s
     
-    % EQUAÇÃO
-    \begin{equation} \label{eq:engajamento}
-    E(x) = \frac{curtidas + compartilhamentos + coment\acute{a}rios}{seguidores}*100
-    \end{equation}
+    \par O Weka (sigla em inglês para \textit{Waikato Environment for Knowledge Analysis} e também nome de uma ave da Nova Zelândia) é uma ferramenta desenvolvida na linguagem Java que oferece um ambiente preparado para auxiliar no processo de análise e mineração de dados. Esse ambiente provê uma coleção de algoritmos capazes para realizar tarefas como preparação de dados, classificação, regressão, agrupamento, mineração de regras de associação e visualização \cite{site:weka}.
+
+% % % % % % % % BALANCEAMENTO % % % % % % % %
+
+\subsection{Balanceamento das instâncias}
+\label{sec:class-balanceamento}
     
-    \par Apesar de existir esta convenção para o cálculo do engajamento, a fórmula pode variar, dependendo das informações fornecidas por cada rede social. Como por exemplo, no caso do Facebook, o total de seguidores pode ser substituído pelo total de visualizações obtidas por cada publicação, ou então, como também apresentado em \cite{artigo:pillat:17}, substituído pelo seguidores da própria página mais os seguidores dos próprios fãs.
+    \par Como apresentado em \cite{book:han:11}, a maioria dos modelos tradicionais de aprendizagem de máquina consideram que os dados de entrada já estão bem distribuídos dentre as classes, o que geralmente não acontece em bases de dados reais. Para resolver este problema, existem diversas técnicas para aperfeiçoar a classificação com dados desbalanceados, duas destas dela são: \textit{oversampling}, que consiste no preenchimento dos dados da classe com menor número até que ambas sejam equivalentes; e o \textit{undersampling}, que consiste na redução dos dados da classe com o maior número.
+    
+    \par Desta forma, para realizar o treinamento e a validação dos dados, independente do modelo de aprendizagem aplicado, é importante que as entradas estejam bem distribuídas entre as classes. O desbalanceamento pode resultar em um modelo tendencioso, havendo a probabilidade de classificar os dados como uma determinada classe devido à predominância da mesma no momento do treinamento.
 
-% % % % % % % % CLASSIFICADORES % % % % % % % %
+    \par Além do balanceamento, é preciso preparar a base de dados para cada teste, isto é, configurar os dados de entrada para cada modelo considerando a taxa de engajamento e o usuário autor dos tuítes. Para realizar este processo, foi elaborado uma algoritmo que divide os registros igualmente entre as duas classes considerando uma determinada taxa de engajamento e autor passados por parâmetro. Este processo também foi escrito na linguagem Python e uma versão simplificada, em pseudo código, pode ser vista logo abaixo no algoritmo \ref{alg:get-data}.
+    
+    % ALGORITMO
+    \begin{algorithm}[ht]
+    \caption{Algoritmo para preparação dos dados}
+    \label{alg:get-data}
+    \begin{algorithmic}[1]
+    \Function{preparaDados}{$taxa$, $autor = 0$}
+        \State $tuites \gets embaralha(buscaListaDeTuites(taxa, autor))$
+        \State 
+        \State $max \gets maximoPorClasse(tuites)$
+        \State $nPop, nNaoPop \gets 0, 0$
+        \State $dados, classes \gets [ ], [ ]$
+        \State
+        \For{each $tw$ in $tuites$}
+            \If{($nPop$ == $max$ $E$ $tw['pop']$) $OU$ ($nNaoPop$ == $max$ $E$ !$tw['pop']$)}
+                \State \textit{pular}
+            \EndIf
+            \State 
+            \State $dados.novo(tw['atributos'])$
+            \State $classes.novo(tw['pop'])$
+            \State
+            \If{$tw['popular']$}
+                \State $nPop \gets nPop + 1$
+            \Else
+                \State $nNaoPop \gets nNaoPop + 1$
+            \EndIf
+            \State
+            \If{$quantidade(dados)$ == $max*2$}
+                \State \textit{parar}
+            \EndIf
+        \EndFor
+        \State \textbf{return} $dados, classes$
+        \EndFunction
+    \end{algorithmic}
+    \end{algorithm}
+    
+    \par O algoritmo tem como entrada a taxa de engajamento e o código do autor, que pode não ser informado, para o caso de análises gerais. Como primeira instrução, é feita uma busca pelos tuítes considerando a taxa e o usuário. A própria função de busca faz o tratamento da necessidade de distinção dos dados por usuário. Tento a lista completa, é identificada a classe que possui o menor número de registros, sendo esta a variável responsável pelo balanceamento. São inicializadas as variáveis de controle (\textit{nPop} e \textit{nNaoPop}), dados e classes. Em seguida é feito um laço de repetição para cada tuíte. Para cada iteração do laço é feita uma verificação da quantidade de entradas em cada classe através das variáveis de controle e, se o valor for menor que o máximo, os atributos e classe são guardados. Por fim, as variáveis de controle são incrementadas. O laço termina quando a quantidade de dados alcança o valor máximo, retornando então as listas balanceados.
+    
+    \par O código descrito no Algoritmo \ref{alg:get-data} é uma versão reduzida. Há ainda o trecho responsável pela geração do arquivo para utilização no Weka, se necessário for. O formato deste arquivo gerado pelo código e aceito pela ferramenta é o ARFF (sigla em inglês para \textit{Attribute-Relation File Format}).
 
-% % % % % % % % CLASSIFICAÇÃO COM NAIVE BAYES % % % % % % % %
+% % % % % % CLASSIFICAÇÃO COM NAIVE BAYES E ÁRVORES DE DECISAO % % % % % %
 
-\subsection{Classificação utilizando Naive Bayes}
-\label{sec:class-naive}
+\subsection{Classificação utilizando Naive Bayes e Árvores de Decisão}
+\label{sec:class-naive-tree}
 
-    \par Explicar as duas vertentes que serão utilizadas com o Naive Bayes.
-
-% % % % % % % % CLASSIFICAÇÃO COM ÁRVORES DE DECISÃO % % % % % % % %
-
-\subsection{Classificação utilizando Árvores de Decisão}
-\label{sec-class-arvores}
-
-    \par Explanar os algoritmos J48 e LTM, por exemplo.
+    \par Como já mencionado, a classificação dos dados será realizada utilizando os algoritmos Naive Bayes e Árvores de Decisão. No caso do modelo de Bayes para classificação binária, os experimentos são realizados em duas vertentes, sendo uma delas a aplicação do algoritmo utilizando somente o texto pré-processado dos tuítes e a outra utilizando os atributos coletados.
+    
+    \par O modelo Naive Bayes utilizando texto foi implementado utilizando a linguagem Python, com o auxílio da biblioteca para aprendizado de máquina Scikit-Learn. O algoritmo é baseado em cálculos probabilísticos conforme apresentado na seção \ref{sec:naive-bayes} e, assim como código de balanceamento apresentado, este também recebe como parâmetros de entrada a taxa de engajamento e o usuário autor. Ao final da execução, como retorno são apresentadas as métricas de avaliação do modelo, juntamente com a matriz de confusão. Esse formato de saída foi adotado com o objetivo de manter a consistência com os resultados obtidos a partir dos testes uilizando o Weka.
+    
+    \par No caso dos experimentos utilizando os atributos coletados, tando a segunda opção do Naive Bayes quanto as Árvores de Decisão, estes serão realizados utilizando o Weka, devido sua praticidade em realizar o treinamento e validação dos dados a partir do arquivo gerado. Quanto aos modelos de árvores, os testes serão realizados focando nos algoritmos J48  e LTM (sigla para \textit{Logistic Model Trees}).
 
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
@@ -919,7 +980,6 @@
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
 
 \begin{comment}
-
 \chapter{Metodologia}
 \label{sec:metodologia}
 
@@ -962,7 +1022,6 @@
     Documentação & \cellcolor{gray!20}$\bullet$ & \cellcolor{gray!20}$\bullet$ & \cellcolor{gray!20}$\bullet$ & \cellcolor{gray!20}$\bullet$ & \cellcolor{gray!20}$\bullet$ & $\times$ & $\times$ & $\times$ \\ \hline
     \end{tabular}
     \end{table}
-    
 \end{comment}
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
@@ -972,7 +1031,84 @@
 \chapter{Experimentos}
 \label{sec:experimentos}
 
-    \par Com base nos fundamentos e proposta apresentados, respectivamente nas seções \ref{sec:fund-teorica} e \ref{sec:proposta}, neste capítulo serão apresentados os experimentos realizados e resultados obtidos com a aplicação dos algoritmos sugeridos sobre os dados coletados. De maneira geral, os experimentos tem por objetivo realizar análises sobre a aplicação dos algoritmos de aprendizado de máquina correlacionando as características extraídas de tuítes com a sua respectiva taxa de engajamento.
+    \par Com base nos fundamentos e proposta apresentados, respectivamente nas seções \ref{sec:fund-teorica} e \ref{sec:proposta}, neste capítulo serão apresentados os experimentos realizados e resultados obtidos com a aplicação dos algoritmos sugeridos sobre os dados coletados. De maneira geral, os experimentos tem por objetivo realizar análises sobre a aplicação dos algoritmos de aprendizado de máquina, variando o usuário e a taxa de engajamento para determinar a popularidade. O intuito é identificar uma possível correlação entre estas variantes e as características extraídas de cada tuítes.
+    
+% % % % % % % % MÉTRICAS % % % % % % % %
+
+\section{Métricas de Avaliação}
+\label{sec:class-metricas}
+
+    \par Para poder realizar a avaliação dos modelos de avaliação, é importante definir as métricas que serão utilizadas para realizar essa comparação entre os modelos. Para isso, serão consideradas cinco métricas, sendo acurácia, sensibilidade, especificidade, valor preditivo positivo e valor preditivo negativo.
+    
+    % EQUAÇÃO
+    \begin{equation} \label{eq:acuracidade}
+    Acur\acute{a}cia = \frac{AcertosPositivos + AcertosNegativos}{TotalPositivos + TotalNegativos}
+    \end{equation}
+    
+    % EQUAÇÃO
+    \begin{equation} \label{eq:sensibilidade}
+    Sensibilidade = \frac{AcertosPositivos}{TotalPositivos}
+    \end{equation}
+    
+    % EQUAÇÃO
+    \begin{equation} \label{eq:especificidade}
+    Especificidade = \frac{AcertosNegativos}{TotalNegativos}
+    \end{equation}
+    
+    % EQUAÇÃO
+    \begin{equation} \label{eq:predit-pos}
+    PreditivoPositivo = \frac{AcertosPositivos}{AcertosPositivos + ErrosPositivos}
+    \end{equation}
+    
+    % EQUAÇÃO
+    \begin{equation} \label{eq:predit-neg}
+    PreditivoNegativo = \frac{AcertosNegativos}{AcertosNegativos + ErrosNegativos}
+    \end{equation}
+    
+% % % % % % % % APLICAÇÃO DOS CLASSIFICADORES % % % % % % % %
+
+\section{Aplicação dos classificadores}
+\label{sec:exp-class}
+
+    \par Apresentação dos gráficos e descrição dos resultados.
+    
+    % GRÁFICO
+    \pgfplotstableread[row sep=\\,col sep=&]{
+        interval & carT & carD & carR \\
+        0--2     & 1.2  & 0.1  & 0.2  \\
+        2--5     & 12.8 & 3.8  & 4.9  \\
+        5--10    & 15.5 & 10.4 & 13.4 \\
+        10--20   & 14.0 & 17.3 & 22.2 \\
+        20--50   & 7.9  & 21.1 & 27.0 \\
+        50+      & 3.0  & 22.3 & 28.6 \\
+        }\mydata
+    \begin{figure}[!ht]
+    \caption{Exemplo de Problemas de Classificação e Regressão.}
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+                ybar,
+                bar width=.5cm,
+                width=\textwidth,
+                height=.5\textwidth,
+                legend style={at={(0.5,1)},
+                    anchor=north,legend columns=-1},
+                symbolic x coords={0--2,2--5,5--10,10--20,20--50,50+},
+                xtick=data,
+                nodes near coords,
+                nodes near coords align={vertical},
+                ymin=0,ymax=35,
+                ylabel={\%},
+            ]
+            \addplot table[x=interval,y=carT]{\mydata};
+            \addplot table[x=interval,y=carD]{\mydata};
+            \addplot table[x=interval,y=carR]{\mydata};
+            \legend{Trips, Distance, Energy}
+        \end{axis}
+    \end{tikzpicture}
+    \fonte{Produção do próprio autor.}
+    \label{fig:exp-1}
+    \end{figure}
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
 % % % % % % % % % % % % % % % CONCLUSÕES % % % % % % % % % % % % % % % % % %
