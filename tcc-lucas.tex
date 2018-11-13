@@ -59,6 +59,7 @@
 \usepackage{xcolor,colortbl}
 \usepackage{tikz,pgfplots}
 \usepackage{forest}
+%\usepgflibrary{patterns}
 \usetikzlibrary{patterns}
 
 \usepackage{algorithm}
@@ -959,7 +960,7 @@
     \end{algorithmic}
     \end{algorithm}
     
-    \par O algoritmo tem como entrada a taxa de engajamento e o código do autor, que pode não ser informado, para o caso de análises gerais. Como primeira instrução, é feita uma busca pelos tuítes considerando a taxa e o usuário. A própria função de busca faz o tratamento da necessidade de distinção dos dados por usuário. Tento a lista completa, é identificada a classe que possui o menor número de registros, sendo esta a variável responsável pelo balanceamento. São inicializadas as variáveis de controle (\textit{nPop} e \textit{nNaoPop}), dados e classes. Em seguida é feito um laço de repetição para cada tuíte. Para cada iteração do laço é feita uma verificação da quantidade de entradas em cada classe através das variáveis de controle e, se o valor for menor que o máximo, os atributos e classe são guardados. Por fim, as variáveis de controle são incrementadas. O laço termina quando a quantidade de dados alcança o valor máximo, retornando então as listas balanceados.
+    \par O algoritmo tem como entrada a taxa de engajamento e o código do autor, que pode não ser informado, para o caso de análises gerais. Como primeira instrução, é feita uma busca pelos tuítes considerando a taxa e o usuário. A própria função de busca faz o tratamento da necessidade de distinção dos dados por usuário. Tento a lista completa, é identificada a classe que possui o menor número de registros, sendo esta a variável responsável pelo balanceamento. São inicializadas as variáveis de controle (\textit{nPop} e \textit{nNaoPop}), \textit{dados} e \textit{classes}. Em seguida é feito um laço de repetição para cada tuíte. Para cada iteração do laço é feita uma verificação da quantidade de entradas em cada classe através das variáveis de controle e, se o valor for menor que o máximo, os atributos e classe são guardados. Por fim, as variáveis de controle são incrementadas. O laço termina quando a quantidade de dados alcança o valor máximo, retornando então as listas balanceados.
     
     \par O código descrito no Algoritmo \ref{alg:get-data} é uma versão reduzida. Há ainda o trecho responsável pela geração do arquivo para utilização no Weka, se necessário for. O formato deste arquivo gerado pelo código e aceito pela ferramenta é o ARFF (sigla em inglês para \textit{Attribute-Relation File Format}).
 
@@ -1074,106 +1075,108 @@
 
     \par Apresentação dos gráficos e descrição dos resultados.
     
-    % GRÁFICO
+    % DADOS
     \pgfplotstableread[row sep=\\,col sep=&]{
-        interval & carT & carD & carR \\
-        0--2     & 1.2  & 0.1  & 0.2  \\
-        2--5     & 12.8 & 3.8  & 4.9  \\
-        5--10    & 15.5 & 10.4 & 13.4 \\
-        10--20   & 14.0 & 17.3 & 22.2 \\
-        20--50   & 7.9  & 21.1 & 27.0 \\
-        50+      & 3.0  & 22.3 & 28.6 \\
+        algorithm       & tx010 & tx020  & tx030 & tx040 & tx100 & tx200 \\
+        NBayesTexto     & 0.658 & 0.681  & 0.670 & 0.662 & 0.674 & 0.679 \\
+        NBayesAtributos & 0.631 & 0.617  & 0.610 & 0.603 & 0.564 & 0.606 \\
+        J48             & 0.637 & 0.619  & 0.607 & 0.604 & 0.579 & 0.651 \\
+        LMT             & 0.634 & 0.615  & 0.609 & 0.598 & 0.596 & 0.641 \\
         }\mydata
+    
+    % GRÁFICO
     \begin{figure}[!ht]
-    \caption{Exemplo de Problemas de Classificação e Regressão.}
+    \caption{Acurácia de cada algoritmo aplicado sobre toda a base com diferentes taxas de engajamento.}
     \centering
     \begin{tikzpicture}
         \begin{axis}[
                 ybar,
-                bar width=.5cm,
+                enlarge x limits={abs=1.75cm},
+                bar width=0.42cm,
                 width=\textwidth,
                 height=.5\textwidth,
                 legend style={at={(0.5,1)},
                     anchor=north,legend columns=-1},
-                symbolic x coords={0--2,2--5,5--10,10--20,20--50,50+},
+                symbolic x coords={NBayesTexto, NBayesAtributos, J48, LMT},
                 xtick=data,
-                nodes near coords,
-                nodes near coords align={vertical},
-                ymin=0,ymax=35,
-                ylabel={\%},
+                %nodes near coords,
+                %nodes near coords align={vertical},
+                ymin=0.55,ymax=0.71,
+                ylabel={acurácia},
+                legend image code/.code={%
+                   \draw[#1, draw=none] (0cm,-0.2cm) rectangle (0.44cm,0.2cm);
+                },
             ]
-            \addplot table[x=interval,y=carT]{\mydata};
-            \addplot table[x=interval,y=carD]{\mydata};
-            \addplot table[x=interval,y=carR]{\mydata};
-            \legend{Trips, Distance, Energy}
+            \addplot [fill=myblue!75,postaction={pattern=north east lines, pattern color=Blue}] table[x=algorithm,y=tx010]{\mydata};
+            
+            \addplot [fill=myred!70,postaction={pattern=horizontal lines, pattern color=Mahogany}] table[x=algorithm,y=tx020]{\mydata};
+            
+            \addplot [fill=YellowOrange,postaction={pattern=vertical lines, pattern color=Yellow}] table[x=algorithm,y=tx030]{\mydata};
+            
+            \addplot [fill=ForestGreen,postaction={pattern=north east lines, pattern color=SkyBlue}] table[x=algorithm,y=tx040]{\mydata};
+            
+            \addplot [fill=Orange,postaction={pattern=dots, pattern color=Goldenrod}] table[x=algorithm,y=tx100]{\mydata};
+            
+            \addplot [fill=Aquamarine,postaction={pattern=horizontal lines, pattern color=white}] table[x=algorithm,y=tx200]{\mydata};
+            
+            \legend{1.0\%, 2.0\%, 3.0\%, 4.0\%, 10.0\%, 20.0\%}
         \end{axis}
     \end{tikzpicture}
     \fonte{Produção do próprio autor.}
-    \label{fig:exp-1}
+    \label{fig:analise-geral}
     \end{figure}
     
     \begin{figure}[!ht]
-    \caption{Análise da taxa de popularidade pelo uso de URLs e \textit{hashtags}. No eixo Y, N corresponde a Não e S corresponde a Sim}
+    \caption{Variação no número de instâncias balanceadas por taxa de engajamento.}
     \centering
-    \subfigure[ref1][Popularidade X uso de URLs]
-    	{
-            \begin{tikzpicture}[scale=0.8]
-            \begin{axis}[
-                xbar,
-                bar width=20pt,
-                enlargelimits=0.25,
-                enlarge y limits=0.5,
-                legend style={at={(0.5,1.23)},
-                  anchor=north,legend columns=2},
-                ylabel={Uso de URL},
-                symbolic y coords={N, S},
-                ytick=data,
-                nodes near coords,
-                nodes near coords align={horizontal},
-                legend image code/.code={%
-                   \draw[#1, draw=none] (0cm,-0.2cm) rectangle (0.6cm,0.2cm);
-                },
-            ]
-            \legend{Retuítes,Curtidas}
-            \addplot [xbar, fill=blue!65,postaction={pattern=vertical lines}]
-            	coordinates {(3053,S) (3759,N)};
-            \addplot [xbar, fill=blue!15,postaction={pattern=north east lines}] 
-            	coordinates {(12928,S) (9822,N)};
+    \begin{tikzpicture}
+        \begin{axis}[
+            width=\textwidth,
+            height=.5\textwidth,
+            symbolic x coords={1.0\%, 2.0\%, 3.0\%, 4.0\%, 10.0\%, 20.0\%},
+            xtick=data,
+        ]
             
-            \end{axis}
-            \end{tikzpicture}
-        }
-    \hspace{0.1cm}
-    \subfigure[ref1][Popularidade X uso de \textit{Hashtags}]
-    	{
-            \begin{tikzpicture}[scale=0.8]
-            \begin{axis}[
-                xbar,
-                bar width=20pt,
-                enlargelimits=0.2,
-                enlarge y limits=0.5,
-                legend style={at={(0.5,1.23)},
-                  anchor=north,legend columns=2},
-                ylabel={Uso de Hashtags},
-                symbolic y coords={N, S},
-                ytick=data,
-                nodes near coords,
-                nodes near coords align={horizontal},
-                legend image code/.code={%
-                   \draw[#1, draw=none] (0cm,-0.2cm) rectangle (0.6cm,0.2cm);
-                },
-            ]
-            \legend{Retuítes,Curtidas}
-            \addplot [xbar, fill=blue!65,postaction={pattern=vertical lines}]
-            	coordinates {(1395,S) (3915,N)};
-            \addplot [xbar, fill=blue!15,postaction={pattern=north east lines}] 
-            	coordinates {(4483,S) (15247,N)};
+            \addplot[mark=triangle*, mark size=4, draw=myblue,  mark options={solid}, myblue, thick, dashed] coordinates {
+                (1.0\%, 0.727) (2.0\%, 1.000) (3.0\%, 0.772) (4.0\%, 0.715) (10.0\%, 0.394) (20.0\%, 0.187)
+            }node[pos=0.7,above,anchor=east]{Balanceamento};
             
-            \end{axis}
-            \end{tikzpicture}
-        }
-    \label{fig:exp-2}
+        \end{axis}
+    \end{tikzpicture}
     \fonte{Produção do próprio autor.}
+    \label{fig:engaj-balanc}
+    \end{figure}
+
+    \begin{figure}[!ht]
+    \caption{Variação no número de instâncias em relação às métricas para o algoritmo Naive Bayes utilizando o texto.}
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            width=\textwidth,
+            symbolic x coords={1.0\%, 2.0\%, 3.0\%, 4.0\%, 10.0\%, 20.0\%},
+            xtick=data,
+            %ymin=0.55,ymax=0.71,
+        ]
+            
+            \addplot[mark=triangle*, mark size=4, draw=myblue,  mark options={solid}, myblue, thick, dashed] coordinates {
+                (1.0\%, 0.727) (2.0\%, 1.000) (3.0\%, 0.772) (4.0\%, 0.715) (10.0\%, 0.394) (20.0\%, 0.187)
+            }node[pos=0.3,above,anchor=south west]{Balanceamento};
+            
+            \addplot[mark=diamond*, mark size=5, draw=myred, thick, myred] coordinates { 
+                (1.0\%, 0.658) (2.0\%, 0.681) (3.0\%, 0.670) (4.0\%, 0.662) (10.0\%, 0.674) (20.0\%, 0.679)
+            }node[pos=0.7,above,anchor=north west]{Acurácia};
+            
+            \addplot[mark=square*, mark size=3, draw=ForestGreen, thick, ForestGreen] coordinates { 
+                (1.0\%, 0.742) (2.0\%, 0.764) (3.0\%, 0.789) (4.0\%, 0.784) (10.0\%, 0.867) (20.0\%, 0.885)
+            }node[pos=0.7,above,anchor=north west]{Sensibilidade};
+            
+            \addplot[mark=*, mark size=4, draw=YellowOrange, thick, YellowOrange] coordinates { 
+                (1.0\%, 0.577) (2.0\%, 0.599) (3.0\%, 0.551) (4.0\%, 0.539) (10.0\%, 0.487) (20.0\%, 0.474)
+            }node[pos=0.4,above,anchor=north]{Especificidade};
+        \end{axis}
+    \end{tikzpicture}
+    \fonte{Produção do próprio autor.}
+    \label{fig:balanc-metricas}
     \end{figure}
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
