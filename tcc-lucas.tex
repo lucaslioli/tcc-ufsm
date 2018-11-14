@@ -971,9 +971,11 @@
 
     \par Como já mencionado, a classificação dos dados será realizada utilizando os algoritmos Naive Bayes e Árvores de Decisão. No caso do modelo de Bayes para classificação binária, os experimentos são realizados em duas vertentes, sendo uma delas a aplicação do algoritmo utilizando somente o texto pré-processado dos tuítes e a outra utilizando os atributos coletados.
     
-    \par O modelo Naive Bayes utilizando texto foi implementado utilizando a linguagem Python, com o auxílio da biblioteca para aprendizado de máquina Scikit-Learn. O algoritmo é baseado em cálculos probabilísticos conforme apresentado na seção \ref{sec:naive-bayes} e, assim como código de balanceamento apresentado, este também recebe como parâmetros de entrada a taxa de engajamento e o usuário autor. Ao final da execução, como retorno são apresentadas as métricas de avaliação do modelo, juntamente com a matriz de confusão. Esse formato de saída foi adotado com o objetivo de manter a consistência com os resultados obtidos a partir dos testes uilizando o Weka.
+    \par O modelo Naive Bayes aplicado ao texto foi implementado utilizando a linguagem Python, com o auxílio da biblioteca para aprendizado de máquina Scikit-Learn. O algoritmo é baseado em cálculos probabilísticos conforme apresentado na seção \ref{sec:naive-bayes} e, assim como código de balanceamento exposto, este também recebe como parâmetros de entrada a taxa de engajamento e o usuário autor. Ao final da execução, como retorno são apresentadas as métricas de avaliação do modelo, juntamente com a matriz de confusão. Esse formato de saída foi adotado com o intuito de manter a consistência com os resultados obtidos a partir dos testes utilizando o Weka.
     
-    \par No caso dos experimentos utilizando os atributos coletados, tando a segunda opção do Naive Bayes quanto as Árvores de Decisão, estes serão realizados utilizando o Weka, devido sua praticidade em realizar o treinamento e validação dos dados a partir do arquivo gerado. Quanto aos modelos de árvores, os testes serão realizados focando nos algoritmos J48  e LTM (sigla para \textit{Logistic Model Trees}).
+    \par No caso dos experimentos utilizando os atributos coletados, tando a segunda opção do Naive Bayes quanto as Árvores de Decisão, estes são realizados utilizando o Weka, devido sua praticidade em realizar o treinamento e validação dos dados a partir do arquivo gerado. Quanto aos modelos de árvores, os testes realizados focam nos algoritmos J48 e LTM (sigla para \textit{Logistic Model Trees}).
+    
+    \par Para a geração das bases utilizadas nos experimentos com o Weka, a saída do algoritmo de balanceamento é gravada em um arquivo do tipo ARFF, no qual também são descritos, além dos próprios dados, os atributos e seus tipos. Cada arquivo, que tem como variante a taxa de engajamento e o usuário, é carregado na ferramenta e aplicado para cada um dos três algoritmos. Com os resultados de cada execução, são gerados gráficos para uma análise visual do desempenho de cada modelo. As análises mais significativas são mostradas na seção \ref{sec:experimentos} a seguir.
 
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
@@ -1039,7 +1041,9 @@
 \section{Métricas de Avaliação}
 \label{sec:class-metricas}
 
-    \par Para poder realizar a avaliação dos modelos de avaliação, é importante definir as métricas que serão utilizadas para realizar essa comparação entre os modelos. Para isso, serão consideradas cinco métricas, sendo acurácia, sensibilidade, especificidade, valor preditivo positivo e valor preditivo negativo. Estas medidas, apresentadas nas equações \ref{eq:acuracidade}, \ref{eq:sensibilidade}, \ref{eq:especificidade}, \ref{eq:predit-neg} e \ref{eq:predit-neg}, retiradas de \cite{book:han:11}, são aplicadas após a etapa de validação e consideram os acertos e erros dos algoritmos sobre cada uma das classes em relação ao total de cada classe.
+    \par A fim de realizar a avaliação dos modelos de avaliação, é importante que sejam definidas as métricas utilizadas na comparação entre os modelos. Para isso, serão consideradas cinco métricas, sendo acurácia, sensibilidade, especificidade, valor preditivo positivo e valor preditivo negativo. Estas medidas, apresentadas respectivamente nas equações \ref{eq:acuracidade}, \ref{eq:sensibilidade}, \ref{eq:especificidade} e \ref{eq:predit-pos}, retiradas e traduzidas de \cite{book:han:11}, são aplicadas após a etapa de validação. Elas consideram os acertos e erros do algoritmo sobre cada uma das classes em relação ao total de cada classe.
+    
+    \par A \textbf{acuracidade} é uma medida de análise geral dos acertos, sem diferenciação entre as classes. Enquanto que a \textbf{sensibilidade} e a \textbf{especificidade} são as medidas que indicam a capacidade do modelo em realizar a predição das entradas como a classe positiva e negativa, respectivamente. Já os valores \textbf{preditivos}, expressa a relação do total de predições corretas de uma das classes com o total de predições realizadas para essa mesma classe. As formulas de valor preditivo negativo e positivo, assim como a sensibilidade e especificidade, são equivalentes, variando apenas a classe em questão.
     
     % EQUAÇÃO
     \begin{equation} \label{eq:acuracidade}
@@ -1066,25 +1070,48 @@
     PreditivoNegativo = \frac{AcertosNegativos}{AcertosNegativos + FalsosNegativos}
     \end{equation}
     
-    \par A acuracidade é uma medida de análise geral dos acertos, sem diferenciar as classes. Enquanto que a Sensibilidade e a Especificidade são as medidas que indicam a capacidade do modelo em realizar a predição das entradas como a classe positiva e negativa, respectivamente. Já os valores preditivos, estão relacionados com o total de predições corretas de uma das classes com o total de predições realizadas. 
+    \par Apesar da importância da utilização de todas as métricas apresentadas, destaca-se a importância de duas delas, a acurácia e a sensibilidade. A acurácia por expressar o acerto do modelo de maneira geral, e a sensibilidade por expressar o acerto do modelo sobre a classe de interesse, que é o caso de um tuíte ser positivo. Desta forma, pode-se estabelecer como prioridade a otimização dos resultados obtidos nestas medidas.
     
 % % % % % % % % APLICAÇÃO DOS CLASSIFICADORES % % % % % % % %
 
 \section{Aplicação dos classificadores}
 \label{sec:exp-class}
 
-    \par Apresentação dos gráficos e descrição dos resultados.
+    \par No intuito de analisar a relação entre a quantidade de instâncias balanceadas para cada classe e a variação da taxa de engajamento, foi elaborado o gráfico \ref{tik:engaj-balanc}. Por questões otimizar a visualização das demarcações entre as contas, as quantidades foram normalizadas, assumindo como 100\% os valores os valores que maximizam o balanceamento das classes. A partir do gráfico gerado, é possível observar que o valor ótimo para maximizar o número de dados contidos em cada classe é 2\%, se consideradas todas as contas, e a variação dessa taxa para qualquer direção, resulta em uma perda de dados considerável.
+    
+    \begin{figure}[!ht]
+    \caption{Variação no número de instâncias balanceadas por taxa de engajamento.}
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            width=\textwidth,
+            height=.5\textwidth,
+            symbolic x coords={1.0\%, 2.0\%, 3.0\%, 4.0\%, 10.0\%, 20.0\%},
+            xtick=data,
+        ]
+            
+            \addplot[mark=triangle*, mark size=4, draw=myblue,  mark options={solid}, myblue, thick, dashed] coordinates {
+                (1.0\%, 0.727) (2.0\%, 1.000) (3.0\%, 0.772) (4.0\%, 0.715) (10.0\%, 0.394) (20.0\%, 0.187)
+            }node[pos=0.2,above,anchor=south east]{Geral};
+            
+        \end{axis}
+    \end{tikzpicture}
+    \fonte{Produção do próprio autor.}
+    \label{tik:engaj-balanc}
+    \end{figure}
+    
+    \par No gráfico \ref{tik:acuracia-geral} a seguir, é exibida a variação da acurácia de cada um dos quatro modelos testados conforme a taxa de engajamento é modificada. Neste experimento são considerados os tuítes de todos os usuários da base de dados. É possível identificar que o algoritmo Naive Bayes aplicado ao texto apresentou resultados melhores em relação aos demais, que foram aplicados utilizando os atributos extraídos de cada mensagem. O melhor resultado obtido neste modelo foi utilizando a taxa de engajamento de 2\%, que alcançou 68.1\% de acurácia. Apesar de apresentar um melhor resultado neste experimento, todos os algoritmos obtiveram valores muito próximos, sendo 56.4\% o menor deles -- caso do Naive Bayes aplicado aos atributos e utilizando a taxa de engajamento de 10\%.
     
     % DADOS
     \pgfplotstableread[row sep=\\,col sep=&]{
-        algorithm       & tx010 & tx020  & tx030 & tx040 & tx100 & tx200 \\
-        NBayesTexto     & 0.658 & 0.681  & 0.670 & 0.662 & 0.674 & 0.679 \\
-        NBayesAtributos & 0.631 & 0.617  & 0.610 & 0.603 & 0.564 & 0.606 \\
-        J48             & 0.637 & 0.619  & 0.607 & 0.604 & 0.579 & 0.651 \\
-        LMT             & 0.634 & 0.615  & 0.609 & 0.598 & 0.596 & 0.641 \\
+        algorithm       & tx010 & tx020 & tx030 & tx040 & tx100 & tx200 \\
+        NBayesTexto     & 0.658 & 0.681 & 0.670 & 0.662 & 0.674 & 0.679 \\
+        NBayesAtributos & 0.631 & 0.617 & 0.610 & 0.603 & 0.564 & 0.606 \\
+        J48             & 0.637 & 0.619 & 0.607 & 0.604 & 0.579 & 0.651 \\
+        LMT             & 0.634 & 0.615 & 0.609 & 0.598 & 0.596 & 0.641 \\
         }\mydata
     
-    % GRÁFICO
+    % GRÁFICO ---------------------- ACURÁCIA
     \begin{figure}[!ht]
     \caption{Acurácia de cada algoritmo aplicado sobre toda a base com diferentes taxas de engajamento.}
     \centering
@@ -1123,29 +1150,61 @@
         \end{axis}
     \end{tikzpicture}
     \fonte{Produção do próprio autor.}
-    \label{fig:analise-geral}
+    \label{tik:acuracia-geral}
     \end{figure}
     
+    % DADOS
+    \pgfplotstableread[row sep=\\,col sep=&]{
+        algorithm       & tx010 & tx020 & tx030 & tx040 & tx100 & tx200 \\
+        NBayesTexto     & 0.742 & 0.764 & 0.789 & 0.784 & 0.867 & 0.885 \\
+        NBayesAtributos & 0.718 & 0.727 & 0.769 & 0.773 & 0.472 & 0.597 \\
+        J48             & 0.662 & 0.704 & 0.660 & 0.680 & 0.485 & 0.597 \\
+        LMT             & 0.693 & 0.688 & 0.736 & 0.755 & 0.549 & 0.605 \\
+        }\mydata
+    
+    % GRÁFICO ---------------------- SENSIBILIDADE
     \begin{figure}[!ht]
-    \caption{Variação no número de instâncias balanceadas por taxa de engajamento.}
+    \caption{Acurácia de cada algoritmo aplicado sobre toda a base com diferentes taxas de engajamento.}
     \centering
     \begin{tikzpicture}
         \begin{axis}[
-            width=\textwidth,
-            height=.5\textwidth,
-            symbolic x coords={1.0\%, 2.0\%, 3.0\%, 4.0\%, 10.0\%, 20.0\%},
-            xtick=data,
-        ]
+                ybar,
+                enlarge x limits={abs=1.75cm},
+                bar width=0.42cm,
+                width=\textwidth,
+                height=.5\textwidth,
+                legend style={at={(0.5,1)},
+                    anchor=north,legend columns=-1},
+                symbolic x coords={NBayesTexto, NBayesAtributos, J48, LMT},
+                xtick=data,
+                %nodes near coords,
+                %nodes near coords align={vertical},
+                ymin=0.40,ymax=0.96,
+                ylabel={acurácia},
+                legend image code/.code={%
+                   \draw[#1, draw=none] (0cm,-0.2cm) rectangle (0.44cm,0.2cm);
+                },
+            ]
+            \addplot [fill=myblue!75,postaction={pattern=north east lines, pattern color=Blue}] table[x=algorithm,y=tx010]{\mydata};
             
-            \addplot[mark=triangle*, mark size=4, draw=myblue,  mark options={solid}, myblue, thick, dashed] coordinates {
-                (1.0\%, 0.727) (2.0\%, 1.000) (3.0\%, 0.772) (4.0\%, 0.715) (10.0\%, 0.394) (20.0\%, 0.187)
-            }node[pos=0.7,above,anchor=east]{Balanceamento};
+            \addplot [fill=myred!70,postaction={pattern=horizontal lines, pattern color=Mahogany}] table[x=algorithm,y=tx020]{\mydata};
             
+            \addplot [fill=YellowOrange,postaction={pattern=vertical lines, pattern color=Yellow}] table[x=algorithm,y=tx030]{\mydata};
+            
+            \addplot [fill=ForestGreen,postaction={pattern=north east lines, pattern color=SkyBlue}] table[x=algorithm,y=tx040]{\mydata};
+            
+            \addplot [fill=Orange,postaction={pattern=dots, pattern color=Goldenrod}] table[x=algorithm,y=tx100]{\mydata};
+            
+            \addplot [fill=Aquamarine,postaction={pattern=horizontal lines, pattern color=white}] table[x=algorithm,y=tx200]{\mydata};
+            
+            \legend{1.0\%, 2.0\%, 3.0\%, 4.0\%, 10.0\%, 20.0\%}
         \end{axis}
     \end{tikzpicture}
     \fonte{Produção do próprio autor.}
-    \label{fig:engaj-balanc}
+    \label{tik:sensibilidade-geral}
     \end{figure}
+    
+    \par Com o objetivo de tentar identificar uma possível relação entre a variação no número de instâncias e as métricas de acurácia, sensibilidade e especificidade, foi elaborado o gráfico \ref{tik:balanc-metricas}, exibido logo abaixo, no qual foram delineadas as curvas de cada medida para o modelo Naive Bayes aplicado ao texto, além da própria curva do balanceamento das instâncias -- também normalizado, assim como no gráfico \ref{tik:engaj-balanc}. Observa-se inicialmente, que não há uma relação nítida entre as curvas. Porém, isso pode ser atribuído ao fato de que a variação no intervalo das métricas é muito pequeno. Apesar disso, considerando também o gráfico \ref{tik:acuracia-geral}, observa-se que a melhor acurácia, também é aquela que maximiza o balanceamento entre as classes. O mesmo padrão não aplica-se ao caso da sensibilidade, que aparentemente tem a tendência de aumentar, conforme o número de instâncias é reduzido.
 
     \begin{figure}[!ht]
     \caption{Variação no número de instâncias em relação às métricas para o algoritmo Naive Bayes utilizando o texto.}
@@ -1176,7 +1235,7 @@
         \end{axis}
     \end{tikzpicture}
     \fonte{Produção do próprio autor.}
-    \label{fig:balanc-metricas}
+    \label{tik:balanc-metricas}
     \end{figure}
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
