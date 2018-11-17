@@ -674,7 +674,7 @@
     
     \par Ainda conforme \cite{book:han:11}, para realizar a classificação de dados, cada registro percorre um determinado caminho dentro da estrutura da árvore, partindo do nó raiz até o nó folha, o qual determina a classe para aquela entrada de dados. Para exemplificar, foi criada a árvore de decisão fictícia apresentada na Figura \ref{fig:exemplo_arvore}, a qual considera 4 atributos de uma mensagem de texto para considerá-la como popular ou não. Na figura, os nós com o formato retangular representam os testes feitos com cada registro de entrada, sendo que antes de cada teste é indicado o número de instâncias que estão naquele nó, partindo da raiz com 1000, já os nós com o formato circular são os nós folha, que representam a classificação final para indicar se a mensagem seria considerada como popular ou não.
     
-    % IMAGEM
+    % GRÁFICO
     \begin{figure}[!ht]
     \caption{Exemplo de árvore para classificação de um tuíte como popular.}
     \centering
@@ -941,16 +941,16 @@
             \If{($nPop$ == $max$ $E$ $tw['pop']$) $OU$ ($nNaoPop$ == $max$ $E$ !$tw['pop']$)}
                 \State \textit{pular}
             \EndIf
-            \State 
+            %\State 
             \State $dados.novo(tw['atributos'])$
             \State $classes.novo(tw['pop'])$
-            \State
+            %\State
             \If{$tw['popular']$}
                 \State $nPop \gets nPop + 1$
             \Else
                 \State $nNaoPop \gets nNaoPop + 1$
             \EndIf
-            \State
+            %\State
             \If{$quantidade(dados)$ == $max*2$}
                 \State \textit{parar}
             \EndIf
@@ -960,13 +960,23 @@
     \end{algorithmic}
     \end{algorithm}
     
-    \par O algoritmo tem como entrada a taxa de engajamento e o código do autor, que pode não ser informado, para o caso de análises gerais. Como primeira instrução, é feita uma busca pelos tuítes considerando a taxa e o usuário. A própria função de busca faz o tratamento da necessidade de distinção dos dados por usuário. Tento a lista completa, é identificada a classe que possui o menor número de registros, sendo esta a variável responsável pelo balanceamento. São inicializadas as variáveis de controle (\textit{nPop} e \textit{nNaoPop}), \textit{dados} e \textit{classes}. Em seguida é feito um laço de repetição para cada tuíte. Para cada iteração do laço é feita uma verificação da quantidade de entradas em cada classe através das variáveis de controle e, se o valor for menor que o máximo, os atributos e classe são guardados. Por fim, as variáveis de controle são incrementadas. O laço termina quando a quantidade de dados alcança o valor máximo, retornando então as listas balanceados.
+    \par O algoritmo tem como entrada a taxa de engajamento e o código do autor, que pode não ser informado, para o caso de análises gerais. Como primeira instrução, é feita uma busca pelos tuítes considerando a taxa e o usuário. A própria função de busca faz o tratamento da necessidade de distinção dos dados por usuário. Tento a lista completa, é identificada a classe que possui o menor número de registros, sendo esta a variável responsável pelo balanceamento. São inicializadas as variáveis de controle (\textit{nPop} e \textit{nNaoPop}), \textit{dados} e \textit{classes}. Em seguida é feito um laço de repetição para cada tuíte. Para cada iteração do laço é feita uma verificação da quantidade de entradas em cada classe através das variáveis de controle e, se o valor for menor que o máximo, os atributos e classe são guardados. Por fim, as variáveis de controle são incrementadas. O laço termina quando a quantidade de dados alcança o valor máximo, retornando então as listas balanceados. Para ilustrar o funcionamento desse algoritmo, foi elaborada a figura \ref{fig:balanceamento}, apresentada logo abaixo.
     
-    \par O código descrito no Algoritmo \ref{alg:get-data} é uma versão reduzida. Há ainda o trecho responsável pela geração do arquivo para utilização no Weka, se necessário for. O formato deste arquivo gerado pelo código e aceito pela ferramenta é o ARFF (sigla em inglês para \textit{Attribute-Relation File Format}).
+    % IMAGEM
+    \begin{figure}[ht]
+        \caption{Processo de balanceamento}
+        \centering
+        \includegraphics[width=.99\textwidth]{figuras/balanceamento.png}
+        \vspace{\baselineskip} %%% linha em branco para atender a norma
+        \fonte{Produção do próprio autor.}
+        \label{fig:balanceamento}
+    \end{figure}
+    
+    \par A figura apresentada a entrada de dois parâmetros, \textit{x} e \textit{u}, sendo respectivamente a taxa de engajamento e o usuário. Então o módulo de preparação dos dados faz a consulta, a contagem da quantidade de dados por classe, sendo \textit{n} a quantidade menor e então faz a separação dos dados, devolvendo \textit{2n} registros, distinguindo atributos de classes. Esta representação, assim como o código descrito no Algoritmo \ref{alg:get-data}, é uma versão simplificada processamento real. Há ainda o trecho responsável pela geração do arquivo para utilização no Weka, se necessário for. O formato deste arquivo gerado pelo código e aceito pela ferramenta é o ARFF (sigla em inglês para \textit{Attribute-Relation File Format}).
 
-% % % % % % CLASSIFICAÇÃO COM NAIVE BAYES E ÁRVORES DE DECISAO % % % % % %
+% % % % % % MÉTODOS CLASSIFICAÇÃO UTILIZADOS % % % % % %
 
-\subsection{Classificação utilizando Naive Bayes e Árvores de Decisão}
+\subsection{Métodos de Classificação Utilizados}
 \label{sec:class-naive-tree}
 
     \par Como já mencionado, a classificação dos dados será realizada utilizando os algoritmos Naive Bayes e Árvores de Decisão. No caso do modelo de Bayes para classificação binária, os experimentos são realizados em duas vertentes, sendo uma delas a aplicação do algoritmo utilizando somente o texto pré-processado dos tuítes e a outra utilizando os atributos coletados.
@@ -1034,7 +1044,7 @@
 \chapter{Experimentos}
 \label{sec:experimentos}
 
-    \par Com base nos fundamentos e proposta apresentados, respectivamente nas seções \ref{sec:fund-teorica} e \ref{sec:proposta}, neste capítulo serão apresentados os experimentos realizados e resultados obtidos com a aplicação dos algoritmos sugeridos sobre os dados coletados. De maneira geral, os experimentos tem por objetivo realizar análises sobre a aplicação dos algoritmos de aprendizado de máquina, variando o usuário e a taxa de engajamento para determinar a popularidade. O intuito é identificar uma possível correlação entre estas variantes e as características extraídas de cada tuítes.
+    \par Com base nos fundamentos e proposta apresentados, respectivamente nas seções \ref{sec:fund-teorica} e \ref{sec:proposta}, neste capítulo serão apresentados os experimentos realizados e resultados obtidos com a aplicação dos algoritmos sugeridos sobre os dados coletados. De maneira geral, os experimentos tem por objetivo realizar análises sobre a aplicação dos algoritmos de aprendizado de máquina, variando o usuário e a taxa de engajamento, para classificar os tuítes como populares ou não. O intuito é identificar uma possível correlação entre estas variantes e as características extraídas de cada tuítes.
     
 % % % % % % % % MÉTRICAS % % % % % % % %
 
@@ -1043,7 +1053,7 @@
 
     \par A fim de realizar a avaliação dos modelos de avaliação, é importante que sejam definidas as métricas utilizadas na comparação entre os modelos. Para isso, serão consideradas cinco métricas, sendo acurácia, sensibilidade, especificidade, valor preditivo positivo e valor preditivo negativo. Estas medidas, apresentadas respectivamente nas equações \ref{eq:acuracidade}, \ref{eq:sensibilidade}, \ref{eq:especificidade} e \ref{eq:predit-pos}, retiradas e traduzidas de \cite{book:han:11}, são aplicadas após a etapa de validação. Elas consideram os acertos e erros do algoritmo sobre cada uma das classes em relação ao total de cada classe.
     
-    \par A \textbf{acuracidade} é uma medida de análise geral dos acertos, sem diferenciação entre as classes. Enquanto que a \textbf{sensibilidade} e a \textbf{especificidade} são as medidas que indicam a capacidade do modelo em realizar a predição das entradas como a classe positiva e negativa, respectivamente. Já os valores \textbf{preditivos}, expressa a relação do total de predições corretas de uma das classes com o total de predições realizadas para essa mesma classe. As formulas de valor preditivo negativo e positivo, assim como a sensibilidade e especificidade, são equivalentes, variando apenas a classe em questão.
+    \par A \textbf{acurácia} é uma medida de análise geral dos acertos, sem diferenciação entre as classes. Enquanto que a \textbf{sensibilidade} e a \textbf{especificidade} são as medidas que indicam a capacidade do modelo em realizar a predição das entradas como a classe positiva e negativa, respectivamente. Já os valores \textbf{preditivos}, expressa a relação do total de predições corretas de uma das classes com o total de predições realizadas para essa mesma classe. As formulas de valor preditivo negativo e positivo, assim como a sensibilidade e especificidade, são equivalentes, variando apenas a classe em questão.
     
     % EQUAÇÃO
     \begin{equation} \label{eq:acuracidade}
@@ -1070,14 +1080,14 @@
     PreditivoNegativo = \frac{AcertosNegativos}{AcertosNegativos + FalsosNegativos}
     \end{equation}
     
-    \par Apesar da importância da utilização de todas as métricas apresentadas, destaca-se a importância de duas delas, a acurácia e a sensibilidade. A acurácia por expressar o acerto do modelo de maneira geral, e a sensibilidade por expressar o acerto do modelo sobre a classe de interesse, que é o caso de um tuíte ser positivo. Desta forma, pode-se estabelecer como prioridade a otimização dos resultados obtidos nestas medidas.
+    \par Apesar da importância da utilização de todas as métricas apresentadas, destaca-se a maior relevância para duas delas, a acurácia e a sensibilidade. A acurácia por expressar o acerto do modelo de maneira geral, e a sensibilidade por expressar o acerto do modelo sobre a classe de interesse, que é o caso de um tuíte ser positivo. Desta forma, pode-se estabelecer como prioridade a otimização dos resultados obtidos nestas medidas.
     
-% % % % % % % % APLICAÇÃO DOS CLASSIFICADORES % % % % % % % %
+% % % % % % % % ANÁLISE DA RELAÇÃO ENTRE ENGAJAMENTO E BALANCEAMENTO % % % % % % % %
 
-\section{Aplicação dos classificadores}
-\label{sec:exp-class}
+\section{Análise da Relação entre Engajamento e Balanceamento}
+\label{sec:exp-engaj-balanc}
 
-    \par No intuito de analisar a relação entre a quantidade de instâncias balanceadas para cada classe e a variação da taxa de engajamento, foi elaborado o gráfico \ref{tik:engaj-balanc}. Por questões otimizar a visualização das demarcações entre as contas, as quantidades foram normalizadas, assumindo como 100\% os valores os valores que maximizam o balanceamento das classes. A partir do gráfico gerado, é possível observar que o valor ótimo para maximizar o número de dados contidos em cada classe é 2\%, se consideradas todas as contas, e a variação dessa taxa para qualquer direção, resulta em uma perda de dados considerável.
+    \par No intuito de analisar a relação entre a quantidade de instâncias balanceadas para cada classe e a variação da taxa de engajamento, foi elaborado o gráfico \ref{tik:engaj-balanc}. Por questões otimizar a visualização das demarcações entre as contas, as quantidades foram normalizadas, assumindo como 100\% os valores que maximizam a distribuição de dados por classes. No gráfico, constam quatro curvas, sendo: uma considerando todos os registros, em azul, identificada por ''Geral`` e com os marcadores no formato de triângulo; uma considerando apenas tuítes de ''Donald J. Trump``, em vermelho, com os marcadores em formato de losango; uma considerando os tuítes de ''Ellen DeGeneres``, em verde, identificada pelos marcadores no formato quadrado; e uma considerando os tuítes de Alex Jones, em amarelo, identificada pelos marcadores no formato de bola. Estas contas foram utilizadas por estarem entre aquelas com o maior número de mensagens publicadas.
     
     \begin{figure}[!ht]
     \caption{Variação no número de instâncias balanceadas por taxa de engajamento.}
@@ -1086,21 +1096,39 @@
         \begin{axis}[
             width=\textwidth,
             height=.5\textwidth,
-            symbolic x coords={1.0\%, 2.0\%, 3.0\%, 4.0\%, 10.0\%, 20.0\%},
+            symbolic x coords={0.2\%, 0.5\%, 1\%, 2\%, 3\%, 4\%, 10\%, 20\%, 22\%, 25\%},
             xtick=data,
         ]
-            
             \addplot[mark=triangle*, mark size=4, draw=myblue,  mark options={solid}, myblue, thick, dashed] coordinates {
-                (1.0\%, 0.727) (2.0\%, 1.000) (3.0\%, 0.772) (4.0\%, 0.715) (10.0\%, 0.394) (20.0\%, 0.187)
-            }node[pos=0.2,above,anchor=south east]{Geral};
+                (0.2\%, 0.336) (0.5\%, 0.528) (1\%, 0.727) (2\%, 1.000) (3\%, 0.772) (4\%, 0.715) (10\%, 0.394) (20\%, 0.234) (22\%, 0.206) (25\%, 0.169)
+            }node[pos=0.8,above,anchor=north west]{Geral};
             
+            \addplot[mark=diamond*, mark size=3, draw=myred, thick, myred] coordinates {
+                (0.2\%, 0.035) (0.5\%, 0.038) (1\%, 0.041) (2\%, 0.061) (3\%, 0.102) (4\%, 0.122) (10\%, 0.177) (20\%, 0.794) (22\%, 1.000) (25\%, 0.756)
+            }node[pos=0.7,above,anchor=north west]{Donald J. Trump};
+            
+            \addplot[mark=square*, mark size=2, draw=ForestGreen, thick, ForestGreen] coordinates {
+                (0.2\%, 0.258) (0.5\%, 1.000) (1\%, 0.647) (2\%, 0.331) (3\%, 0.236) (4\%, 0.175) (10\%, 0.053) (20\%, 0.020) (22\%, 0.015) (25\%, 0.013)
+            }node[pos=0.7,above,anchor=north west]{Ellen DeGeneres};
+
+            \addplot[mark=*, mark size=2, draw=YellowOrange, thick, YellowOrange] coordinates {
+                (0.2\%, 0.446) (0.5\%, 0.482) (1\%, 0.607) (2\%, 0.943) (3\%, 1.000) (4\%, 0.789) (10\%, 0.296) (20\%, 0.130) (22\%, 0.116) (25\%, 0.100)
+            }node[pos=0.8,above,anchor=north west]{Alex Jones};
+
         \end{axis}
     \end{tikzpicture}
     \fonte{Produção do próprio autor.}
     \label{tik:engaj-balanc}
     \end{figure}
     
-    \par No gráfico \ref{tik:acuracia-geral} a seguir, é exibida a variação da acurácia de cada um dos quatro modelos testados conforme a taxa de engajamento é modificada. Neste experimento são considerados os tuítes de todos os usuários da base de dados. É possível identificar que o algoritmo Naive Bayes aplicado ao texto apresentou resultados melhores em relação aos demais, que foram aplicados utilizando os atributos extraídos de cada mensagem. O melhor resultado obtido neste modelo foi utilizando a taxa de engajamento de 2\%, que alcançou 68.1\% de acurácia. Apesar de apresentar um melhor resultado neste experimento, todos os algoritmos obtiveram valores muito próximos, sendo 56.4\% o menor deles -- caso do Naive Bayes aplicado aos atributos e utilizando a taxa de engajamento de 10\%.
+    \par A primeira coisa que pode ser observada, é que para cada uma das curvas, o pico é determinado por taxas de engajamento diferentes. O que reforça o propósito da aplicação dos modelos considerando contas individualizadas, já que a taxa de engajamento ideal para um usuário, pode não ser a mesma para os demais. No caso de analisar apenas a curva ''Geral``, é possível observar que o valor ótimo para maximizar o número de dados balanceados é de 2\%, sendo que a variação desta taxa, para qualquer direção, resulta em uma perda de dados considerável, padrão que também se aplica aos demais casos.
+    
+% % % % % % % % ANÁLISE DAS CONTAS GERAIS % % % % % % % %
+
+\section{Análise Generalizada das Contas}
+\label{sec:exp-geral}
+    
+    \par Nestes experimentos, são considerados os tuítes publicados por qualquer uma das contas contidas na base de dados. Os testes foram realizados para medir do desempenho dos diferentes modelos de aprendizagem de máquina supervisionada em função das métricas, ambos apresentados previamente. O primeiro teste realizado utilizando os algoritmos, exposto no gráfico \ref{tik:acuracia-geral}, apresenta a variação da acurácia de cada um dos quatro modelos conforme a taxa de engajamento é modificada.
     
     % DADOS
     \pgfplotstableread[row sep=\\,col sep=&]{
@@ -1153,7 +1181,9 @@
     \label{tik:acuracia-geral}
     \end{figure}
     
-    \par Ainda realizando a análise sobre os dados gerais de todas as contas e, dando atenção para outra métrica de interesse, foi elaborado o gráfico \ref{tik:sensibilidade-geral}, o qual é equivalente ao \ref{tik:acuracia-geral} apresentado logo acima. Neste caso, é exposta a variação no valor desta métrica, sensibilidade, para cada algoritmo e considerando a modificação na taxa de engajamento. Novamente, apesar de intervalos muito próximos, nota-se que o modelo Naive Bayes aplicado ao texto obteve resultados melhores que os demais que foram aplicados sobre os atributos. No melhor dos resultados, este modelo obteve 88.5\% no valor de sensibilidade e, curiosamente, utilizando como taxa de engajamento o valor de 20\%.
+    \par É possível identificar que o algoritmo Naive Bayes aplicado ao texto apresentou resultados melhores em relação aos demais, que foram aplicados utilizando os atributos extraídos de cada mensagem. O melhor resultado obtido neste modelo foi com a taxa de engajamento de 2\%, que alcançou 68.1\% de acurácia. Apesar de apresentar um melhor resultado neste experimento, todos os algoritmos obtiveram valores muito próximos, sendo 56.4\% o menor deles -- caso do Naive Bayes aplicado aos atributos utilizando a taxa de engajamento de 10\%.
+    
+    \par Ainda realizando a análise geral sobre os dados de todas as contas, porém, dando atenção para outra métrica de interesse, foi elaborado o gráfico \ref{tik:sensibilidade-geral}, o qual é equivalente ao \ref{tik:acuracia-geral} apresentado logo acima. Neste caso, é exposta a variação no valor da sensibilidade para cada algoritmo, também considerando a modificação na taxa de engajamento. Novamente, apesar de intervalos muito próximos, nota-se que o modelo Naive Bayes aplicado ao texto obteve resultados ligeiramente melhores que os demais modelos, que foram aplicados sobre os atributos. No melhor dos resultados, este modelo obteve 88.5\% no valor de sensibilidade e, curiosamente, utilizando como taxa de engajamento o valor de 20\%.
     
     % DADOS
     \pgfplotstableread[row sep=\\,col sep=&]{
@@ -1206,7 +1236,7 @@
     \label{tik:sensibilidade-geral}
     \end{figure}
     
-    \par Com o objetivo de tentar identificar uma possível relação entre a variação no número de instâncias e as métricas de acurácia, sensibilidade e especificidade, foi elaborado o gráfico \ref{tik:balanc-metricas}, exibido logo abaixo, no qual foram delineadas as curvas de cada medida para o modelo Naive Bayes aplicado ao texto, além da própria curva do balanceamento das instâncias -- também normalizado, assim como no gráfico \ref{tik:engaj-balanc}. Observa-se inicialmente, que não há uma relação nítida entre as curvas. Porém, isso pode ser atribuído ao fato de que a variação no intervalo das métricas é muito pequeno. Apesar disso, considerando também o gráfico \ref{tik:acuracia-geral}, observa-se que a melhor acurácia, também é aquela que maximiza o balanceamento entre as classes. O mesmo padrão não aplica-se ao caso da sensibilidade, que aparentemente tem a tendência de aumentar, conforme o número de instâncias é reduzido. Em contrapartida, a curva de especificidade aparentemente tem a melhor relação com o balanceamento das instâncias, já que tem como melhor resultado a taxa de 2\% e tende a diminuir ao variar essa taxa para qualquer direção.
+    \par Com o objetivo de tentar identificar uma possível relação entre a variação no número de instâncias e as métricas de acurácia, sensibilidade e especificidade, foi elaborado o gráfico \ref{tik:balanc-metricas}, exibido logo abaixo. Neste caso, foram delineadas as curvas de cada medida apenas para o modelo Naive Bayes aplicado ao texto, além da própria curva do balanceamento das instâncias -- também normalizado, assim como no gráfico \ref{tik:engaj-balanc}. Observa-se inicialmente, que não há uma relação nítida entre as curvas, porém, isso pode ser atribuído ao fato de que a variação no intervalo das métricas é muito pequeno. Apesar disso, considerando também o gráfico \ref{tik:acuracia-geral}, pode-se notar que a melhor acurácia, também é aquela que maximiza o balanceamento entre as classes. O mesmo padrão não se aplica ao caso da sensibilidade, que aparentemente tem a tendência de aumentar, conforme o número de instâncias é reduzido. Em contrapartida, a curva de especificidade aparentemente tem a melhor relação com o balanceamento das instâncias, já que também tem como pico a taxa de 2\% e tende a diminuir na mesma proporção ao variar a taxa para qualquer direção.
 
     \begin{figure}[!ht]
     \caption{Variação no número de instâncias em relação às métricas para o algoritmo Naive Bayes utilizando o texto.}
@@ -1239,6 +1269,13 @@
     \fonte{Produção do próprio autor.}
     \label{tik:balanc-metricas}
     \end{figure}
+    
+% % % % % % % % ANÁLISE DAS CONTAS GERAIS % % % % % % % %
+
+\section{Análise Individualizada das Contas}
+\label{sec:exp-individual}
+
+    \par Diferentemente dos experimentos realizados na seção anterior de análise geral das contas, os testes individualizados serão realizados considerando apenas a taxa de engajamento que maximiza a quantidade de registros distribuídos dentre as classes. Isto é devido a grande perda de registros ao utilizar diferentes taxas de engajamento, fato que é reforçado pelo gráfico \ref{tik:engaj-balanc}, que apresenta a análise da relação entre a taxa de engamento e o balanceamento das instâncias. Devido ao número de mensagens publicadas por cada conta acompanhada, assim como na seção \ref{sec:exp-engaj-balanc}, os testes foram realizados utilizando três dos usuários com o maior número de tuítes capturados, sendo eles: Donald J. Trump, Ellen DeGeneres e Alex Jones. O uso de poucos registros impede uma análise adequada dos resultados obtidos com cada experimento, pois os valores das métricas é variável a cada execução realizada.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
 % % % % % % % % % % % % % % % CONCLUSÕES % % % % % % % % % % % % % % % % % %
@@ -1247,7 +1284,11 @@
 \chapter{Conclusões}
 \label{sec:conclusao}
 
-    \par Considerações finais e trabalhos futuros.
+    \par Medir a variação do índice de popularidade pode ser do interesse de administradores de grandes contas do Twitter, pois pode indicar o sucesso ou fracasso de uma determinada campanha realizada ou a dimensão de um escândalo e, tendo consciência disso, ações preventivas ou corretivas podem ser tomadas e sua repercussão pode ser monitorada. Tratando-se de personalidades públicas, é importante identificar quais assuntos e/ou abordagens agradam mais o público-alvo para que assim possam ser mantidas ou evitadas. Assim, pode ser relevante poder prever se uma mensagem tem maior probabilidade de se tornar popular antes mesmo de publicá-la. 
+
+    %\par Apesar de incipientes, os resultados alcançados mostram que as características avaliadas parecem exercer influência no nível de interesse, e podem ser levadas em consideração na elaboração de estratégias que visem impulsionar publicações. 
+
+    \par Como trabalhos futuros, pretende-se realizar experimentos utilizando outros modelos de aprendizagem de máquina, considerando redes neurais e aprendizagem profunda. O uso de algoritmos deste tipo é cada vez mais difundido e, se aliado a outras técnicas como \textit{word embedding}, pode vir a trazer resultados muito interessantes. Destacam-se neste contexto as redes neurais convolucionais e as de Memória de Longo Prazo (LSTM, do inglês: \textit{Long Short-Term Memory}).
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
 % % % % % % % % % % % % FIM DAS PAGINAS TEXTUAIS % % % % % % % % % % % % % % 
