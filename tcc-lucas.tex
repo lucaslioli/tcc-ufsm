@@ -1082,15 +1082,15 @@
     
     \par Apesar da importância da utilização de todas as métricas apresentadas, destaca-se a maior relevância para duas delas, a acurácia e a sensibilidade. A acurácia por expressar o acerto do modelo de maneira geral, e a sensibilidade por expressar o acerto do modelo sobre a classe de interesse, que é o caso de um tuíte ser positivo. Desta forma, pode-se estabelecer como prioridade a otimização dos resultados obtidos nestas medidas.
     
-% % % % % % % % ANÁLISE DA RELAÇÃO ENTRE ENGAJAMENTO E BALANCEAMENTO % % % % % % % %
+% % % % % % % % RELAÇÃO ENTRE ENGAJAMENTO E BALANCEAMENTO % % % % % % % %
 
-\section{Análise da Relação entre Engajamento e Balanceamento}
+\section{Relação entre Engajamento e Balanceamento}
 \label{sec:exp-engaj-balanc}
 
     \par No intuito de analisar a relação entre a quantidade de instâncias balanceadas para cada classe e a variação da taxa de engajamento, foi elaborado o gráfico \ref{tik:engaj-balanc}. Por questões otimizar a visualização das demarcações entre as contas, as quantidades foram normalizadas, assumindo como 100\% os valores que maximizam a distribuição de dados por classes. No gráfico, constam quatro curvas, sendo: uma considerando todos os registros, em azul, identificada por ''Geral`` e com os marcadores no formato de triângulo; uma considerando apenas tuítes de ''Donald J. Trump``, em vermelho, com os marcadores em formato de losango; uma considerando os tuítes de ''Ellen DeGeneres``, em verde, identificada pelos marcadores no formato quadrado; e uma considerando os tuítes de Alex Jones, em amarelo, identificada pelos marcadores no formato de bola. Estas contas foram utilizadas por estarem entre aquelas com o maior número de mensagens publicadas.
     
     \begin{figure}[!ht]
-    \caption{Variação no número de instâncias balanceadas por taxa de engajamento.}
+    \caption{Número de instâncias balanceadas por taxa de engajamento.}
     \centering
     \begin{tikzpicture}
         \begin{axis}[
@@ -1276,6 +1276,96 @@
 \label{sec:exp-individual}
 
     \par Diferentemente dos experimentos realizados na seção anterior de análise geral das contas, os testes individualizados serão realizados considerando apenas a taxa de engajamento que maximiza a quantidade de registros distribuídos dentre as classes. Isto é devido a grande perda de registros ao utilizar diferentes taxas de engajamento, fato que é reforçado pelo gráfico \ref{tik:engaj-balanc}, que apresenta a análise da relação entre a taxa de engamento e o balanceamento das instâncias. Devido ao número de mensagens publicadas por cada conta acompanhada, assim como na seção \ref{sec:exp-engaj-balanc}, os testes foram realizados utilizando três dos usuários com o maior número de tuítes capturados, sendo eles: Donald J. Trump, Ellen DeGeneres e Alex Jones. O uso de poucos registros impede uma análise adequada dos resultados obtidos com cada experimento, pois os valores das métricas é variável a cada execução realizada.
+    
+    % DADOS
+    \pgfplotstableread[row sep=\\,col sep=&]{
+        algorithm       & uTrump & txEllen & txJones \\
+        NBayesTexto     & 0.557  & 0.617   & 0.618   \\
+        NBayesAtributos & 0.615  & 0.596   & 0.655   \\
+        J48             & 0.625  & 0.558   & 0.662   \\
+        LMT             & 0.611  & 0.561   & 0.662   \\
+        }\mydata
+    
+    % GRÁFICO ---------------------- ACURÁCIA
+    \begin{figure}[!ht]
+    \caption{Acurácia dos algoritmos utilizando contas individualizadas.}
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+                ybar,
+                enlarge x limits={abs=1.75cm},
+                bar width=0.65cm,
+                width=\textwidth,
+                height=.5\textwidth,
+                legend style={at={(0.5,1)},
+                    anchor=north,legend columns=-1},
+                symbolic x coords={NBayesTexto, NBayesAtributos, J48, LMT},
+                xtick=data,
+                %nodes near coords,
+                %nodes near coords align={vertical},
+                ymin=0.55,ymax=0.68,
+                ylabel={acurácia},
+                legend image code/.code={%
+                   \draw[#1, draw=none] (0cm,-0.2cm) rectangle (0.44cm,0.2cm);
+                },
+            ]
+            \addplot [fill=myblue!75,postaction={pattern=north east lines, pattern color=Blue}] table[x=algorithm,y=uTrump]{\mydata};
+            
+            \addplot [fill=myred!70,postaction={pattern=horizontal lines, pattern color=Mahogany}] table[x=algorithm,y=txEllen]{\mydata};
+            
+            \addplot [fill=YellowOrange,postaction={pattern=vertical lines, pattern color=Yellow}] table[x=algorithm,y=txJones]{\mydata};
+            
+            \legend{Donald J. Trump, Ellen DeGeneres, Alex Jones}
+        \end{axis}
+    \end{tikzpicture}
+    \fonte{Produção do próprio autor.}
+    \label{tik:acuracia-individual}
+    \end{figure}
+    
+    % DADOS
+    \pgfplotstableread[row sep=\\,col sep=&]{
+        algorithm       & uTrump & txEllen & txJones \\
+        NBayesTexto     & 0.814  & 0.499   & 0.744   \\
+        NBayesAtributos & 0.795  & 0.494   & 0.681   \\
+        J48             & 0.743  & 0.430   & 0.664   \\
+        LMT             & 0.765  & 0.544   & 0.664   \\
+        }\mydata
+    
+    % GRÁFICO ---------------------- ACURÁCIA
+    \begin{figure}[!ht]
+    \caption{Sensibilidade dos algoritmos utilizando contas individualizadas.}
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+                ybar,
+                enlarge x limits={abs=1.75cm},
+                bar width=0.65cm,
+                width=\textwidth,
+                height=.5\textwidth,
+                legend style={at={(0.5,1)},
+                    anchor=north,legend columns=-1},
+                symbolic x coords={NBayesTexto, NBayesAtributos, J48, LMT},
+                xtick=data,
+                %nodes near coords,
+                %nodes near coords align={vertical},
+                ymin=0.4,ymax=0.88,
+                ylabel={acurácia},
+                legend image code/.code={%
+                   \draw[#1, draw=none] (0cm,-0.2cm) rectangle (0.44cm,0.2cm);
+                },
+            ]
+            \addplot [fill=myblue!75,postaction={pattern=north east lines, pattern color=Blue}] table[x=algorithm,y=uTrump]{\mydata};
+            
+            \addplot [fill=myred!70,postaction={pattern=horizontal lines, pattern color=Mahogany}] table[x=algorithm,y=txEllen]{\mydata};
+            
+            \addplot [fill=YellowOrange,postaction={pattern=vertical lines, pattern color=Yellow}] table[x=algorithm,y=txJones]{\mydata};
+            
+            \legend{Donald J. Trump, Ellen DeGeneres, Alex Jones}
+        \end{axis}
+    \end{tikzpicture}
+    \fonte{Produção do próprio autor.}
+    \label{tik:sensibilidade-individual}
+    \end{figure}
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
 % % % % % % % % % % % % % % % CONCLUSÕES % % % % % % % % % % % % % % % % % %
@@ -1288,7 +1378,7 @@
 
     %\par Apesar de incipientes, os resultados alcançados mostram que as características avaliadas parecem exercer influência no nível de interesse, e podem ser levadas em consideração na elaboração de estratégias que visem impulsionar publicações. 
 
-    \par Como trabalhos futuros, pretende-se realizar experimentos utilizando outros modelos de aprendizagem de máquina, considerando redes neurais e aprendizagem profunda. O uso de algoritmos deste tipo é cada vez mais difundido e, se aliado a outras técnicas como \textit{word embedding}, pode vir a trazer resultados muito interessantes. Destacam-se neste contexto as redes neurais convolucionais e as de Memória de Longo Prazo (LSTM, do inglês: \textit{Long Short-Term Memory}).
+    \par Como trabalhos futuros, pretende-se realizar experimentos utilizando outros modelos de aprendizagem de máquina, considerando algoritmos genéticos, redes neurais e aprendizagem profunda. O uso de algoritmos deste tipo é cada vez mais difundido e, se aliado a outras técnicas como \textit{word embedding}, pode vir a trazer resultados muito interessantes. Destacam-se neste contexto as redes neurais convolucionais e as de Memória de Longo Prazo (LSTM, do inglês: \textit{Long Short-Term Memory}).
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
 % % % % % % % % % % % % FIM DAS PAGINAS TEXTUAIS % % % % % % % % % % % % % % 
