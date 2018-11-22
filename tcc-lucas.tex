@@ -1045,6 +1045,13 @@
 \label{sec:experimentos}
 
     \par Com base nos fundamentos e proposta apresentados, respectivamente nas seções \ref{sec:fund-teorica} e \ref{sec:proposta}, neste capítulo serão apresentados os experimentos realizados e resultados obtidos com a aplicação dos algoritmos sugeridos sobre os dados coletados. De maneira geral, os experimentos tem por objetivo realizar análises sobre a aplicação dos algoritmos de aprendizado de máquina, variando o usuário e a taxa de engajamento, para classificar os tuítes como populares ou não. O intuito é identificar uma possível correlação entre estas variantes e as características extraídas de cada tuítes.
+
+% % % % % % % % DADOS COLETADOS % % % % % % % %
+
+\section{Dados Coletados}
+\label{sec:dados-coletados}
+
+    \par Falar sobre os dados coletados.
     
 % % % % % % % % MÉTRICAS % % % % % % % %
 
@@ -1275,15 +1282,20 @@
 \section{Análise Individualizada das Contas}
 \label{sec:exp-individual}
 
-    \par Diferentemente dos experimentos realizados na seção anterior de análise geral das contas, os testes individualizados serão realizados considerando apenas a taxa de engajamento que maximiza a quantidade de registros distribuídos dentre as classes. Isto é devido a grande perda de registros ao utilizar diferentes taxas de engajamento, fato que é reforçado pelo gráfico \ref{tik:engaj-balanc}, que apresenta a análise da relação entre a taxa de engamento e o balanceamento das instâncias. Devido ao número de mensagens publicadas por cada conta acompanhada, assim como na seção \ref{sec:exp-engaj-balanc}, os testes foram realizados utilizando três dos usuários com o maior número de tuítes capturados, sendo eles: Donald J. Trump, Ellen DeGeneres e Alex Jones. O uso de poucos registros impede uma análise adequada dos resultados obtidos com cada experimento, pois os valores das métricas é variável a cada execução realizada.
+    \par Para a realização dos processos de treinamento e validação de dados utilizando o aprendizado de máquina, torna-se extremamente importante a utilização de uma quantidade de registros consideravelmente grande. Isso deve-se a dificuldade em fazer estimativas quando se tem poucos dados disponíveis, pois nestes casos, a simples ordenação dos dados pode influenciar na predição final dos algoritmos, já que cada entrada representa uma porcentagem relativamente grande de toda a base. A utilização de poucos dados de entrada faz com que os valores das métricas seja variável para cada execução dos algoritmos.
+
+    \par Devido esse fator, diferentemente dos experimentos realizados na seção anterior, os testes individualizados serão realizados considerando apenas a taxa de engajamento que maximiza a quantidade de registros distribuídos dentre as classes. Caso fossem utilizadas outras taxas de engajamento, ocorria uma grande perda dos registros, devido a necessidade de manter o balanceamento entre as classes, fato que é reforçado pelo gráfico \ref{tik:engaj-balanc}, o qual apresenta a análise da relação entre a taxa de engamento e o balanceamento das instâncias. 
+    
+    \par Ainda em função da quantidade de dados, a escolha das contas para realização dos testes nesta etapa foi feita considerando o número de mensagens publicadas por cada uma delas e, assim como na seção \ref{sec:exp-engaj-balanc}, foram escolhidas as três contas de usuários com o maior número de tuítes capturados, sendo eles: Donald J. Trump, Ellen DeGeneres e Alex Jones. Na sequência são apresentados os gráficos \ref{tik:acuracia-individual} e \ref{tik:sensibilidade-individual}, que contém os valores obtidos, respectivamente, de acurácia e sensibilidade com cada um dos algoritmos aplicadas sobre os tuítes destas três contas.
+    
+    \par Os resultados encontrados nestes casos não foram realmente satisfatórios, conforme o esperado da análise de contas individualmente. De maneira geral, os dados demonstram uma acurácia inferior em relação aos modelos utilizando todas as contas da base. Esse fator pode ser atribuído à quantidade de dados disponíveis para cada conta de usuário. Análises mais completas devem ser realizadas, utilizando uma quantidade consideravelmente maior de tuítes por conta, para assegurar se o mesmo padrão se mantém ou se a acurácia dos modelos é, de fato, inferior quando aplicados sobre contas individuais.
     
     % DADOS
     \pgfplotstableread[row sep=\\,col sep=&]{
-        algorithm       & uTrump & txEllen & txJones \\
-        NBayesTexto     & 0.557  & 0.617   & 0.618   \\
-        NBayesAtributos & 0.615  & 0.596   & 0.655   \\
-        J48             & 0.625  & 0.558   & 0.662   \\
-        LMT             & 0.611  & 0.561   & 0.662   \\
+        account       	& NBT 	& NBA 	& J48 	& LMT \\
+        Donald J. Trump & 0.557 & 0.615 & 0.625 & 0.611 \\
+        Ellen DeGeneres & 0.617 & 0.596 & 0.558 & 0.561 \\
+        Alex Jones      & 0.618 & 0.655 & 0.662 & 0.662 \\
         }\mydata
     
     % GRÁFICO ---------------------- ACURÁCIA
@@ -1293,13 +1305,13 @@
     \begin{tikzpicture}
         \begin{axis}[
                 ybar,
-                enlarge x limits={abs=1.75cm},
+                enlarge x limits={abs=2.5cm},
                 bar width=0.65cm,
                 width=\textwidth,
                 height=.5\textwidth,
                 legend style={at={(0.5,1)},
                     anchor=north,legend columns=-1},
-                symbolic x coords={NBayesTexto, NBayesAtributos, J48, LMT},
+                symbolic x coords={Donald J. Trump, Ellen DeGeneres, Alex Jones},
                 xtick=data,
                 %nodes near coords,
                 %nodes near coords align={vertical},
@@ -1309,26 +1321,29 @@
                    \draw[#1, draw=none] (0cm,-0.2cm) rectangle (0.44cm,0.2cm);
                 },
             ]
-            \addplot [fill=myblue!75,postaction={pattern=north east lines, pattern color=Blue}] table[x=algorithm,y=uTrump]{\mydata};
+            \addplot [fill=myblue!75,postaction={pattern=north east lines, pattern color=Blue}] table[x=account,y=NBT]{\mydata};
             
-            \addplot [fill=myred!70,postaction={pattern=horizontal lines, pattern color=Mahogany}] table[x=algorithm,y=txEllen]{\mydata};
+            \addplot [fill=myred!70,postaction={pattern=horizontal lines, pattern color=Mahogany}] table[x=account,y=NBA]{\mydata};
             
-            \addplot [fill=YellowOrange,postaction={pattern=vertical lines, pattern color=Yellow}] table[x=algorithm,y=txJones]{\mydata};
+            \addplot [fill=YellowOrange,postaction={pattern=vertical lines, pattern color=Yellow}] table[x=account,y=J48]{\mydata};
             
-            \legend{Donald J. Trump, Ellen DeGeneres, Alex Jones}
+            \addplot [fill=ForestGreen,postaction={pattern=north east lines, pattern color=SkyBlue}] table[x=account,y=LMT]{\mydata};
+            
+            \legend{NBayesTexto, NBayesAtributos, J48, LMT}
         \end{axis}
     \end{tikzpicture}
     \fonte{Produção do próprio autor.}
     \label{tik:acuracia-individual}
     \end{figure}
     
+    \par Apesar de insipientes e um pouco inferiores aos resultados gerais, os gráficos mostram que há relevância na realização das análises individualizadas. Pode-se observar que para cada uma das contas comparadas, não há um padrão entre valores obtidos com cada algoritmo e ainda, para cada caso, um modelo diferente obteve a melhor acurácia. Isso mostra que cada usuário pode ter suas especificidades e dependendo disso, um determinado algoritmo pode se sobressair em relação aos demais. Enquanto que para a conta de Donald Trump o Naive Bayes aplicado ao texto obteve a pior acurácia, o mesmo modelo aplicado sobre a conta de Ellen DeGeneres, obteve o melhor valor referente à mesma métrica.
+    
     % DADOS
     \pgfplotstableread[row sep=\\,col sep=&]{
-        algorithm       & uTrump & txEllen & txJones \\
-        NBayesTexto     & 0.814  & 0.499   & 0.744   \\
-        NBayesAtributos & 0.795  & 0.494   & 0.681   \\
-        J48             & 0.743  & 0.430   & 0.664   \\
-        LMT             & 0.765  & 0.544   & 0.664   \\
+        account       	& NBT 	& NBA 	& J48 	& LTM \\
+        Donald J. Trump & 0.814 & 0.795 & 0.625 & 0.611 \\
+        Ellen DeGeneres & 0.499 & 0.494 & 0.430 & 0.544 \\
+        Alex Jones      & 0.744 & 0.681 & 0.664 & 0.664 \\
         }\mydata
     
     % GRÁFICO ---------------------- ACURÁCIA
@@ -1338,34 +1353,40 @@
     \begin{tikzpicture}
         \begin{axis}[
                 ybar,
-                enlarge x limits={abs=1.75cm},
+                enlarge x limits={abs=2.5cm},
                 bar width=0.65cm,
                 width=\textwidth,
                 height=.5\textwidth,
                 legend style={at={(0.5,1)},
                     anchor=north,legend columns=-1},
-                symbolic x coords={NBayesTexto, NBayesAtributos, J48, LMT},
+                symbolic x coords={Donald J. Trump, Ellen DeGeneres, Alex Jones},
                 xtick=data,
                 %nodes near coords,
                 %nodes near coords align={vertical},
                 ymin=0.4,ymax=0.88,
-                ylabel={acurácia},
+                ylabel={sensibilidade},
                 legend image code/.code={%
                    \draw[#1, draw=none] (0cm,-0.2cm) rectangle (0.44cm,0.2cm);
                 },
             ]
-            \addplot [fill=myblue!75,postaction={pattern=north east lines, pattern color=Blue}] table[x=algorithm,y=uTrump]{\mydata};
+            \addplot [fill=myblue!75,postaction={pattern=north east lines, pattern color=Blue}] table[x=account,y=NBT]{\mydata};
             
-            \addplot [fill=myred!70,postaction={pattern=horizontal lines, pattern color=Mahogany}] table[x=algorithm,y=txEllen]{\mydata};
+            \addplot [fill=myred!70,postaction={pattern=horizontal lines, pattern color=Mahogany}] table[x=account,y=NBA]{\mydata};
             
-            \addplot [fill=YellowOrange,postaction={pattern=vertical lines, pattern color=Yellow}] table[x=algorithm,y=txJones]{\mydata};
+            \addplot [fill=YellowOrange,postaction={pattern=vertical lines, pattern color=Yellow}] table[x=account,y=J48]{\mydata};
             
-            \legend{Donald J. Trump, Ellen DeGeneres, Alex Jones}
+            \addplot [fill=ForestGreen,postaction={pattern=north east lines, pattern color=SkyBlue}] table[x=account,y=LMT]{\mydata};
+            
+            \legend{NBayesTexto, NBayesAtributos, J48, LMT}
         \end{axis}
     \end{tikzpicture}
     \fonte{Produção do próprio autor.}
     \label{tik:sensibilidade-individual}
     \end{figure}
+    
+    \par Dentre as contas testas, aquela que obteve resultados mais relevantes foi a de Alex Jones, sendo este, inclusive, o usuário detentor do maior número de tuítes presentes na base. Além da melhor acurácia dentre os demais casos, os valores obtidos com essa conta tornam-se interessantes pela consistência entre as métricas para os modelos aplicados sobre os atributos coletados. Se comparada a sensibilidade entre esta conta e a de Donald Trump, nitidamente os resultados são melhores para esta segunda. Porém, ao analisar os valores de especificidade, os resultados para Donald Trump se comportam de maneira completamente inversa, sendo este o pior dos casos, enquanto que para Alex Jones os valores se mantém. Isso mostra, no caso da conta do atual presidente dos Estados Unidos, que aqueles modelos que obtêm as métricas de sensibilidade e especificidade de maneira completamente opostas, têm uma tendência maior em classificar os tuítes para uma determinada classe.
+    
+    \par Assim como pode ser visto no gráfico \ref{tik:engaj-balanc}, a conta de Ellen DeGeneres, dentre as três observadas nestes experimentos, obteve a menor taxa de engajamento para poder maximizar a distribuição dos dados entre as classes. Curiosamente, esta também foi a conta com os menores resultados, tanto de acurácia quanto sensibilidade. Este fator leva a crer que ao considerar usuários com uma taxa de engajamento muito baixa, as análises gerais também podem ter seus resultados afetados negativamente. Para identificar o que pode levar a este cenário, seriam necessárias análises mais aprofundadas sobre a relação dos atributos com a popularidade dos tuítes desta conta.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
 % % % % % % % % % % % % % % % CONCLUSÕES % % % % % % % % % % % % % % % % % %
@@ -1378,7 +1399,9 @@
 
     %\par Apesar de incipientes, os resultados alcançados mostram que as características avaliadas parecem exercer influência no nível de interesse, e podem ser levadas em consideração na elaboração de estratégias que visem impulsionar publicações. 
 
-    \par Como trabalhos futuros, pretende-se realizar experimentos utilizando outros modelos de aprendizagem de máquina, considerando algoritmos genéticos, redes neurais e aprendizagem profunda. O uso de algoritmos deste tipo é cada vez mais difundido e, se aliado a outras técnicas como \textit{word embedding}, pode vir a trazer resultados muito interessantes. Destacam-se neste contexto as redes neurais convolucionais e as de Memória de Longo Prazo (LSTM, do inglês: \textit{Long Short-Term Memory}).
+    \par Como trabalhos futuros, pretende-se realizar análises mais completas sobre as contas individualizadas, incluindo a obtenção de uma quantidade realmente significativa de tuítes para cada um das contas acompanhadas. Desta forma, será possível concluir se aplicação dos modelos sobre cada conta é realmente vantajosa ou não, no que se refere a prever a popularidade dos tuítes. Juntamente isso, pretende-se realizar análises sobre a diferença na influência que cada atributo exerce sobre os modelos quando aplicados à diferentes contas.
+    
+    \par Além disso, podem ser elencados como trabalhos futuros a realização de experimentos utilizando outros modelos de aprendizagem de máquina, considerando algoritmos genéticos, redes neurais e aprendizagem profunda. O uso de algoritmos deste tipo é cada vez mais difundido e, se aliado a outras técnicas como \textit{word embedding}, pode vir a trazer resultados muito interessantes. Destacam-se neste contexto as redes neurais convolucionais e as de Memória de Longo Prazo (LSTM, do inglês: \textit{Long Short-Term Memory}).
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
 % % % % % % % % % % % % FIM DAS PAGINAS TEXTUAIS % % % % % % % % % % % % % % 
