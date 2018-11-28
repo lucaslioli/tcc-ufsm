@@ -1080,12 +1080,12 @@
     \begin{tabular}{|l|r|r|r|r|}
     \hline
     \textbf{Conta}  & \multicolumn{1}{l|}{\textbf{Tuítes}} & \multicolumn{1}{l|}{\textbf{Retuítes}} & \multicolumn{1}{l|}{\textbf{Curtidas}} & \multicolumn{1}{l|}{\textbf{Seguidores}} \\ \hline
-    Alex Jones      & 4672  & 1930401   & 620015    & 817779    \\ \hline
-    Ellen DeGeneres & 822   & 2653308   & 7886125   & 77966272  \\ \hline
-    Donald J. Trump & 701   & 15034127  & 62231949  & 51954765  \\ \hline
-    NASA            & 613   & 568676    & 1631924   & 29550297  \\ \hline
-    jimmy fallon    & 353   & 316448    & 1314721   & 51164006  \\ \hline
-    KATY PERRY      & 227   & 939573    & 2203336   & 109563129 \\ \hline
+    Alex Jones      & 4,672  & 1,930,401     & 620,015     & 817,779     \\ \hline
+    Ellen DeGeneres & 822    & 2,653,308     & 7,886,125   & 7,796,6272  \\ \hline
+    Donald J. Trump & 701    & 15,034,127    & 62,231,949  & 51,954,765  \\ \hline
+    NASA            & 613    & 568,676       & 1,631,924   & 29,550,297  \\ \hline
+    Jimmy Fallon    & 353    & 316,448       & 1,314,721   & 51,164,006  \\ \hline
+    Katy Perry      & 227    & 939,573       & 2,203,336   & 109,563,129 \\ \hline
     \end{tabular}
     \end{table}
     
@@ -1182,7 +1182,7 @@
     
     \par Nesta seção, são considerados os tuítes publicados por qualquer uma das contas contidas na base de dados. Os testes foram realizados para medir do desempenho dos diferentes modelos de aprendizagem de máquina supervisionada em função das métricas. O primeiro teste realizado, exposto no gráfico da Figura \ref{tik:acuracia-geral}, apresenta a variação da acurácia de cada um dos quatro modelos conforme a taxa de engajamento é modificada.
     
-    % DADOS
+    % DADOS 215
     \pgfplotstableread[row sep=\\,col sep=&]{
         algorithm       & tx010 & tx020 & tx030 & tx040 & tx100 & tx200 \\
         NBayesTexto     & 0.658 & 0.681 & 0.670 & 0.662 & 0.674 & 0.679 \\
@@ -1233,7 +1233,7 @@
     \label{tik:acuracia-geral}
     \end{figure}
     
-    \par É possível identificar que o algoritmo Naive Bayes aplicado ao texto apresentou resultados melhores em relação aos demais, que foram aplicados utilizando os atributos extraídos de cada mensagem. O melhor resultado obtido neste modelo foi com a taxa de engajamento de 2\%, que alcançou 68.1\% de acurácia. Apesar do Naive Bayes ter apresentados resultados melhores neste experimento, todos os algoritmos obtiveram valores de acurácia em um intervalo próximo, sendo 56.4\% o menor deles -- caso do Naive Bayes aplicado aos atributos utilizando a taxa de engajamento de 10\%.
+    \par É possível identificar que o algoritmo Naive Bayes aplicado ao texto apresentou resultados melhores em relação aos demais, que foram aplicados utilizando os atributos extraídos de cada mensagem. O melhor resultado obtido neste modelo foi com a taxa de engajamento de 2\%, que alcançou 68.1\% de acurácia. Nos demais algoritmos, os resultados variam entre 56.4\%  e 65,1\%.
 
     \par Ainda realizando a análise geral sobre os dados de todas as contas, foi elaborado o gráfico da Figura \ref{tik:sensibilidade-geral}. Neste caso, é exposta a variação no valor da sensibilidade para cada algoritmo, também considerando a modificação na taxa de engajamento. Novamente, apesar de intervalos muito próximos, nota-se que o modelo Naive Bayes aplicado ao texto obteve resultados ligeiramente melhores que os demais modelos, que foram aplicados sobre os atributos. Também é possível observar que o algoritmo aplicado ao texto apresenta resultados que melhoram -- dentro do espectro testado -- conforme aumenta a taxa de engajamento. Isso mostra que esse modelo pode ter um comportamento mais previsível que os demais.
     
@@ -1329,9 +1329,9 @@
 \section{Análise Individualizada das Contas}
 \label{sec:exp-analise-individual}
 
-    \par Para a realização dos processos de treinamento e validação dos dados utilizando o aprendizado de máquina, torna-se extremamente importante a utilização de uma quantidade de registros consideravelmente grande. Isso deve-se a dificuldade em fazer estimativas quando se tem poucos dados disponíveis. Nos casos em que isto ocorre, a simples ordenação dos dados pode influenciar na predição final dos algoritmos, já que cada entrada representa uma porcentagem relativamente grande de toda a base. A utilização de poucos dados de entrada faz com que os valores das métricas seja variável para cada execução dos algoritmos.
+    \par Para a realização dos processos de treinamento e validação dos dados utilizando o aprendizado de máquina, torna-se extremamente importante a utilização de uma quantidade de registros consideravelmente grande. Isso deve-se a dificuldade em fazer estimativas quando se tem poucos dados disponíveis. Nos casos em que isto ocorre, a simples ordenação dos dados pode influenciar na predição final dos algoritmos, já que cada entrada representa uma porcentagem relativamente grande de toda a base disponível. A utilização de poucos dados de entrada faz com que os valores das métricas sejam variáveis para cada execução dos algoritmos.
 
-    \par Devido esse fator, diferentemente dos experimentos realizados na seção anterior, os testes individualizados serão realizados considerando apenas a taxa de engajamento que maximiza a quantidade de registros distribuídos dentre as classes. Caso fossem utilizadas outras taxas de engajamento, ocorreria uma grande perda dos registros, devido ao \textit{undersampling}. Esse fato é reforçado pelo gráfico da Figura \ref{tik:engaj-balanc}, que apresenta a análise da relação entre a taxa de engamento e o balanceamento das instâncias. 
+    \par Devido a esse fator, diferentemente dos experimentos realizados na seção anterior, os testes individualizados serão realizados considerando apenas a taxa de engajamento que maximiza a quantidade de registros distribuídos dentre as classes. Caso fossem utilizadas outras taxas de engajamento, ocorreria uma grande perda dos registros, devido a realizado do \textit{undersampling}. Esse fato é reforçado pelo gráfico da Figura \ref{tik:engaj-balanc}, que apresenta a análise da relação entre a taxa de engajamento e o balanceamento das instâncias. 
     
     \par Ainda em função da quantidade de dados, a escolha das contas para realização dos testes nesta etapa foi feita considerando o número de mensagens publicadas por cada uma delas e, assim como na seção \ref{sec:exp-engaj-balanc}, foram escolhidas as três contas de usuários com o maior número de tuítes capturados, sendo eles: Donald J. Trump, Ellen DeGeneres e Alex Jones. Na sequência são apresentados os gráficos \ref{tik:acuracia-individual} e \ref{tik:sensibilidade-individual}, que contém os valores obtidos, respectivamente, de acurácia e sensibilidade com cada um dos algoritmos aplicadas sobre os tuítes destas três contas.
     
@@ -1431,9 +1431,11 @@
     \label{tik:sensibilidade-individual}
     \end{figure}
     
-    \par Dentre as contas testadas, aquela que obteve resultados mais relevantes foi a de Alex Jones, sendo este, inclusive, o usuário detentor do maior número de tuítes presentes na base. Além da melhor acurácia dentre os demais casos, os valores obtidos com essa conta tornam-se interessantes pela consistência entre as métricas para os modelos aplicados sobre os atributos coletados. Se comparada a sensibilidade entre esta conta e a de Donald Trump, nitidamente os resultados são melhores para esta segunda. Porém, ao analisar os valores de especificidade, os resultados para Donald Trump se comportam de maneira completamente inversa, sendo este o pior dos casos, enquanto que para Alex Jones os valores se mantém. Isso mostra, no caso da conta do atual presidente dos Estados Unidos, que aqueles modelos que obtêm as métricas de sensibilidade e especificidade de maneira completamente opostas, têm uma tendência maior em classificar os tuítes para uma determinada classe.
+    \par Dentre as contas testadas, aquela que obteve resultados mais relevantes foi a de Alex Jones, sendo este, inclusive, o usuário detentor do maior número de tuítes presentes na base. Além da melhor acurácia dentre os demais casos, os valores obtidos com essa conta tornam-se interessantes pela consistência entre as métricas para os modelos aplicados sobre os atributos coletados. Isso pode ser observado comparando valores de sensibilidade.
     
-    \par Assim como pode ser visto no gráfico \ref{tik:engaj-balanc}, a conta de Ellen DeGeneres, dentre as três observadas nestes experimentos, obteve a menor taxa de engajamento para poder maximizar a distribuição dos dados entre as classes. Curiosamente, esta também foi a conta com os piores resultados, tanto de acurácia quanto sensibilidade. Este fator leva a crer que ao considerar usuários com uma taxa de engajamento muito baixa, as análises gerais também podem ter seus resultados afetados negativamente. Para identificar o que pode levar a este cenário, seriam necessárias análises mais aprofundadas sobre a relação dos atributos com a popularidade dos tuítes desta conta.
+    \par Ao comparar a sensibilidade entre as contas de Alex Jones e Donald Trump, nitidamente os resultados são melhores para esta segunda. Porém, ao analisar os valores de especificidade, os resultados para Donald Trump se comportam de maneira completamente inversa, sendo este o pior dos casos, enquanto que para Alex Jones os valores se mantém. Isso mostra, no caso da conta do atual presidente dos Estados Unidos, que aqueles modelos que obtêm as métricas de sensibilidade e especificidade de maneira completamente opostas, têm uma tendência maior em classificar os tuítes para uma determinada classe, o que não é o ideal.
+    
+    \par Assim como pôde ser visto no gráfico da Figura \ref{tik:engaj-balanc}, que relaciona engajamento e balanceamento, a conta de Ellen DeGeneres, dentre as três observadas nestes experimentos, obteve a menor taxa de engajamento que maximizasse a distribuição dos dados entre as classes. Curiosamente, esta também foi a conta com os piores resultados, tanto de acurácia quanto sensibilidade. Este fator leva a crer que ao considerar usuários com uma taxa de engajamento muito baixa, as análises gerais também podem ter seus resultados afetados negativamente. Para identificar o que pode levar a este cenário, seriam necessárias análises mais aprofundadas sobre a relação dos atributos com a popularidade dos tuítes desta conta.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
 % % % % % % % % % % % % % % % CONCLUSÕES % % % % % % % % % % % % % % % % % %
@@ -1442,13 +1444,18 @@
 \chapter{Conclusões}
 \label{sec:conclusao}
 
-    \par Medir a variação do índice de popularidade pode ser do interesse de administradores de grandes contas do Twitter, pois pode indicar o sucesso ou fracasso de uma determinada campanha realizada ou a dimensão de um escândalo e, tendo consciência disso, ações preventivas ou corretivas podem ser tomadas e sua repercussão pode ser monitorada. Tratando-se de personalidades públicas, é importante identificar quais assuntos e/ou abordagens agradam mais o público-alvo para que assim possam ser mantidas ou evitadas. Assim, pode ser relevante poder prever se uma mensagem tem maior probabilidade de se tornar popular antes mesmo de publicá-la.
+    \par Medir a variação do índice de popularidade pode ser do interesse de administradores de grandes contas do Twitter, pois pode indicar o sucesso ou fracasso de uma determinada campanha realizada ou a dimensão de um escândalo, e tendo consciência disso, ações preventivas ou corretivas podem ser tomadas e sua repercussão pode ser monitorada. Tratando-se de personalidades públicas, é importante identificar quais assuntos e/ou abordagens agradam mais o público-alvo para que assim possam ser mantidas ou evitadas. Assim, pode ser relevante poder prever se uma mensagem tem maior probabilidade de se tornar popular antes mesmo de publicá-la.
     
-    \par Os resultados alcançados neste trabalho mostram que modelos de aprendizagem de máquina supervisionada podem sim realizar a classificação de tuítes como populares e impopulares. Além disso, pode-se concluir que a variação na taxa de engajamento e análises de contas de usuários específicos são fatores que determinantes, devendo ser levados em consideração na hora de realizar o treinamento e validação dos modelos.
+    \par Os resultados alcançados neste trabalho, reforçados pelo que pôde ser observado em \cite{artigo:oliveira:18} no que se refere a influência dos atributos, mostram que modelos de aprendizagem de máquina podem sim realizar a classificação da popularidade de tuítes. Além disso, a partir dos experimentos realizados e apresentados no Capítulo \ref{sec:experimentos}, também pode-se concluir que:
     
-    \par Juntamente com os resultados observados em \cite{artigo:oliveira:18}, pode-se concluir que as características avaliadas podem sim exercer influência sobre a popularidade de um tuíte em um nível de interesse. Podendo também podem ser levadas em consideração na elaboração de estratégias que visem impulsionar publicações, no caso de empresas e personalidades públicas, como já mencionado. 
+    \begin{itemize}
+        \item Análises utilizando todas as contas da base mostram melhores resultados de acurácia para o algoritmo Naive Bayes aplicado ao texto das mensagens;
+        \item No caso de análises por contas individualizadas, diferentes algoritmos podem obter os melhores resultados, dependendo das especifidades de cada usuário;
+        \item A utilização de contas que possuam um engajamento muito baixo por parte de seus seguidores pode dificultar a classificação da popularidade dos tuítes;
+        \item A realização de análises individualizadas é realmente relevante, pois os melhores atributos de usuário não são necessariamente os mesmos para os demais.
+    \end{itemize}
 
-    \par Como trabalhos futuros, pretende-se realizar análises mais completas sobre as contas individualizadas, incluindo a obtenção de uma quantidade realmente significativa de tuítes para cada um das contas acompanhadas. Desta forma, será possível concluir se aplicação dos modelos sobre cada conta é realmente vantajosa ou não, no que se refere a prever a popularidade dos tuítes. Juntamente a isso, pretende-se realizar análises sobre a diferença na influência que cada atributo exerce sobre os modelos quando aplicados à diferentes contas.
+    \par Como trabalhos futuros, pretende-se realizar análises mais completas sobre as contas individualizadas, incluindo a obtenção de uma quantidade realmente significativa de tuítes para cada uma das contas acompanhadas. Juntamente a isso, pretende-se realizar análises sobre a diferença na influência que cada atributo exerce sobre os modelos quando aplicados a diferentes contas.
     
     \par Além disso, podem ser elencados como trabalhos futuros a realização de experimentos utilizando outros modelos de aprendizagem de máquina, considerando algoritmos genéticos, redes neurais e aprendizagem profunda. O uso de algoritmos deste tipo é cada vez mais difundido e, se aliado a outras técnicas como \textit{word embedding}, pode vir a trazer resultados muito interessantes. Destacam-se neste contexto as redes neurais convolucionais e as de Memória de Longo Prazo (LSTM, do inglês: \textit{Long Short-Term Memory}).
 
@@ -1491,8 +1498,8 @@
     Ellen DeGeneres		& 822	& 2653308	& 7886125	& 77966272 	\\ \hline
     Donald J. Trump		& 701	& 15034127	& 62231949	& 51954765 	\\ \hline
     NASA				& 613	& 568676	& 1631924	& 29550297 	\\ \hline
-    jimmy fallon		& 353	& 316448	& 1314721	& 51164006 	\\ \hline
-    KATY PERRY			& 227	& 939573	& 2203336	& 109563129 \\ \hline
+    Jimmy Fallon		& 353	& 316448	& 1314721	& 51164006 	\\ \hline
+    Katy Perry			& 227	& 939573	& 2203336	& 109563129 \\ \hline
     Google				& 162	& 34052		& 100543	& 20644472 	\\ \hline
     Pope Francis		& 115	& 1446489	& 5843421	& 17799966 	\\ \hline
     SpaceX				& 100	& 288816	& 779356	& 7001517 	\\ \hline
