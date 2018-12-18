@@ -9,6 +9,7 @@
 \RequirePackage{setspace}
 \RequirePackage[dvipsnames,pdf]{pstricks}
 \RequirePackage{auto-pst-pdf}
+\usepackage{pdfpages}
 \RequirePackage{rotating} 
 \RequirePackage{pstricks-add}
 \RequirePackage{epstopdf}
@@ -1140,88 +1141,95 @@
 \setlength{\parskip}{0.0cm}
 \setcounter{page}{1}
 
-     \begin{center}
-        \singlespacing
-        \textbf{\noindent\@author}\\
-        \vspace{6.0\baselineskip}
-        \MakeUppercase{\textbf{\noindent\@title}}
-        \vspace{4.0\baselineskip}
-     \end{center}   
+\includepdf[pages={1}, offset=85 -20]{folha_aprovacao.pdf}
+\singlespacing
+
+% \newpage
+% \setlength{\parskip}{0.0cm}
+% \setcounter{page}{1}
+
+%      \begin{center}
+%         \singlespacing
+%         \textbf{\noindent\@author}\\
+%         \vspace{6.0\baselineskip}
+%         \MakeUppercase{\textbf{\noindent\@title}}
+%         \vspace{4.0\baselineskip}
+%      \end{center}   
      
-     \noindent\begin{flushright}
-     \noindent\begin{minipage}{0.5\textwidth}
-     \singlespacing
-     {\noindent\UFSM@textofolharosto}
-     \end{minipage}
-     \end{flushright}
+%      \noindent\begin{flushright}
+%      \noindent\begin{minipage}{0.5\textwidth}
+%      \singlespacing
+%      {\noindent\UFSM@textofolharosto}
+%      \end{minipage}
+%      \end{flushright}
      
-     \singlespacing
-%      \vspace{0.25\baselineskip}
-      \begin{center}
+%      \singlespacing
+%       %\vspace{0.25\baselineskip}
+%       \begin{center}
 
-     \singlespacing
-     \textbf{Aprovado em \UFSM@dia~de \UFSM@mes~de \UFSM@ano:}
-     \vspace{2.0\baselineskip}
+%      \singlespacing
+%      \textbf{Aprovado em \UFSM@dia~de \UFSM@mes~de \UFSM@ano:}
+%      \vspace{2.0\baselineskip}
 
 
         
-        \if@orientador
-        \ifthenelse{\equal{\@orientadorpresidente}{P} \OR \equal{\@orientadorpresidente}{M}}{%
-        \vspace{1.0\baselineskip}
-        \noindent\rule{0.5\textwidth}{1.pt}\\
-        \noindent\textbf{\@orientadornome,~\@orientadortit.~(\@orientadorinst)}\\
-        \UFSM@sexoorientadornew\\}{}%
-        \fi
+%         \if@orientador
+%         \ifthenelse{\equal{\@orientadorpresidente}{P} \OR \equal{\@orientadorpresidente}{M}}{%
+%         \vspace{1.0\baselineskip}
+%         \noindent\rule{0.5\textwidth}{1.pt}\\
+%         \noindent\textbf{\@orientadornome,~\@orientadortit.~(\@orientadorinst)}\\
+%         \UFSM@sexoorientadornew\\}{}%
+%         \fi
         
         
-	\if@coorientador
-	\ifthenelse{\equal{\@coorientadorpresidente}{P} \OR \equal{\@coorientadorpresidente}{M}}{%
-	\vspace{1.0\baselineskip}
-	\noindent\rule{0.5\textwidth}{1.pt}\\
-        \noindent\textbf{\@coorientadornome,~\@coorientadortit.~(\@coorientadorinst)}\\
-	\UFSM@sexocoorientadornew\\}{}%
-	\fi
+% 	\if@coorientador
+% 	\ifthenelse{\equal{\@coorientadorpresidente}{P} \OR \equal{\@coorientadorpresidente}{M}}{%
+% 	\vspace{1.0\baselineskip}
+% 	\noindent\rule{0.5\textwidth}{1.pt}\\
+%         \noindent\textbf{\@coorientadornome,~\@coorientadortit.~(\@coorientadorinst)}\\
+% 	\UFSM@sexocoorientadornew\\}{}%
+% 	\fi
         
-        \if@bancaum
-        \ifthenelse{\equal{\@bancaumpresidente}{P} \OR \equal{\@bancaumpresidente}{M}}{%
-        \vspace{1.0\baselineskip}
-        \noindent\rule{0.5\textwidth}{1.pt}\\
-        \noindent\textbf{\@bancaumnome,~\@bancaumtit.~(\@bancauminst)}\\
-        \UFSM@sexobancaumnew\\}{}%
-        \fi
+%         \if@bancaum
+%         \ifthenelse{\equal{\@bancaumpresidente}{P} \OR \equal{\@bancaumpresidente}{M}}{%
+%         \vspace{1.0\baselineskip}
+%         \noindent\rule{0.5\textwidth}{1.pt}\\
+%         \noindent\textbf{\@bancaumnome,~\@bancaumtit.~(\@bancauminst)}\\
+%         \UFSM@sexobancaumnew\\}{}%
+%         \fi
         
         
-        \if@bancadois
-        \vspace{1.0\baselineskip}
-        \noindent\rule{0.5\textwidth}{1.pt}\\
-        \noindent\textbf{\@bancadoisnome,~\@bancadoistit.~(\@bancadoisinst)}
-        \fi
+%         \if@bancadois
+%         \vspace{1.0\baselineskip}
+%         \noindent\rule{0.5\textwidth}{1.pt}\\
+%         \noindent\textbf{\@bancadoisnome,~\@bancadoistit.~(\@bancadoisinst)}
+%         \fi
 	
-        \if@bancatres
-        \vspace{1.0\baselineskip}
-        \noindent\rule{0.5\textwidth}{1.pt}\\
-        \noindent\textbf{\@bancatresnome,~\@bancatrestit.~(\@bancatresinst)}
-        \fi
+%         \if@bancatres
+%         \vspace{1.0\baselineskip}
+%         \noindent\rule{0.5\textwidth}{1.pt}\\
+%         \noindent\textbf{\@bancatresnome,~\@bancatrestit.~(\@bancatresinst)}
+%         \fi
 
-        \if@bancaquatro
-        \vspace{1.0\baselineskip}
-        \noindent\rule{0.5\textwidth}{1.pt}\\
-        \noindent\textbf{\@bancaquatronome,~\@bancaquatrotit.~(\@bancaquatroinst)}
-        \fi
+%         \if@bancaquatro
+%         \vspace{1.0\baselineskip}
+%         \noindent\rule{0.5\textwidth}{1.pt}\\
+%         \noindent\textbf{\@bancaquatronome,~\@bancaquatrotit.~(\@bancaquatroinst)}
+%         \fi
 
-        \if@bancacinco
-        \vspace{1.0\baselineskip}
-        \noindent\rule{0.5\textwidth}{1.pt}\\
-        \noindent\textbf{\@bancacinconome,~\@bancacincotit.~(\@bancacincoinst)}
-        \fi
+%         \if@bancacinco
+%         \vspace{1.0\baselineskip}
+%         \noindent\rule{0.5\textwidth}{1.pt}\\
+%         \noindent\textbf{\@bancacinconome,~\@bancacincotit.~(\@bancacincoinst)}
+%         \fi
         
         
         
-        \vspace{\fill}
+%         \vspace{\fill}
 
-        \UFSM@local\\
-        \UFSM@ano
-        \end{center}
+%         \UFSM@local\\
+%         \UFSM@ano
+%         \end{center}
 }
 
 
