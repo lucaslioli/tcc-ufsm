@@ -350,14 +350,13 @@
 
     \par Com a grande popularização dos chamados influenciadores digitais, é notável o crescimento das mídias sociais como meios de comunicação e divulgação de conteúdos. Neste cenário, onde o número de seguidores determina a sua influência, torna-se muito importante que essas personalidades compreendam seu público, pois conteúdos direcionados refletem diretamente no alcance de suas publicações. Dentre as redes sociais mais utilizadas atualmente, o Twitter é um meio de veiculação de mensagens que se destaca por sua simplicidade e objetividade. Embora não tenha o mesmo destaque que outras plataformas, como o Facebook ou o Instagram, o Twitter conta com cerca de 335 milhões de usuários ativos, segundo Statista~\footnote{\textit{Statista: }\texttt{https://www.statista.com/topics/737/twitter/}}, e em média 500 milhões de tuítes que são publicados diariamente, segundo \textit{Internet Live Stats}~\footnote{\textit{Internet Live Stats: }\texttt{http://www.internetlivestats.com/twitter-statistics/}}, o que faz dessa rede uma fonte de dados muito poderosa.
 
-    \par Uma das preocupações de usuários do Twitter é alavancar sua popularidade, através do aumento no número de seguidores. Essa preocupação é fundamental para empresas e personalidades públicas que utilizam suas imagens para fins monetários. Nesses casos, o uso das redes sociais deve ser planejado e monitorado. Quando isso é realizado da maneira correta, a marca e/ou a pessoa ficam muito mais próximos de seus fãs e seguidores, o que consequentemente, faz sua popularidade e influência aumentarem. Um dos indicadores capazes de medir a influência de um usuário em redes sociais é a taxa de engajamento, que leva em consideração as interação dos usuários com as publicações de uma página. Dentre essas interações, podem ser considerados os retuítes, curtidas e comentários. Considerando esse fator, pode-se afirmar empiricamente que o aumento na quantidade de retuítes leva a um aumento na quantidade de seguidores, devido a propagação exponencial daquele conteúdo.
+    \par Uma das preocupações de usuários do Twitter é alavancar sua popularidade, através do aumento no número de seguidores. Essa preocupação é fundamental para empresas e personalidades públicas que utilizam suas imagens para fins monetários. Nesses casos, o uso das redes sociais deve ser planejado e monitorado. Quando isso é realizado da maneira correta, a marca e/ou a pessoa ficam muito mais próximos de seus fãs e seguidores, o que consequentemente, faz sua popularidade e influência aumentarem. Um dos indicadores capazes de medir a influência de um usuário em redes sociais é a taxa de engajamento, que leva em consideração a interação dos usuários com as publicações de uma página. Dentre essas interações, podem ser considerados os retuítes, curtidas e comentários. Considerando esse fator, pode-se afirmar empiricamente que o aumento na quantidade de retuítes leva a um aumento na quantidade de seguidores, devido a propagação exponencial daquele conteúdo.
 
     \par Tendo em vista o interesse dos usuários em aumentar o alcance de suas postagens, poder identificar os fatores que têm maior influência sobre a popularidade de suas mensagens pode ser uma grande vantagem ao tentar aumentar o engajamento por parte de seus seguidores. Ser capaz de prever/estimar a popularidade que um tuíte poderá obter, baseando-se nas características presentes no corpo de sua mensagem, permite a realização de diferentes análises a cerca do conteúdo disseminado por aquela conta, o que pode trazer muitos benefícios aos usuários com relativa influência nessa rede social.
 
     \par Como afirma \cite{ieee:suh:10}, a propagação de um tuíte está diretamente ligada ao conteúdo e valor informativo contido nele. Nesse sentido, os autores avaliaram um conjunto de características extraídas das mensagens. Os resultados mostraram que a utilização de \textit{hashtags} e URLs são fatores muito significativos e que ajudam a impulsionar uma publicação. Apesar de ser um resultado muito relevante, o trabalho não realizou uma análise exaustiva das características que podem ser extraídas do corpo das mensagens de cada tuíte.
     
     \par É conhecido que hoje existem inúmeras pesquisas sendo realizadas envolvendo dados coletados do Twitter. Além de \cite{ieee:suh:10}, outros trabalhos relacionados que podem ser citados aqui, como \cite{acm:duan:2010}, \cite{benevenuto:2010}, \cite{acm:naveed:2011}, \cite{kharde:2016} e \cite{ieee:xu:2012}, tem como parte de seus objetivos, a análise e identificação de fatores impactantes no conteúdo das mensagens propagadas no Twitter. Outro fator em comum é que esses trabalhos também utilizam técnicas de aprendizado de máquina na realização de suas pesquisas.
-    % \cite{acm:hong:2011}
     
     \par Dentre as principais técnicas utilizadas nestes trabalhos estão: Máquina de Vetores de Suporte (SVM, do inglês: \textit{Support Vector Machine}); árvores de decisão; Naive Bayes; e Regressão logística. No caso dos atributos utilizados nestas pesquisas, foram considerados como fatores de relevância: utilização de URLs e \textit{hashtags}; o alcance do autor do tuíte (podendo ser medido por seus seguidores ou métricas mais complexas); sentimento da mensagem; além dos fatores de popularidade relacionados a cada tuíte, como as curtidas e os retuítes.
     
@@ -669,10 +668,10 @@
     
     \begin{align}
     P(great|popular) = 4/11 = 0.36 \\
-    P(popular) = 8/14 = 0.52 \\
-    P(great) = 4/14 = 0.24 \\
+    P(popular) = 11/21 = 0.52 \\
+    P(great) = 5/21 = 0.24 \\
     P(great|unpopular) = 1/10 = 0.10 \\
-    P(unpopular) = 6/14 = 0.48
+    P(unpopular) = 10/21 = 0.48
     \end{align}
     
     \begin{align}
@@ -765,6 +764,7 @@
     \par Existem vários modelos de arquiteturas de redes neurais propostos, dentre eles, vale a pena citar: Redes Multicamadas Perceptrons; Redes de Hopfield; Redes Neurais Convolucionais; e Memória de Longo Prazo (LSTM, do inglês: \textit{Long Short-Term Memory}).
     
     % No contexto deste trabalho, durante a seção \ref{sec:experimentos}, correspondente aos experimentos, será dado destaque à arquitetura de redes convolucionais e LSTM, por se destacarem e ser muito utilizada no processamento de linguagem natural.
+
 \end{comment}
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
 % % % % % % % % % % % % TRABALHOS RELACIONADOS % % % % % % % % % % % % % % % 
@@ -1081,7 +1081,7 @@
 
     \par Os processos envolvendo a coleta dos dados foram realizados a partir do monitoramento das contas de personalidades influentes que utilizam o Twitter periodicamente. Ao todo, foram consideradas 30 contas de diversas áreas de atuação, como por exemplo Donald J. Trump (atual presidente dos Estados Unidos), Jimmy Fallon (apresentador de TV americano), Katy Perry (cantora detentora da conta com o maior número de seguidores no Twitter) e diversas empresas influentes.
     
-    \par A escolha deve-se ao fato de que a análise do impacto de publicações em redes sociais é mais relevante para esse tipo de usuário, uma vez que o cálculo da taxa de engajamento para contas com poucos seguidores resultaria sempre em um valor próximo a zero. Isso também é reforçado por \cite{ieee:suh:10}, que alega que quanto maior a audiência, maiores são as chances de um tuíte ser retuitado. A coleta dos tuítes foi realizada o mês de novembro de 2017 e maio de 2018, totalizando cerca de 8600 registros distribuídos entre as contas de interesse que foram escritos na língua inglesa. A seguir, na Tabela \ref{tab:contas-tweets}, pode ser observado o total de dados extraídos dos usuários com maior número tuítes, a versão completa pode ser observada ao final deste trabalho no Anexo \ref{anexo-tebela-contas}.
+    \par A escolha deve-se ao fato de que a análise do impacto de publicações em redes sociais é mais relevante para esse tipo de usuário, uma vez que o cálculo da taxa de engajamento para contas com poucos seguidores resultaria sempre em um valor próximo a zero. Isso também é reforçado por \cite{ieee:suh:10}, que alega que quanto maior a audiência, maiores são as chances de um tuíte ser retuitado. A coleta dos tuítes foi realizada entre o mês de novembro de 2017 e maio de 2018, totalizando cerca de 8600 registros distribuídos entre as contas de interesse que foram escritos na língua inglesa. A seguir, na Tabela \ref{tab:contas-tweets}, pode ser observado o total de dados extraídos dos usuários com maior número tuítes, a versão completa pode ser observada ao final deste trabalho no Anexo \ref{anexo-tebela-contas}.
     
     \begin{table}[ht]
     \centering
